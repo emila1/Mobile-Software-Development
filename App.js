@@ -11,11 +11,20 @@ import { Homescreen, Recipescreen } from './src/screens'
 const StackHome = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
+const DrawerNavigator = () => {
+    return (
+        <Drawer.Navigator >
+            <Drawer.Screen name="Homescreen" component={Homescreen} />
+            <Drawer.Screen name="Recipe" component={Recipescreen} />
+        </Drawer.Navigator>
+    )
+}
+
 function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="Home" navigation={navigation} screenOptions={{ headerShown: false }} >
             <StackHome.Screen name="Home" component={Homescreen} />
-            <StackHome.Screen name="Recipe" component={Recipescreen} options={{ headerTitle: "Recipe" }} />
+            <StackHome.Screen name="Recipe" component={Recipescreen} options={{ title: "Recipe" }} />
         </StackHome.Navigator>
     )
 }
@@ -24,10 +33,7 @@ function HomeStack({ navigation }) {
 export default function App() {
     return (
         <NavigationContainer>
-            <Drawer.Navigator >
-                <Drawer.Screen name="Homescreen" component={HomeStack} />
-                <Drawer.Screen name="Recipe" component={Recipescreen} options={{ headerTitle: "Recipe" }} />
-            </Drawer.Navigator>
+            <DrawerNavigator />
         </NavigationContainer>
     );
 }
