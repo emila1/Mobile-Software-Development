@@ -13,9 +13,9 @@ const Drawer = createDrawerNavigator()
 
 function HomeStack({ navigation }) {
     return (
-        <StackHome.Navigator initialRouteName="Home" navigation={navigation} >
+        <StackHome.Navigator initialRouteName="Home" navigation={navigation} screenOptions={{ headerShown: false }} >
             <StackHome.Screen name="Home" component={Homescreen} />
-            <StackHome.Screen name="Recipe" component={Recipescreen} />
+            <StackHome.Screen name="Recipe" component={Recipescreen} options={{ headerTitle: "Recipe" }} />
         </StackHome.Navigator>
     )
 }
@@ -24,9 +24,9 @@ function HomeStack({ navigation }) {
 export default function App() {
     return (
         <NavigationContainer>
-            <Drawer.Navigator>
+            <Drawer.Navigator >
                 <Drawer.Screen name="Homescreen" component={HomeStack} />
-                <Drawer.Screen name="Recipe" component={Recipescreen} />
+                <Drawer.Screen name="Recipe" component={Recipescreen} options={{ headerTitle: "Recipe" }} />
             </Drawer.Navigator>
         </NavigationContainer>
     );
