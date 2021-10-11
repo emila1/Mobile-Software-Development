@@ -6,8 +6,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Homescreen, Recipescreen } from './src/screens'
 
-
-
 const StackHome = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
@@ -20,14 +18,14 @@ const DrawerNavigator = () => {
     )
 }
 
-function HomeStack({ navigation }) {
-    return (
-        <StackHome.Navigator initialRouteName="Home" navigation={navigation} screenOptions={{ headerShown: false }} >
-            <StackHome.Screen name="Home" component={Homescreen} />
-            <StackHome.Screen name="Recipe" component={Recipescreen} options={{ title: "Recipe" }} />
-        </StackHome.Navigator>
-    )
-}
+// function HomeStack({ navigation }) {
+//     return (
+//         <StackHome.Navigator initialRouteName="Home" navigation={navigation} screenOptions={{ headerShown: false }} >
+//             <StackHome.Screen name="Home" component={Homescreen} />
+//             <StackHome.Screen name="Recipe" component={Recipescreen} options={{ title: "Recipe" }} />
+//         </StackHome.Navigator>
+//     )
+// }
 
 //det er vores UI i React Native
 export default function App() {
