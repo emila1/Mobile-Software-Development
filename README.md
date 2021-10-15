@@ -1,8 +1,8 @@
-# Mobile-Software-Development
+# MealMe Setup
 
-# Installing Node.js with Linux
+## Installing Node.js with Linux
     $ apt install nodejs
-# Installing Node.js on macOS with Homebrew
+## Installing Node.js on macOS with Homebrew
 ### Install homebrew
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ### Install Node.js with brew
