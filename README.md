@@ -3,9 +3,9 @@
 # Installing Node.js with Linux
     $ apt install nodejs
 # Installing Node.js on macOS with Homebrew
-- Install homebrew
+## Install homebrew
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-- Install Node.js with brew
+## Install Node.js with brew
     $ brew install node
 # Using Expo Client to run iOS and Android
     $ npm install --global expo-cli
