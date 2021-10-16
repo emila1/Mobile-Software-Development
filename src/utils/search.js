@@ -22,7 +22,6 @@ function searchIngredients(ingredientList, n) {
             });
         });
     });
-
     recipeIndex = sortByFrequency(recipeIndex);   // Returns duplicate-free, sorted list of recipes  
     recipeIndex = recipeIndex.slice(0, n);        // Limit returned list to N recipes
 
