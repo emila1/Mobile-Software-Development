@@ -1,104 +1,103 @@
-/*
-import 'react-native-gesture-handler'
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { Homescreen, Recipescreen } from './src/screens'
-
-const StackHome = createNativeStackNavigator()
-const Drawer = createDrawerNavigator()
-
-const DrawerNavigator = () => {
-    return (
-        <Drawer.Navigator >
-            <Drawer.Screen name="Homescreen" component={Homescreen} />
-            <Drawer.Screen name="Recipe" component={Recipescreen} />
-
-        </Drawer.Navigator>
-    )
-}
-
-// function HomeStack({ navigation }) {
-//     return (
-//         <StackHome.Navigator initialRouteName="Home" navigation={navigation} screenOptions={{ headerShown: false }} >
-//             <StackHome.Screen name="Home" component={Homescreen} />
-//             <StackHome.Screen name="Recipe" component={Recipescreen} options={{ title: "Recipe" }} />
-//         </StackHome.Navigator>
-//     )
-// }
-
-//det er vores UI i React Native
-export default function App() {
-    return (
-        <NavigationContainer>
-            <DrawerNavigator />
-        </NavigationContainer>
-    );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});*/
-
 import * as React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MealStyles } from './src/styles/global';
-import MealMeScreen from "./src/screens/mealMe";
-import RecipeScreen from "./src/screens/recipes";
-import SurpriseMeScreen from "./src/screens/surpriseMe";
-import Homescreen from './src/screens/Homescreen/Homescreen';
-import MyFridge from "./src/screens/myFridge";
-import SettingScreen from "./src/screens/settings";
+//import { MealStyles } from './src/styles/global';
+//import MealMeScreen from "./src/screens/mealMe";
+//import RecipeScreen from "./src/screens/recipes";
+//import SurpriseMeScreen from "./src/screens/surpriseMe";
+//import Homescreen from './src/screens/Homescreen/Homescreen';
+//import StartScreen from './src/screens/StartScreen/StartScreen';
+//import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
+//import MyFridge from "./src/screens/myFridge";
+//import SettingScreen from "./src/screens/settings";
+import { Homescreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen } from './src/screens'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Ionicons } from '@expo/vector-icons'
 
 
-// function HomeScreen({ navigation }) {
-//     return (
-//         <View style={MealStyles.container}>
-//             <View>
-//                 <Image source={require('./assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }}/>
-//             </View>
 
-//             <Text style={MealStyles.red}>Keep your meal up to date......</Text>
-//             <Text style={MealStyles.blue}>. . . .</Text>
+const StackHome = createNativeStackNavigator();
+const StackShopping = createNativeStackNavigator();
+const StackFavorite = createNativeStackNavigator();
+const StackSettings = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-//             <View style={MealStyles.buttonGuest}>
-//                 <Button style={MealStyles.buttonStyle} title="Sign in" color='white'/>
-//             </View>
 
-//             <View style={MealStyles.buttonGuest}>
-//                 <Button style={MealStyles.buttonStyle} title="Continue as guest" color='white' onPress={() => navigation.navigate('MealMe')}/>
-//             </View>
+function HomeStack({ navigation }) {
+    return (
+        <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
+            <StackHome.Screen name="HomeScreen" component={Homescreen} options={{ title: "Home" }} />
+            <StackHome.Screen name="Recipe" component={RecipeScreen} />
+        </StackHome.Navigator>
+    )
+}
 
-//             <View style={MealStyles.buttonCreat}>
-//                 <Button style={MealStyles.buttonStyle} onPress={() => alert("Try guest acount")} title="Create an account" />
-//             </View>
+//Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
+function ShoppingStack({ navigation }) {
+    return (
+        <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
+            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} />
 
-//         </View>
-//     );
-// }
+        </StackShopping.Navigator>
+    )
+}
 
-const Stack = createNativeStackNavigator();
+function FavoriteStack({ navigation }) {
+    return (
+        <StackFavorite.Navigator navigation={navigation} >
+            <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} />
+        </StackFavorite.Navigator>
+    )
+}
+
+function SettingsStack({ navigation }) {
+    return (
+        <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} >
+            <StackSettings.Screen name="Setting" component={SettingScreen} />
+        </StackSettings.Navigator>
+    )
+}
+
 
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" >
+            <Tab.Navigator screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'ios-home' : 'ios-home-outline';
+                    } else if (route.name === 'Settings') {
+                        iconName = focused ? 'ios-list-circle' : 'ios-list';
+                    } else if (route.name === 'Shopping') {
+                        iconName = focused ? 'basket' : 'basket-outline'
+                    } else if (route.name === 'Favorites') {
+                        iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
+                    }
+
+                    // You can return any component that you like here!
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: 'tomato',
+                tabBarInactiveTintColor: 'gray',
+            })}>
+                <Tab.Screen name="Home" component={HomeStack} />
+                <Tab.Screen name="Shopping" component={ShoppingStack} />
+                <Tab.Screen name="Favorites" component={FavoriteStack} />
+                <Tab.Screen name="Settings" component={SettingsStack} />
+            </Tab.Navigator>
+            {/* <Stack.Navigator initialRouteName="Start" >
                 <Stack.Screen name="Home" component={Homescreen} />
+                <Stack.Screen name="Start" component={StartScreen} />
                 <Stack.Screen name="MealMe" component={MealMeScreen} />
                 <Stack.Screen name="Recipe" component={RecipeScreen} />
                 <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen} />
                 <Stack.Screen name="MyFridge" component={MyFridge} />
                 <Stack.Screen name="Setting" component={SettingScreen} />
-            </Stack.Navigator>
+            </Stack.Navigator> */}
         </NavigationContainer>
     );
 }
