@@ -7,6 +7,8 @@ export const MealStyles = StyleSheet.create({
         paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
+        alignItems: 'center',
+        alignSelf: 'center'
     },
     buttonStyle: {
         color: 'black'
@@ -35,7 +37,7 @@ export const MealStyles = StyleSheet.create({
     },
 
 
-//CSS For MealMe Screen
+    //CSS For MealMe Screen
     mealButtons: {
         flexDirection: "row",
         justifyContent: 'space-between',
@@ -73,7 +75,7 @@ export const MealStyles = StyleSheet.create({
         paddingBottom: 20,
     },
 
-//CSS For Surprise me
+    //CSS For Surprise me
     Tab: {
         justifyContent: 'center',
         backgroundColor: '#E9E9E9',
@@ -82,7 +84,7 @@ export const MealStyles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 710,
         position: 'absolute',
-        alignItems:'center',
+        alignItems: 'center',
     },
     icons: {
         justifyContent: 'space-between',

@@ -48,42 +48,43 @@ const styles = StyleSheet.create({
 });*/
 
 import * as React from 'react';
-import {Text, View, Image, Button, StyleSheet} from 'react-native';
+import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {MealStyles} from './src/styles/global';
+import { MealStyles } from './src/styles/global';
 import MealMeScreen from "./src/screens/mealMe";
 import RecipeScreen from "./src/screens/recipes";
 import SurpriseMeScreen from "./src/screens/surpriseMe";
+import Homescreen from './src/screens/Homescreen/Homescreen';
 import MyFridge from "./src/screens/myFridge";
 import SettingScreen from "./src/screens/settings";
 
 
-function HomeScreen({ navigation }) {
-    return (
-        <View style={MealStyles.container}>
-            <View>
-                <Image source={require('./assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }}/>
-            </View>
+// function HomeScreen({ navigation }) {
+//     return (
+//         <View style={MealStyles.container}>
+//             <View>
+//                 <Image source={require('./assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }}/>
+//             </View>
 
-            <Text style={MealStyles.red}>Keep your meal up to date......</Text>
-            <Text style={MealStyles.blue}>. . . .</Text>
+//             <Text style={MealStyles.red}>Keep your meal up to date......</Text>
+//             <Text style={MealStyles.blue}>. . . .</Text>
 
-            <View style={MealStyles.buttonGuest}>
-                <Button style={MealStyles.buttonStyle} title="Sign in" color='white'/>
-            </View>
+//             <View style={MealStyles.buttonGuest}>
+//                 <Button style={MealStyles.buttonStyle} title="Sign in" color='white'/>
+//             </View>
 
-            <View style={MealStyles.buttonGuest}>
-                <Button style={MealStyles.buttonStyle} title="Continue as guest" color='white' onPress={() => navigation.navigate('MealMe')}/>
-            </View>
+//             <View style={MealStyles.buttonGuest}>
+//                 <Button style={MealStyles.buttonStyle} title="Continue as guest" color='white' onPress={() => navigation.navigate('MealMe')}/>
+//             </View>
 
-            <View style={MealStyles.buttonCreat}>
-                <Button style={MealStyles.buttonStyle} onPress={() => alert("Try guest acount")} title="Create an account" />
-            </View>
+//             <View style={MealStyles.buttonCreat}>
+//                 <Button style={MealStyles.buttonStyle} onPress={() => alert("Try guest acount")} title="Create an account" />
+//             </View>
 
-        </View>
-    );
-}
+//         </View>
+//     );
+// }
 
 const Stack = createNativeStackNavigator();
 
@@ -91,12 +92,12 @@ function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home" >
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="MealMe" component={MealMeScreen}/>
-                <Stack.Screen name="Recipe" component={RecipeScreen}/>
-                <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen}/>
-                <Stack.Screen name="MyFridge" component={MyFridge}/>
-                <Stack.Screen name="Setting" component={SettingScreen}/>
+                <Stack.Screen name="Home" component={Homescreen} />
+                <Stack.Screen name="MealMe" component={MealMeScreen} />
+                <Stack.Screen name="Recipe" component={RecipeScreen} />
+                <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen} />
+                <Stack.Screen name="MyFridge" component={MyFridge} />
+                <Stack.Screen name="Setting" component={SettingScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
