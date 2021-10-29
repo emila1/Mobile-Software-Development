@@ -48,8 +48,8 @@ const Tab = createBottomTabNavigator();
 
 function HomeStack({ navigation }) {
     return (
-        <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation} screenOptions={{ headerShown: false }} >
-            <StackHome.Screen name="HomeScreen" component={Homescreen} />
+        <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
+            <StackHome.Screen name="HomeScreen" component={Homescreen} options={{ title: "Home" }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
         </StackHome.Navigator>
     )
@@ -58,7 +58,7 @@ function HomeStack({ navigation }) {
 //Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
 function ShoppingStack({ navigation }) {
     return (
-        <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} screenOptions={{ headerShown: false }} >
+        <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
             <StackShopping.Screen name="MyFridge" component={MyFridge} />
 
         </StackShopping.Navigator>
@@ -67,7 +67,7 @@ function ShoppingStack({ navigation }) {
 
 function FavoriteStack({ navigation }) {
     return (
-        <StackFavorite.Navigator navigation={navigation} screenOptions={{ headerShown: false }}>
+        <StackFavorite.Navigator navigation={navigation} >
             <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} />
         </StackFavorite.Navigator>
     )
@@ -75,7 +75,7 @@ function FavoriteStack({ navigation }) {
 
 function SettingsStack({ navigation }) {
     return (
-        <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} screenOptions={{ headerShown: false }}>
+        <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} >
             <StackSettings.Screen name="Setting" component={SettingScreen} />
         </StackSettings.Navigator>
     )
@@ -84,7 +84,7 @@ function SettingsStack({ navigation }) {
 function App() {
     return (
         <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator screenOptions={{ headerShown: false }}>
                 <Tab.Screen name="Home" component={HomeStack} />
                 <Tab.Screen name="Shopping" component={ShoppingStack} />
                 <Tab.Screen name="Favorites" component={FavoriteStack} />

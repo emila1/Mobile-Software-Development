@@ -21,15 +21,15 @@ export default class MealMeScreen extends React.Component {
 
                 <View style={MealStyles.mealButtons}>
                     <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="-Find- Recipes" onPress={() => navigation.navigate('Recipe')} />
+                        <Button style={MealStyles.button} title="-Find- Recipes" onPress={() => this.props.navigation.navigate('Recipe')} />
                     </View>
 
                     <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="Surprise -ME-" onPress={() => navigation.navigate('SurpriseMe')} />
+                        <Button style={MealStyles.button} title="Surprise -ME-" onPress={() => this.props.navigation.navigate('Recipe')} />
                     </View>
 
                     <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="-My- Fridge" onPress={() => navigation.navigate('MyFridge')} />
+                        <Button style={MealStyles.button} title="-My- Fridge" onPress={() => this.props.navigation.navigate('MyFridge')} />
                     </View>
                 </View>
 
