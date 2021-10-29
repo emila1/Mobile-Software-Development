@@ -1,41 +1,19 @@
-/*
-const StackHome = createNativeStackNavigator()
-const Drawer = createDrawerNavigator()
-
-const DrawerNavigator = () => {
-    return (
-        <Drawer.Navigator >
-            <Drawer.Screen name="Homescreen" component={Homescreen} />
-            <Drawer.Screen name="Recipe" component={Recipescreen} />
-
-        </Drawer.Navigator>
-    )
-}
-
-// function HomeStack({ navigation }) {
-//     return (
-//         <StackHome.Navigator initialRouteName="Home" navigation={navigation} screenOptions={{ headerShown: false }} >
-//             <StackHome.Screen name="Home" component={Homescreen} />
-//             <StackHome.Screen name="Recipe" component={Recipescreen} options={{ title: "Recipe" }} />
-//         </StackHome.Navigator>
-//     )
-// }
-*/
-
 import * as React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MealStyles } from './src/styles/global';
-import MealMeScreen from "./src/screens/mealMe";
-import RecipeScreen from "./src/screens/recipes";
-import SurpriseMeScreen from "./src/screens/surpriseMe";
-import Homescreen from './src/screens/Homescreen/Homescreen';
-import StartScreen from './src/screens/StartScreen/StartScreen';
-import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
-import MyFridge from "./src/screens/myFridge";
-import SettingScreen from "./src/screens/settings";
+//import { MealStyles } from './src/styles/global';
+//import MealMeScreen from "./src/screens/mealMe";
+//import RecipeScreen from "./src/screens/recipes";
+//import SurpriseMeScreen from "./src/screens/surpriseMe";
+//import Homescreen from './src/screens/Homescreen/Homescreen';
+//import StartScreen from './src/screens/StartScreen/StartScreen';
+//import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
+//import MyFridge from "./src/screens/myFridge";
+//import SettingScreen from "./src/screens/settings";
+import { Homescreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Ionicons } from '@expo/vector-icons'
 
 
 
@@ -59,7 +37,7 @@ function HomeStack({ navigation }) {
 function ShoppingStack({ navigation }) {
     return (
         <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
-            <StackShopping.Screen name="MyFridge" component={MyFridge} />
+            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} />
 
         </StackShopping.Navigator>
     )
@@ -81,10 +59,31 @@ function SettingsStack({ navigation }) {
     )
 }
 
+
 function App() {
     return (
         <NavigationContainer>
-            <Tab.Navigator screenOptions={{ headerShown: false }}>
+            <Tab.Navigator screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'ios-home' : 'ios-home-outline';
+                    } else if (route.name === 'Settings') {
+                        iconName = focused ? 'ios-list-circle' : 'ios-list';
+                    } else if (route.name === 'Shopping') {
+                        iconName = focused ? 'basket' : 'basket-outline'
+                    } else if (route.name === 'Favorites') {
+                        iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
+                    }
+
+                    // You can return any component that you like here!
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: 'tomato',
+                tabBarInactiveTintColor: 'gray',
+            })}>
                 <Tab.Screen name="Home" component={HomeStack} />
                 <Tab.Screen name="Shopping" component={ShoppingStack} />
                 <Tab.Screen name="Favorites" component={FavoriteStack} />
