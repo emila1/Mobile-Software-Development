@@ -1,12 +1,4 @@
 /*
-import 'react-native-gesture-handler'
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { Homescreen, Recipescreen } from './src/screens'
-
 const StackHome = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
@@ -28,24 +20,7 @@ const DrawerNavigator = () => {
 //         </StackHome.Navigator>
 //     )
 // }
-
-//det er vores UI i React Native
-export default function App() {
-    return (
-        <NavigationContainer>
-            <DrawerNavigator />
-        </NavigationContainer>
-    );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});*/
+*/
 
 import * as React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
@@ -56,49 +31,74 @@ import MealMeScreen from "./src/screens/mealMe";
 import RecipeScreen from "./src/screens/recipes";
 import SurpriseMeScreen from "./src/screens/surpriseMe";
 import Homescreen from './src/screens/Homescreen/Homescreen';
+import StartScreen from './src/screens/StartScreen/StartScreen';
+import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
 import MyFridge from "./src/screens/myFridge";
 import SettingScreen from "./src/screens/settings";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 
-// function HomeScreen({ navigation }) {
-//     return (
-//         <View style={MealStyles.container}>
-//             <View>
-//                 <Image source={require('./assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }}/>
-//             </View>
 
-//             <Text style={MealStyles.red}>Keep your meal up to date......</Text>
-//             <Text style={MealStyles.blue}>. . . .</Text>
+const StackHome = createNativeStackNavigator();
+const StackShopping = createNativeStackNavigator();
+const StackFavorite = createNativeStackNavigator();
+const StackSettings = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-//             <View style={MealStyles.buttonGuest}>
-//                 <Button style={MealStyles.buttonStyle} title="Sign in" color='white'/>
-//             </View>
 
-//             <View style={MealStyles.buttonGuest}>
-//                 <Button style={MealStyles.buttonStyle} title="Continue as guest" color='white' onPress={() => navigation.navigate('MealMe')}/>
-//             </View>
+function HomeStack({ navigation }) {
+    return (
+        <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation} screenOptions={{ headerShown: false }} >
+            <StackHome.Screen name="HomeScreen" component={Homescreen} />
+            <StackHome.Screen name="Recipe" component={RecipeScreen} />
+        </StackHome.Navigator>
+    )
+}
 
-//             <View style={MealStyles.buttonCreat}>
-//                 <Button style={MealStyles.buttonStyle} onPress={() => alert("Try guest acount")} title="Create an account" />
-//             </View>
+//Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
+function ShoppingStack({ navigation }) {
+    return (
+        <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} screenOptions={{ headerShown: false }} >
+            <StackShopping.Screen name="MyFridge" component={MyFridge} />
 
-//         </View>
-//     );
-// }
+        </StackShopping.Navigator>
+    )
+}
 
-const Stack = createNativeStackNavigator();
+function FavoriteStack({ navigation }) {
+    return (
+        <StackFavorite.Navigator navigation={navigation} screenOptions={{ headerShown: false }}>
+            <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} />
+        </StackFavorite.Navigator>
+    )
+}
+
+function SettingsStack({ navigation }) {
+    return (
+        <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} screenOptions={{ headerShown: false }}>
+            <StackSettings.Screen name="Setting" component={SettingScreen} />
+        </StackSettings.Navigator>
+    )
+}
 
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" >
+            <Tab.Navigator>
+                <Tab.Screen name="Home" component={HomeStack} />
+                <Tab.Screen name="Shopping" component={ShoppingStack} />
+                <Tab.Screen name="Favorites" component={FavoriteStack} />
+                <Tab.Screen name="Settings" component={SettingsStack} />
+            </Tab.Navigator>
+            {/* <Stack.Navigator initialRouteName="Start" >
                 <Stack.Screen name="Home" component={Homescreen} />
+                <Stack.Screen name="Start" component={StartScreen} />
                 <Stack.Screen name="MealMe" component={MealMeScreen} />
                 <Stack.Screen name="Recipe" component={RecipeScreen} />
                 <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen} />
                 <Stack.Screen name="MyFridge" component={MyFridge} />
                 <Stack.Screen name="Setting" component={SettingScreen} />
-            </Stack.Navigator>
+            </Stack.Navigator> */}
         </NavigationContainer>
     );
 }
