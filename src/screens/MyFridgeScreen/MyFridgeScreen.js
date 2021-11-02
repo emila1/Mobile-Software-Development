@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
@@ -17,22 +17,24 @@ export default class MyFridge extends Component {
 
     onAddItem = () => {
         if (this.state.value != '') {
+            if (!this.state.fridgeItems.includes(this.state.value)) {
 
-            this.setState(state => {
-                const fridgeItems = state.fridgeItems.concat(state.value);
-
-                return {
-                    fridgeItems,
-                    value: '',
-                };
-            });
+                this.setState(state => {
+                    const fridgeItems = state.fridgeItems.concat(state.value);
+                    return {
+                        fridgeItems,
+                        value: '',
+                    };
+                });
+            } else {
+                Alert.alert("Item already exists")
+            }
         }
     };
 
     onRemoveItem = i => {
         this.setState(state => {
             const fridgeItems = state.fridgeItems.filter((item, j) => i !== j);
-
             return {
                 fridgeItems,
             };
@@ -44,7 +46,7 @@ export default class MyFridge extends Component {
         return (
 
             <View style={MealStyles.fridgeContainer} >
-                <Text style={MealStyles.green} > MyFridgeScreen </Text>
+                <Text style={MealStyles.green} > Your inventory </Text>
                 <View style={MealStyles.fridgeInputContainer}>
                     <TextInput style={MealStyles.fridgeInput}
                         placeholder='Add an item to your fridge'
@@ -54,7 +56,7 @@ export default class MyFridge extends Component {
                         <AntDesign name='pluscircle' size={30} color={'green'} />
                     </TouchableOpacity>
                 </View>
-                <ScrollView>
+                <ScrollView style={{ marginLeft: 15 }} >
                     {this.state.fridgeItems.map((item, index) =>
                         <View style={MealStyles.fridgeItem} key={index} >
                             <Text style={{ textAlign: 'left', fontSize: 20 }}  >{item}</Text>
