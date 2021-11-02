@@ -13,7 +13,7 @@ export default class ShoppingScreen extends Component {
     render() {
         return (
             <View style={MealStyles.container}>
-                <Text style={MealStyles.green} >Access your Fridge inventory or your shopping list </Text>
+                <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold' }} >Access your Fridge inventory or your shopping list </Text>
                 <View style={MealStyles.ButtonContainer} >
                     <View style={MealStyles.ShoppingButton} >
                         <TouchableOpacity style={{ height: '100%', width: '100%' }} onPress={() => this.props.navigation.navigate("MyFridge")} >
