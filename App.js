@@ -39,7 +39,7 @@ function HomeStack({ navigation }) {
 function ShoppingStack({ navigation }) {
     return (
         <StackShopping.Navigator initialRouteName="ShoppingTab" navigation={navigation} >
-            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} />
+            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} options={{ headerTitle: 'My Fridge' }} />
             <StackShopping.Screen name="ShoppingTab" component={ShoppingScreen} />
         </StackShopping.Navigator>
     )
