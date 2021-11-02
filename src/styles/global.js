@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
 
 
 export const MealStyles = StyleSheet.create({
@@ -92,6 +93,33 @@ export const MealStyles = StyleSheet.create({
         paddingRight: 23,
 
     },
+
+    //ShoppingScreen
+    ButtonContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        width: Dimensions.get('window').width,
+    },
+    ShoppingButton: {
+        margin: 4,
+        borderColor: 'black',
+        borderWidth: 2,
+        width: '75%',
+        height: '12%',
+        borderRadius: 12,
+        backgroundColor: 'coral',
+        justifyContent: 'center',
+
+    },
+    ShoppingButtonText: {
+        textAlign: 'center',
+        alignContent: 'center',
+        textDecorationColor: 'red',
+        height: '100%',
+        width: '100%',
+        fontSize: 20,
+    }
 
 
 
