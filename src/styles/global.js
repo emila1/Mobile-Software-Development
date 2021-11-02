@@ -100,16 +100,18 @@ export const MealStyles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         width: Dimensions.get('window').width,
+
     },
     ShoppingButton: {
-        margin: 4,
+        margin: 10,
         borderColor: 'black',
         borderWidth: 2,
         width: '75%',
         height: '12%',
         borderRadius: 12,
-        backgroundColor: 'coral',
+        backgroundColor: 'darkorange',
         justifyContent: 'center',
+        padding: '3%'
 
     },
     ShoppingButtonText: {
