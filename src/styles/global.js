@@ -119,6 +119,33 @@ export const MealStyles = StyleSheet.create({
         height: '100%',
         width: '100%',
         fontSize: 20,
+    },
+    fridgeContainer: {
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    fridgeInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: Dimensions.get('window').width,
+        padding: 6,
+        justifyContent: 'center',
+        margin: 4
+    },
+    fridgeInput: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 10,
+        width: '80%'
+    },
+    fridgeItem: {
+        flexDirection: 'row',
+
+        width: Dimensions.get('window').width
     }
 
 
