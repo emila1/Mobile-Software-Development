@@ -3,7 +3,7 @@ import { Text, View, Image, Button, StyleSheet, Pressable, ScrollView, Dimension
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
-import RecipeCard from '../../components/recipeCard'
+import RecipeCard from '../../components/recipeCard';
 
 
 export default class MealMeScreen extends React.Component {
@@ -22,15 +22,15 @@ export default class MealMeScreen extends React.Component {
 
                 <View style={MealStyles.mealButtons}>
                     <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="-Find- Recipes" onPress={() => this.props.navigation.navigate('Recipe')} />
+                        <Button style={MealStyles.button} title="Recipes" onPress={() => this.props.navigation.navigate('Recipe')} /> 
                     </View>
 
                     <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="Surprise -ME-" onPress={() => this.props.navigation.navigate('Recipe')} />
+                        <Button style={MealStyles.button} title="Surprise Me" onPress={() => this.props.navigation.navigate('Recipe')} /> 
                     </View>
 
                     <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="-My- Fridge" onPress={() => this.props.navigation.navigate('MyFridge')} />
+                        <Button style={MealStyles.button} title="MyFridge" onPress={() => this.props.navigation.navigate('MyFridge')} />
                     </View>
                 </View>
                 <ScrollView
@@ -72,9 +72,9 @@ export default class MealMeScreen extends React.Component {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                    <RecipeCard />
-                    <RecipeCard />
-                    <RecipeCard />
+                        <RecipeCard />
+                        <RecipeCard />
+                        <RecipeCard />
                     </ScrollView>
 
                 </ScrollView>

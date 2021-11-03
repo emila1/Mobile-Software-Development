@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Dimensions, Text, View, Image } from 'react-native';
 //import { MealStyles } from '../styles/global.js';
