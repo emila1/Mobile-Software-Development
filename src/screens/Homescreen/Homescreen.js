@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
+
 
 
 export default class MealMeScreen extends React.Component {
@@ -20,17 +21,27 @@ export default class MealMeScreen extends React.Component {
                 <Text style={MealStyles.gold}>Start to find some good recipes. The surprise ME will surprise you</Text>
 
                 <View style={MealStyles.mealButtons}>
-                    <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="-Find- Recipes" onPress={() => this.props.navigation.navigate('Recipe')} />
-                    </View>
+                    <TouchableOpacity style={MealStyles.alignMe1} title="-Find- Recipes" onPress={() => this.props.navigation.navigate('Recipe')}>
+                    <Text style={MealStyles.buttonMeal} alignContent='center'>- Find - Recipes</Text>
+                    </TouchableOpacity>
 
-                    <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="Surprise -ME-" onPress={() => this.props.navigation.navigate('Recipe')} />
-                    </View>
+                    <TouchableOpacity style={MealStyles.alignMe1} title="Surprise -ME-" onPress={() => this.props.navigation.navigate('Recipe')}>
+                    <Text style={MealStyles.buttonMeal} alignContent='center'>Surprise   ---ME---</Text>
+                    </TouchableOpacity>
 
-                    <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="-My- Fridge" onPress={() => this.props.navigation.navigate('MyFridge')} />
-                    </View>
+                    <TouchableOpacity style={MealStyles.alignMe1} title="-My- Fridge" onPress={() => this.props.navigation.navigate('MyFridge')}>
+                    <Text style={MealStyles.buttonMeal}>--My-- Fridge-</Text>
+                    </TouchableOpacity>
+
+                </View>
+
+                <View style={MealStyles.cardWrapper}>
+                    <Text>DINNERS</Text>
+                        <View style={MealStyles.card}></View>
+                        <View style={MealStyles.cardImagewrap}>
+                            <Image style={MealStyles.cardImg} source={{uri: 'https://www.online-tech-tips.com/wp-content/uploads/2021/09/vegan1.jpg'}}/>
+                            <Text style={MealStyles.cardText}>Chicken and patato mix</Text>
+                        </View>
                 </View>
 
             </View>

@@ -2,15 +2,6 @@ import * as React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//import { MealStyles } from './src/styles/global';
-//import MealMeScreen from "./src/screens/mealMe";
-//import RecipeScreen from "./src/screens/recipes";
-//import SurpriseMeScreen from "./src/screens/surpriseMe";
-//import Homescreen from './src/screens/Homescreen/Homescreen';
-//import StartScreen from './src/screens/StartScreen/StartScreen';
-//import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
-//import MyFridge from "./src/screens/myFridge";
-//import SettingScreen from "./src/screens/settings";
 import { Homescreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
@@ -29,6 +20,7 @@ function HomeStack({ navigation }) {
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
             <StackHome.Screen name="HomeScreen" component={Homescreen} options={{ title: "Home" }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
+            <StackHome.Screen name="MyFridge" component={MyFridgeScreen} />
         </StackHome.Navigator>
     )
 }
@@ -38,7 +30,6 @@ function ShoppingStack({ navigation }) {
     return (
         <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
             <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} />
-
         </StackShopping.Navigator>
     )
 }
@@ -81,23 +72,14 @@ function App() {
                     // You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'tomato',
-                tabBarInactiveTintColor: 'gray',
+                tabBarActiveTintColor: 'darkorange',
+                tabBarInactiveTintColor: 'orange',
             })}>
                 <Tab.Screen name="Home" component={HomeStack} />
                 <Tab.Screen name="Shopping" component={ShoppingStack} />
                 <Tab.Screen name="Favorites" component={FavoriteStack} />
                 <Tab.Screen name="Settings" component={SettingsStack} />
             </Tab.Navigator>
-            {/* <Stack.Navigator initialRouteName="Start" >
-                <Stack.Screen name="Home" component={Homescreen} />
-                <Stack.Screen name="Start" component={StartScreen} />
-                <Stack.Screen name="MealMe" component={MealMeScreen} />
-                <Stack.Screen name="Recipe" component={RecipeScreen} />
-                <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen} />
-                <Stack.Screen name="MyFridge" component={MyFridge} />
-                <Stack.Screen name="Setting" component={SettingScreen} />
-            </Stack.Navigator> */}
         </NavigationContainer>
     );
 }
