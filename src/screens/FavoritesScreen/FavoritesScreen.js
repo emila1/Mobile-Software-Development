@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { MealStyles } from '../../styles/global';
 
 export default class FavoritesScreen extends Component {
     constructor(props) {
@@ -7,12 +8,12 @@ export default class FavoritesScreen extends Component {
         this.state = {
         };
     }
-
+    
     render() {
         return (
-            <View>
-                <Text> FavoritesScreen </Text>
-            </View>
+         <View style={MealStyles.container}>
+            <Text style={MealStyles.green}>Favorites Screen</Text>
+        </View>
         );
     }
 }

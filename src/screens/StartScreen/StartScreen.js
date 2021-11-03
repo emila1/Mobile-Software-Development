@@ -4,8 +4,8 @@ import { getRandomRecipe, searchIngredients } from '../../utils/search'
 import { MealStyles } from '../../styles/global'
 import { AuthContext } from '../../AuthContext/AuthContext';
 
-
-export default function StartScreen(props) {
+export default function StartScreen() {
+    
     const { signInGuest } = useContext(AuthContext)
 
     return (
@@ -31,6 +31,4 @@ export default function StartScreen(props) {
 
         </View>
     );
-
 }
-
