@@ -7,7 +7,7 @@ const screenHeight = Dimensions.get('screen').height;
 export const MealStyles = StyleSheet.create({
     //CSS for App.js
     container: {
-        paddingTop: 30,
+        paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
     },
@@ -17,7 +17,7 @@ export const MealStyles = StyleSheet.create({
         paddingRight: 10,
         height: 50,
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     cardScrollerText: {
         padding: 5,
@@ -29,7 +29,7 @@ export const MealStyles = StyleSheet.create({
         color: 'black'
     },
     buttonCreat: {
-        paddingTop: 180
+        paddingTop: 150
     },
     red: {
         justifyContent: 'center',
@@ -105,9 +105,8 @@ export const MealStyles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 23,
         paddingRight: 23,
+        height : 85
 
     },
-
-
 
 });
