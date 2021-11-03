@@ -40,14 +40,13 @@ function ShoppingStack({ navigation }) {
     return (
         <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
             <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} />
-
         </StackShopping.Navigator>
     )
 }
 
 function FavoriteStack({ navigation }) {
     return (
-        <StackFavorite.Navigator navigation={navigation} >
+        <StackFavorite.Navigator initialRouteName="FavoritesScreen" navigation={navigation} >
             <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} />
         </StackFavorite.Navigator>
     )
@@ -63,7 +62,7 @@ function SettingsStack({ navigation }) {
 
 function AuthStack({ navigation }) {
     return (
-        <StackAuth.Navigator navigation={navigation} initialRouteName="StartScreen" >
+        <StackAuth.Navigator initialRouteName="StartScreen" navigation={navigation} >
             <StackAuth.Screen name="StartScreen" component={StartScreen} options={{ title: "Welcome" }} />
         </StackAuth.Navigator>
     )
@@ -106,24 +105,22 @@ function TabNavigator({ navigation, extraData }) {
 
 
 function App() {
-
-    const [user, setUser] = React.useState(null)
-
-    const authContext = React.useMemo(() => ({
-        signUp: async data => {
-            Alert.alert("Signing up", data)
-        },
-        signIn: async data => {
-            Alert.alert("Navigating to sign in", data)
-        },
-        signOut: async () => {
-            Alert.alert("Signing out", data)
-        },
-        signInGuest: async () => {
-            setUser('Guest')
-
-        }
-    }), []);
+const [user, setUser] = React.useState(null)
+    
+const authContext = React.useMemo(() => ({
+    signUp: async data => {
+        Alert.alert("Signing up", data)
+    },
+    signIn: async data => {
+        Alert.alert("Navigating to sign in", data)
+    },
+    signOut: async () => {
+        Alert.alert("Signing out", data)
+    },
+    signInGuest: async () => {
+        setUser('Guest')
+    }
+}), []);
 
     return (
         <AuthContext.Provider value={authContext} >
