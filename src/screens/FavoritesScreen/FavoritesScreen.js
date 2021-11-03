@@ -8,12 +8,12 @@ export default class FavoritesScreen extends Component {
         this.state = {
         };
     }
-
+    
     render() {
         return (
-            <View style={MealStyles.container}>
-                <Text style={MealStyles.green}> FavoritesScreen </Text>
-            </View>
+         <View style={MealStyles.container}>
+            <Text style={MealStyles.green}>Favorites Screen</Text>
+        </View>
         );
     }
 }

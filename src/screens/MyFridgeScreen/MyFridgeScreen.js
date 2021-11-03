@@ -1,16 +1,17 @@
-import * as React from 'react';
-import { Text, View, Image, Button, StyleSheet, TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+export default class MyFridge extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
 
-
-
-function MyFridge({navigation}) {
-   
-
-    return (
-        
+        };
+    }
+    render() {
+        return (
         <View style={MealStyles.container}>
             <Text style={MealStyles.green}>MyFridge</Text>
             
@@ -21,9 +22,6 @@ function MyFridge({navigation}) {
             </View > 
 
         </View>
-    );
+        );
+    }
 }
-
-export default MyFridge;
-
-
