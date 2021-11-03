@@ -4,17 +4,17 @@ import { StyleSheet } from 'react-native';
 export const MealStyles = StyleSheet.create({
     //CSS for App.js
     container: {
-        paddingTop: 30,
+        paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     buttonStyle: {
         color: 'black'
     },
     buttonCreat: {
-        paddingTop: 180
+        paddingTop: 150
     },
     red: {
         justifyContent: 'center',
@@ -90,9 +90,8 @@ export const MealStyles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 23,
         paddingRight: 23,
+        height : 85
 
     },
-
-
 
 });

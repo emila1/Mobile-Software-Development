@@ -13,28 +13,11 @@ export default class MealMeScreen extends Component {
         
     }
     render() {
-        const prop = this.props.navigation.navigate
-
         return (
             <View style={MealStyles.container}>
                 <Text style={MealStyles.green}>MealMe</Text>
                 <Text style={MealStyles.pink}>Your Health and Time are important for us</Text>
-                <Text style={MealStyles.gold}>Start to find some good recipes or try out "Surprise me!"</Text>
-
-                <View style={MealStyles.mealButtons}>
-                    <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="Find recipes" onPress={() => prop('Recipe')} />
-                    </View>
-
-                    <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="Surprise me!" onPress={() => prop('Recipe')} />
-                    </View>
-
-                    <View style={MealStyles.alignMe1}>
-                        <Button style={MealStyles.button} title="My Fridge" onPress={() => prop('MyFridge')} />
-                    </View>
-                </View>
-
+                <Text style={MealStyles.gold}>Explore recipes, manage your fridge or get inspired!</Text>
             </View>
         );
     }
