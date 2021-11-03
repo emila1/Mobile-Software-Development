@@ -20,7 +20,7 @@ export default class MealMeScreen extends React.Component {
                {/*} <Text style={MealStyles.pink}>Your Health and Time are important for us</Text> */}
                {/* <Text style={MealStyles.gold}>Start to find some good recipes. The surprise ME will surprise you</Text> */}
 
-                <View style={MealStyles.mealButtons}>
+               {/*} <View style={MealStyles.mealButtons}> 
                     <View style={MealStyles.alignMe1}>
                         <Button style={MealStyles.button} title="Recipes" onPress={() => this.props.navigation.navigate('Recipe')} /> 
                     </View>
@@ -32,7 +32,7 @@ export default class MealMeScreen extends React.Component {
                     <View style={MealStyles.alignMe1}>
                         <Button style={MealStyles.button} title="MyFridge" onPress={() => this.props.navigation.navigate('MyFridge')} />
                     </View>
-                </View>
+        </View> */}
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                 >

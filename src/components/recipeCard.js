@@ -13,37 +13,45 @@ class RecipeCard extends React.Component {
         return (
         <View style={styles.cardContainer}>
             <Image 
-            style={styles.image}
-            source={require('../../recipes/full/0e27521d6c4b5484ac16560c0ad226a229cac3c9.jpg')}/>
+                style={styles.image}
+            source={require('../../recipes/full/05d3e52c89cd3866e6f0ba331e8580474703ef81.jpg')}/>
+            <View
+                style={styles.textContainer}
+            >
             <Text style={styles.tmpText}>Recipe Card!</Text>
+            </View>
         </View>
         );
     }
 }
-
 const styles = StyleSheet.create({  // Temporary styling, move to global stylesheet
     cardContainer: {
         margin: windowWidth * 0.02,
         width: windowWidth * 0.7,
         height: windowHeight * 0.25,
-        alignItems: 'center',
-        justifyContent: 'center',
+        resizeMode: 'contain',
         backgroundColor: '#007060',
-        borderStyle: 'solid',
         borderColor: '#007060',         // Same color as backgroundColor
-        borderWidth: 2,
         borderRadius: 20,
         shadowColor: "black",
-        elevation: 7            // Android only, needs ios support https://stackoverflow.com/questions/55015715/react-native-drop-shadow
+        elevation: 7,
+        overflow: 'hidden',        
+    // Android only, needs ios support https://stackoverflow.com/questions/55015715/react-native-drop-shadow
+    },
+    textContainer: {
+        backgroundColor: '#fff',
+        textAlign: 'left',
+        justifyContent: 'center',
     },
     tmpText: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     image: {
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
         resizeMode: 'contain',
-        width: 200,
+        width: windowWidth * 0.7,
     }
 
 })
