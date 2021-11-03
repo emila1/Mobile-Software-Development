@@ -4,7 +4,7 @@ import { MealStyles } from '../../styles/global';
 
 function RecipeScreen() {
     return (
-        <View style={MealStyles.container}>
+        <View style={MealStyles.cardContainer}>
             <Text style={MealStyles.green}>Recipe</Text>
         </View>
     );

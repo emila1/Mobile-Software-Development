@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, Pressable, ScrollView, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
+import RecipeCard from '../../components/recipeCard'
 
 
 export default class MealMeScreen extends React.Component {
@@ -15,9 +16,9 @@ export default class MealMeScreen extends React.Component {
     render() {
         return (
             <View style={MealStyles.container}>
-                <Text style={MealStyles.green}>MealMe</Text>
-                <Text style={MealStyles.pink}>Your Health and Time are important for us</Text>
-                <Text style={MealStyles.gold}>Start to find some good recipes. The surprise ME will surprise you</Text>
+                {/*<Text style={MealStyles.green}>MealMe</Text> */}
+               {/*} <Text style={MealStyles.pink}>Your Health and Time are important for us</Text> */}
+               {/* <Text style={MealStyles.gold}>Start to find some good recipes. The surprise ME will surprise you</Text> */}
 
                 <View style={MealStyles.mealButtons}>
                     <View style={MealStyles.alignMe1}>
@@ -32,7 +33,51 @@ export default class MealMeScreen extends React.Component {
                         <Button style={MealStyles.button} title="-My- Fridge" onPress={() => this.props.navigation.navigate('MyFridge')} />
                     </View>
                 </View>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                >
 
+                    <Text
+                        style={MealStyles.cardScrollerText}
+                    >Your recipes</Text>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        <RecipeCard />
+                        <RecipeCard />
+                        <RecipeCard />
+                    </ScrollView>
+
+                    <Text
+                        style={MealStyles.cardScrollerText}
+                    >
+                        Recommended recipes
+                    </Text>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        <RecipeCard />
+                        <RecipeCard />
+                        <RecipeCard />
+                    </ScrollView>
+
+                    <Text
+                        style={MealStyles.cardScrollerText}
+                    >
+                        Random recipes
+                        </Text>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                    <RecipeCard />
+                    <RecipeCard />
+                    <RecipeCard />
+                    </ScrollView>
+
+                </ScrollView>
             </View>
         );
     }

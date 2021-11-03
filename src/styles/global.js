@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet, Dimensions } from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('screen').width;
+const screenHeight = Dimensions.get('screen').height;
 
 export const MealStyles = StyleSheet.create({
     //CSS for App.js
@@ -7,8 +10,20 @@ export const MealStyles = StyleSheet.create({
         paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
+    },
+    cardScroller: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 50,
         alignItems: 'center',
         alignSelf: 'center'
+    },
+    cardScrollerText: {
+        padding: 5,
+        textAlign : 'left',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     buttonStyle: {
         color: 'black'
