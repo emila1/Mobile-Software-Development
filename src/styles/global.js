@@ -4,11 +4,9 @@ import { StyleSheet } from 'react-native';
 export const MealStyles = StyleSheet.create({
     //CSS for App.js
     container: {
-        paddingTop: 30,
+        paddingTop: 20,
         paddingLeft: 10,
         paddingRight: 10,
-        alignItems: 'center',
-        alignSelf: 'center'
     },
     buttonStyle: {
         color: 'black'
@@ -37,6 +35,7 @@ export const MealStyles = StyleSheet.create({
     },
 
 
+
     //CSS For MealMe Screen
     mealButtons: {
         flexDirection: "row",
@@ -44,15 +43,20 @@ export const MealStyles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
     },
-    buttonText: {
-        color: 'white'
-    },
     alignMe1: {
         justifyContent: 'center',
         backgroundColor: '#FF9D0A',
         borderRadius: 15,
         width: 100,
         height: 90,
+        marginHorizontal: 6,
+        
+    },
+    buttonMeal: {
+        color: 'white',
+        fontSize: 16,
+        alignItems: 'center',
+        paddingLeft: 20,
     },
     green: {
         fontFamily: 'sans-serif',
@@ -75,6 +79,8 @@ export const MealStyles = StyleSheet.create({
         paddingBottom: 20,
     },
 
+
+
     //CSS For Surprise me
     Tab: {
         justifyContent: 'center',
@@ -90,7 +96,52 @@ export const MealStyles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 23,
         paddingRight: 23,
+    },
 
+
+    //CSS for Fridge Screen
+
+    fridgeAdd: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 30,
+        width: 350,
+        fontSize: 9,
+        borderRadius: 14,
+        backgroundColor: '#E9E9E9',
+        margin: 10,
+        padding: 5,
+    },
+    fridgeText: {
+        fontSize: 12,
+        paddingLeft: 5,
+    },
+
+    //HOMESCREEN IMAGE SLIDER
+
+    cardWrapper: {
+        marginTop: 13,
+        
+    },
+    card: { 
+        
+    },
+    cardImagewrap: {
+        marginTop: 10,
+        
+    },
+    cardImg: {
+        height: '55%', 
+        width: '35%',
+        borderRadius: 15,
+        
+    },
+    cardInfo: {
+        
+    },
+    cardText: {
+        fontWeight: 'bold',
+        width: '35%',
     },
 
 
