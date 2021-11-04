@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { MealStyles } from '../../styles/global';
-import { SearchBar } from 'react-native-elements';
+
 
 class RecipeScreen extends React.Component {
     constructor(props) {

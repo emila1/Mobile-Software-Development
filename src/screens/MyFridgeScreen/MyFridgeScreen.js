@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, TextInput } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -17,8 +17,7 @@ export default class MyFridge extends Component {
             
             <View style={MealStyles.fridgeAdd}>
                  <TextInput style={MealStyles.fridgeText} placeholder="Add new"/> 
-                 <Icon style={MealStyles.Addicon} name="plus-circle" size={20} color="#A7A1A1" onPress={() => navigation.navigate('HomeScreen')}/>
-                 
+                 <Icon style={MealStyles.Addicon} name="plus-circle" size={20} color="#A7A1A1" onPress={() => navigation.navigate('HomeScreen')}/>                 
             </View > 
 
         </View>

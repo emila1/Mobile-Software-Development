@@ -11,20 +11,6 @@ export const MealStyles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
     },
-    cardScroller: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        height: 50,
-        alignItems: 'center',
-        alignSelf: 'center'
-    },
-    cardScrollerText: {
-        padding: 5,
-        textAlign : 'left',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
     buttonStyle: {
         color: 'black'
     },
@@ -135,7 +121,36 @@ export const MealStyles = StyleSheet.create({
     },
 
     //HOMESCREEN IMAGE SLIDER
+    Homescroll: {
+        paddingTop: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
 
+    cardScroller: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 50,
+        alignItems: 'center',
+        alignSelf: 'center'
+    },
+    cardScrollview: {
+        
+    },
+    Cardview: {
+    },
+    
+    cardScrollerText: {
+        width: 150,
+        padding: 4,
+        margin: 5,
+        textAlign : 'left',
+        fontSize: 13,
+        fontWeight: 'bold',
+        //backgroundColor: '#40d9ff',
+        borderRadius: 11,
+    },
     cardWrapper: {
         marginTop: 13,
         
@@ -162,5 +177,43 @@ export const MealStyles = StyleSheet.create({
     },
 
 
+    // CSS for Home Screen Pictures
 
+    cardContainer: {
+        margin: windowWidth * 0.01,
+        width: windowWidth * 0.4,
+        height: windowHeight * 0.22,
+        alignItems: 'center',
+        justifyContent: 'center',       
+        borderColor: '#fcb900',         
+        borderWidth: 0.8,
+        borderRadius: 10,     
+    },
+    imageCard: {
+        justifyContent: "center",
+        alignItems: "center",
+        resizeMode: 'contain',
+        width: '85%',
+        height: '85%',
+        borderRadius: 11,
+    },
+    tmpText: {
+        alignContent: 'center',
+        fontStyle: 'italic',
+        fontSize: 12,
+    },
+
+
+    //CSS for Setting page (Extra)
+
+    Settingicons: {
+        flexDirection: 'row',
+        margin: 5,
+        
+    },
+    iconsText: {
+        textAlign: 'left',
+        paddingRight: 200,
+        
+    },
 });
