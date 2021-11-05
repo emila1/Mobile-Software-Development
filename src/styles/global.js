@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 
 
@@ -126,7 +126,8 @@ export const MealStyles = StyleSheet.create({
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
         alignContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: StatusBar.currentHeight,
     },
     fridgeInputContainer: {
         flexDirection: 'row',
@@ -146,7 +147,8 @@ export const MealStyles = StyleSheet.create({
     },
     fridgeItem: {
         flexDirection: 'row',
-
+        alignItems: 'center',
+        justifyContent: 'center',
         width: Dimensions.get('window').width
     }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, SectionList } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
@@ -7,10 +7,23 @@ export default class MyFridge extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fridgeItems: ['Chicken', 'Beef'],
+            fridgeItems: [
+                {
+                    title: "Meat",
+                    data: ["Chicken", "Beef", "Lamb"]
+                }, {
+                    title: "Dairy",
+                    data: ["Milk", "Egg", "Butter"]
+                }, {
+                    title: "Vegetables",
+                    data: ["Green Beans", "Onions", "Carrots"]
+                }
+            ],
             value: ''
         };
+
     }
+
     onChangeValue = event => {
         this.setState({ value: event.nativeEvent.text });
     };
@@ -33,6 +46,7 @@ export default class MyFridge extends Component {
     };
 
     onRemoveItem = i => {
+        console.log("Item", i)
         this.setState(state => {
             const fridgeItems = state.fridgeItems.filter((item, j) => i !== j);
             return {
@@ -42,6 +56,15 @@ export default class MyFridge extends Component {
     };
 
     render() {
+        const Item = ({ title, index }) => (
+            <View style={MealStyles.fridgeItem} >
+                <Text style={{ textAlign: 'left', fontSize: 20 }} >{title}</Text>
+                <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() =>
+                    this.onRemoveItem(index)}>
+                    <Ionicons name='ios-trash-sharp' size={20} color={'black'} />
+                </TouchableOpacity>
+            </View >
+        )
         console.log(this.state)
         return (
 
@@ -56,7 +79,18 @@ export default class MyFridge extends Component {
                         <AntDesign name='pluscircle' size={30} color={'green'} />
                     </TouchableOpacity>
                 </View>
-                <ScrollView style={{ marginLeft: 15 }} >
+                <SectionList sections={this.state.fridgeItems}
+                    keyExtractor={(item, index) => item + index}
+                    renderItem={({ item, index }) => <Item title={item} index={index} />}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <View style={MealStyles.fridgeInputContainer} >
+                            <Text style={{ fontSize: 30 }} >{title}</Text>
+                            <TouchableOpacity onPress={() => this.onAddItem()} >
+                                <AntDesign name='pluscircle' size={30} color={'green'} />
+                            </TouchableOpacity>
+                        </View>
+                    )} />
+                {/* <ScrollView style={{ marginLeft: 15 }} >
                     {this.state.fridgeItems.map((item, index) =>
                         <View style={MealStyles.fridgeItem} key={index} >
                             <Text style={{ textAlign: 'left', fontSize: 20 }}  >{item}</Text>
@@ -65,7 +99,7 @@ export default class MyFridge extends Component {
                             </TouchableOpacity>
                         </View>
                     )}
-                </ScrollView>
+                </ScrollView> */}
             </View>
         );
     }
