@@ -11,7 +11,7 @@ const screenHeight = Dimensions.get('screen').height;
 
 
 const recipe = recipes;
-const ind = 30;                // Manual input for recipe index. 
+const ind = 256;                // Manual input for recipe index. 
 class RecipeCard extends React.Component {
     
     // Get recipe info here. 

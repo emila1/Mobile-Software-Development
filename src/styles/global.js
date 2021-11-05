@@ -117,12 +117,12 @@ export const MealStyles = StyleSheet.create({
 
 
     //CSS for Fridge Screen
-
+    },
     fridgeAdd: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: 30,
-        width: 350,
+        height: windowHeight * 0.04,
+        width: windowWidth * .9,
         fontSize: 9,
         borderRadius: 14,
         backgroundColor: '#E9E9E9',
@@ -133,5 +133,19 @@ export const MealStyles = StyleSheet.create({
         fontSize: 12,
         paddingLeft: 5,
     },
+
+    //CSS for setting EXTRA
+    SettingPage: {
+        padding: 10,
+    },
+    Settingicons: {
+        flexDirection: 'row',
+        
+    },
+    iconsText: {
+        textAlign: 'left',
+        paddingRight: 200,
+    },
+
 
 });

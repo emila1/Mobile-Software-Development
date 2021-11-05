@@ -12,7 +12,7 @@ export default class SettingScreen extends Component {
     }
     render() {
         return (
-        <View style={MealStyles.container}>
+        <View style={MealStyles.SettingPage}>
             <Text style={MealStyles.green}>More</Text>
 
         

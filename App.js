@@ -79,7 +79,7 @@ function TabNavigator({ navigation, extraData }) {
                     iconName = focused ? 'ios-home' : 'ios-home-outline';
                 } else if (route.name === 'Settings') {
                     iconName = focused ? 'ios-list-circle' : 'ios-list';
-                } else if (route.name === 'Shopping') {
+                } else if (route.name === 'Fridge') {
                     iconName = focused ? 'basket' : 'basket-outline'
                 } else if (route.name === 'Favorites') {
                     iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
@@ -88,13 +88,13 @@ function TabNavigator({ navigation, extraData }) {
                 // You can return any component that you like here!
                 return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
+            tabBarActiveTintColor: 'orange',
+            tabBarInactiveTintColor: '#FFB922',
         })}>
             <Tab.Screen name="Home" >
                 {props => <HomeStack {...props} extraData={extraData} />}
             </Tab.Screen>
-            <Tab.Screen name="Shopping" component={ShoppingStack} />
+            <Tab.Screen name="Fridge" component={ShoppingStack} />
             <Tab.Screen name="Favorites" component={FavoriteStack} />
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
