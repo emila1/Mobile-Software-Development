@@ -149,6 +149,8 @@ export const MealStyles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         paddingTop: StatusBar.currentHeight,
+        flex: 1,
+        paddingBottom: '4%'
     },
     fridgeInputContainer: {
         flexDirection: 'row',
