@@ -12,7 +12,7 @@ import { AuthContext } from './src/AuthContext/AuthContext';
 //import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
 //import MyFridge from "./src/screens/myFridge";
 //import SettingScreen from "./src/screens/settings";
-import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -38,8 +38,10 @@ function HomeStack({ navigation }) {
 //Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
 function ShoppingStack({ navigation }) {
     return (
-        <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
+
+        <StackShopping.Navigator initialRouteName="ShoppingTab" navigation={navigation} >
             <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} options={{ headerShown: false }} />
+            <StackShopping.Screen name="ShoppingTab" component={ShoppingScreen} />
         </StackShopping.Navigator>
     )
 }
