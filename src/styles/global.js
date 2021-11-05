@@ -110,11 +110,17 @@ export const MealStyles = StyleSheet.create({
     },
 
     //ShoppingScreen
+    ShoppingViewContainer: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        flex: 1,
+    },
     ButtonContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
-        width: windowWidth,
+        flex: 0.5,
+        width: '100%',
 
     },
     ShoppingButton: {
@@ -122,11 +128,11 @@ export const MealStyles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 2,
         width: '75%',
-        height: '12%',
+        height: '25%',
         borderRadius: 12,
-        backgroundColor: 'darkorange',
         justifyContent: 'center',
-        padding: '3%'
+        padding: '3%',
+        backgroundColor: 'darkorange',
 
     },
     ShoppingButtonText: {

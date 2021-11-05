@@ -12,7 +12,7 @@ export default class ShoppingScreen extends Component {
 
     render() {
         return (
-            <View style={MealStyles.container}>
+            <View style={MealStyles.ShoppingViewContainer}>
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold' }} >Access your Fridge inventory or your shopping list </Text>
                 <View style={MealStyles.ButtonContainer} >
                     <View style={MealStyles.ShoppingButton} >
