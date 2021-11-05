@@ -1,10 +1,10 @@
-import React, { Component, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
-export default class SurpriseMe extends Component {
+export default class SurpriseMe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

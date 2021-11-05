@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
 
-export default class MealMeScreen extends Component {
+export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
