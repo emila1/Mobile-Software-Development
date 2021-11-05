@@ -73,7 +73,7 @@ export default class MyFridge extends Component {
 
             <View style={MealStyles.fridgeContainer} >
                 <Text style={MealStyles.green} > Your inventory </Text>
-                <View style={MealStyles.fridgeInputContainer}>
+                {/* <View style={MealStyles.fridgeInputContainer}>
                     <TextInput style={MealStyles.fridgeInput}
                         placeholder='Add an item to your fridge'
                         value={this.state.value}
@@ -81,7 +81,7 @@ export default class MyFridge extends Component {
                     <TouchableOpacity onPress={() => this.onAddItem()} >
                         <AntDesign name='pluscircle' size={30} color={'green'} />
                     </TouchableOpacity>
-                </View>
+                </View> */}
                 <SectionList
                     sections={this.state.fridgeItems}
                     keyExtractor={(item, index) => item + index}
