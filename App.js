@@ -29,7 +29,7 @@ const Tab = createBottomTabNavigator();
 function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
-            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ title: "Home" }} />
+            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}  />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
         </StackHome.Navigator>
     )
@@ -38,8 +38,9 @@ function HomeStack({ navigation }) {
 //Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
 function ShoppingStack({ navigation }) {
     return (
+
         <StackShopping.Navigator initialRouteName="ShoppingTab" navigation={navigation} >
-            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} options={{ headerTitle: 'My Fridge' }} />
+            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} options={{ headerShown: false }} />
             <StackShopping.Screen name="ShoppingTab" component={ShoppingScreen} />
         </StackShopping.Navigator>
     )
@@ -48,7 +49,7 @@ function ShoppingStack({ navigation }) {
 function FavoriteStack({ navigation }) {
     return (
         <StackFavorite.Navigator navigation={navigation} >
-            <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} />
+            <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} options={{ headerShown: false }} />
         </StackFavorite.Navigator>
     )
 }
@@ -56,15 +57,16 @@ function FavoriteStack({ navigation }) {
 function SettingsStack({ navigation }) {
     return (
         <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} >
-            <StackSettings.Screen name="Setting" component={SettingScreen} />
+            <StackSettings.Screen name="Setting" component={SettingScreen} options={{ headerShown: false }} />
         </StackSettings.Navigator>
     )
 }
 
 function AuthStack({ navigation }) {
     return (
+        // title not used because of hidden header, maybe "welcome" user in dom instead
         <StackAuth.Navigator navigation={navigation} initialRouteName="StartScreen" >
-            <StackAuth.Screen name="StartScreen" component={StartScreen} options={{ title: "Welcome" }} />
+            <StackAuth.Screen name="StartScreen" component={StartScreen} options={{ headerShown: false }} />
         </StackAuth.Navigator>
     )
 }
@@ -82,6 +84,8 @@ function TabNavigator({ navigation, extraData }) {
                     iconName = focused ? 'ios-list-circle' : 'ios-list';
                 } else if (route.name === 'Shopping') {
                     iconName = focused ? 'basket' : 'basket-outline'
+                } else if (route.name === 'Recipes') {
+                    iconName = focused ? 'ios-compass' : 'ios-compass-outline'
                 } else if (route.name === 'Favorites') {
                     iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
                 }
@@ -128,7 +132,7 @@ function App() {
     return (
         <AuthContext.Provider value={authContext} >
             <NavigationContainer>
-                <MainStack.Navigator initialRouteName="StartScreen">
+                <MainStack.Navigator initialRouteName="StartScreen" >
                     {user ? (
                         <>
                             <MainStack.Screen name="HomeScreen" options={{ headerShown: false }} >
