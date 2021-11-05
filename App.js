@@ -35,6 +35,8 @@ function TabNavigator({ navigation, extraData }) {
                     iconName = focused ? 'ios-list-circle' : 'ios-list';
                 } else if (route.name === 'Shopping') {
                     iconName = focused ? 'basket' : 'basket-outline'
+                } else if (route.name === 'Recipes') {
+                    iconName = focused ? 'ios-compass' : 'ios-compass-outline'
                 } else if (route.name === 'Favorites') {
                     iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
                 } else if (route.name === 'Surprise') {
@@ -52,6 +54,7 @@ function TabNavigator({ navigation, extraData }) {
             <Tab.Screen name="Surprise" component={SurpriseMeScreen} options={{ headerShown: false }}/>
             <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ headerShown: false }}/>
             <Tab.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Recipes" component={SettingScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
     )
 }
