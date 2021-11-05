@@ -79,7 +79,6 @@ export default class MyFridge extends Component {
         return (
 
             <View style={MealStyles.fridgeContainer} >
-                <Text style={MealStyles.green} > Your inventory </Text>
                 {/* <View style={MealStyles.fridgeInputContainer}>
                     <TextInput style={MealStyles.fridgeInput}
                         placeholder='Add an item to your fridge'
