@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { MealStyles } from '../../styles/global';
 
-class RecipeScreen extends React.Component {
+export default class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,5 +17,3 @@ class RecipeScreen extends React.Component {
         );
     }
 }
-
-export default RecipeScreen;
