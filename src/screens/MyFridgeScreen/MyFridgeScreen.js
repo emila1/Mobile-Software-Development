@@ -17,6 +17,9 @@ export default class MyFridge extends Component {
                 }, {
                     title: "Vegetables",
                     data: ["Green Beans", "Onions", "Carrots"]
+                }, {
+                    title: "Misc",
+                    data: ["Wheat Flour", "Sugar", "Salt", "Peper"]
                 }
             ],
             value: ''
@@ -79,8 +82,10 @@ export default class MyFridge extends Component {
                         <AntDesign name='pluscircle' size={30} color={'green'} />
                     </TouchableOpacity>
                 </View>
-                <SectionList sections={this.state.fridgeItems}
+                <SectionList
+                    sections={this.state.fridgeItems}
                     keyExtractor={(item, index) => item + index}
+                    nestedScrollEnabled={true}
                     renderItem={({ item, index }) => <Item title={item} index={index} />}
                     renderSectionHeader={({ section: { title } }) => (
                         <View style={MealStyles.fridgeInputContainer} >
