@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Text, View, Image, Button, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { AuthContext } from './src/AuthContext/AuthContext';
 //import { MealStyles } from './src/styles/global';
 //import MealMeScreen from "./src/screens/mealMe";
@@ -18,9 +17,57 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
 
-const Stack = createNativeStackNavigator();
+const MainStack = createNativeStackNavigator();
+const StackHome = createNativeStackNavigator();
+const StackShopping = createNativeStackNavigator();
+const StackFavorite = createNativeStackNavigator();
+const StackSettings = createNativeStackNavigator();
+const StackAuth = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
+function HomeStack({ navigation }) {
+    return (
+        <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
+            <StackHome.Screen name="HomeScreen" component={Homescreen} options={{ title: "Home" }} />
+            <StackHome.Screen name="Recipe" component={RecipeScreen} />
+        </StackHome.Navigator>
+    )
+}
+
+//Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
+function ShoppingStack({ navigation }) {
+    return (
+        <StackShopping.Navigator initialRouteName="MyFridge" navigation={navigation} >
+            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} />
+
+        </StackShopping.Navigator>
+    )
+}
+
+function FavoriteStack({ navigation }) {
+    return (
+        <StackFavorite.Navigator navigation={navigation} >
+            <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} />
+        </StackFavorite.Navigator>
+    )
+}
+
+function SettingsStack({ navigation }) {
+    return (
+        <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} >
+            <StackSettings.Screen name="Setting" component={SettingScreen} />
+        </StackSettings.Navigator>
+    )
+}
+
+function AuthStack({ navigation }) {
+    return (
+        <StackAuth.Navigator navigation={navigation} initialRouteName="StartScreen" >
+            <StackAuth.Screen name="StartScreen" component={StartScreen} options={{ title: "Welcome" }} />
+        </StackAuth.Navigator>
+    )
+}
 
 function TabNavigator({ navigation, extraData }) {
     return (
@@ -37,8 +84,6 @@ function TabNavigator({ navigation, extraData }) {
                     iconName = focused ? 'basket' : 'basket-outline'
                 } else if (route.name === 'Favorites') {
                     iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
-                } else if (route.name === 'Surprise') {
-                    iconName = focused ? 'ios-compass' : 'ios-compass-outline'
                 }
 
                 // You can return any component that you like here!
@@ -47,49 +92,68 @@ function TabNavigator({ navigation, extraData }) {
             tabBarActiveTintColor: 'tomato',
             tabBarInactiveTintColor: 'gray',
         })}>
-            <Tab.Screen name="Home" component={Homescreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Shopping" component={MyFridgeScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Surprise" component={SurpriseMeScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Home" >
+                {props => <HomeStack {...props} extraData={extraData} />}
+            </Tab.Screen>
+            <Tab.Screen name="Shopping" component={ShoppingStack} />
+            <Tab.Screen name="Favorites" component={FavoriteStack} />
+            <Tab.Screen name="Settings" >
+                {props => <SettingsStack {...props} extraData={extraData} />}
+            </Tab.Screen>
         </Tab.Navigator>
     )
 }
 
+
 function App() {
-const [user, setUser] = React.useState(null)
-    
-const authContext = React.useMemo(() => ({
-    signUp: async data => {
-        Alert.alert("Signing up", data)
-    },
-    signIn: async data => {
-        Alert.alert("Navigating to sign in", data)
-    },
-    signOut: async () => {
-        Alert.alert("Signing out", data)
-    },
-    signInGuest: async () => {
-        setUser('Guest')
-    }
-}), []);
+
+    const [user, setUser] = React.useState(null)
+
+    const authContext = React.useMemo(() => ({
+        signUp: async data => {
+            Alert.alert("Signing up", data)
+        },
+        signIn: async data => {
+            Alert.alert("Navigating to sign in", data)
+        },
+        signOut: async () => {
+            Alert.alert("Signing out", data)
+        },
+        signInGuest: async () => {
+            setUser('Guest')
+
+        }
+    }), []);
 
     return (
         <AuthContext.Provider value={authContext} >
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="StartScreen">
+                <MainStack.Navigator initialRouteName="StartScreen">
                     {user ? (
                         <>
-                            <Stack.Screen name="HomeScreen" options={{ headerShown: false }}>
+                            <MainStack.Screen name="HomeScreen" options={{ headerShown: false }} >
                                 {props => <TabNavigator {...props} extraData={user} />}
-                            </Stack.Screen>
+                            </MainStack.Screen>
                         </>
                     ) : (
                         <>
-                           <Stack.Screen name="Start" component={StartScreen} options={{ title: "Welcome" }} />
+                            <MainStack.Screen name="Start" options={{ headerShown: false }}>
+                                {props => <AuthStack {...props} />}
+                            </MainStack.Screen>
                         </>
                     )}
-            </Stack.Navigator>
+                </MainStack.Navigator>
+
+
+                {/* <Stack.Navigator initialRouteName="Start" >
+                <Stack.Screen name="Home" component={Homescreen} />
+                <Stack.Screen name="Start" component={StartScreen} />
+                <Stack.Screen name="MealMe" component={MealMeScreen} />
+                <Stack.Screen name="Recipe" component={RecipeScreen} />
+                <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen} />
+                <Stack.Screen name="MyFridge" component={MyFridge} />
+                <Stack.Screen name="Setting" component={SettingScreen} />
+            </Stack.Navigator> */}
             </NavigationContainer>
         </AuthContext.Provider>
     );
