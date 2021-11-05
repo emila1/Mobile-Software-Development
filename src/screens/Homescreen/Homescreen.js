@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, Image, Button, StyleSheet, ScrollView } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
 import RecipeCard from '../../components/recipeCard'
 
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
