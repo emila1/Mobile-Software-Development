@@ -12,7 +12,7 @@ export default class FavoritesScreen extends Component {
     render() {
         return (
          <View style={MealStyles.container}>
-            <Text style={MealStyles.green}>Favorites Screen</Text>
+            <Text style={MealStyles.green}>Favorites Recipe</Text>
         </View>
         );
     }

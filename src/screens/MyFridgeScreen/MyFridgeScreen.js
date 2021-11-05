@@ -17,7 +17,7 @@ export default class MyFridge extends Component {
             
             <View style={MealStyles.fridgeAdd}>
                  <TextInput style={MealStyles.fridgeText} placeholder="Add new"/> 
-                 <Icon style={MealStyles.Addicon} name="plus-circle" size={20} color="#A7A1A1" onPress={() => navigation.navigate('HomeScreen')}/>                 
+                 <Icon style={MealStyles.Addicon} name="plus-circle" size={20} color="#A7A1A1" onPress={() => { this.props.navigation.goBack('Recipe') }}/>                 
             </View > 
 
         </View>
