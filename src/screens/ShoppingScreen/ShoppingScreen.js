@@ -16,7 +16,7 @@ export default class ShoppingScreen extends Component {
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold' }} >Access your Fridge inventory or your shopping list </Text>
                 <View style={MealStyles.ButtonContainer} >
                     <View style={MealStyles.ShoppingButton} >
-                        <TouchableOpacity style={{ height: '100%', width: '100%' }} onPress={() => this.props.navigation.navigate("MyFridge")} >
+                        <TouchableOpacity style={{ height: '100%', width: '100%' }} onPress={() => this.props.navigation.navigate("Your Inventory")} >
                             <Text style={MealStyles.ShoppingButtonText} >My Fridge</Text>
                         </TouchableOpacity>
                     </View>
