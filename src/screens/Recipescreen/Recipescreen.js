@@ -9,7 +9,7 @@ class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            randomRecipes: getRandomRecipe(10),
+            randomRecipes: getRandomRecipe(1),
         };
     }
 
@@ -21,12 +21,9 @@ class RecipeScreen extends React.Component {
                     keyExtractor={item => this.state.randomRecipes.image_urls} // Only unique thing that can be used as key
                     keyboardDismissMode="on-drag"
                     showsVerticalScrollIndicator={false}
-                    ListHeaderComponent={
-                        <View></View>
-                    }
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity style={test.touch}>
+                            <TouchableOpacity style={test.touchContainer}>
 
                             <Image style={test.image}
                                 source={require('../../../recipes/full/00f1cf5a0611f25aeb447db5a3845602034d6813.jpg')}
@@ -54,25 +51,25 @@ const test = StyleSheet.create({
         flex: 1,
         backgroundColor: '#C1553E'
     },
-    touch: {
+    touchContainer: {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 10,
         marginTop: 10,
     },
     image: {
-        height: 200,
-        width: 200,
-        borderRadius: 50
+        height: 150,
+        width: 150,
+        borderRadius: 30
     },
     v: {
         width: '65%',
         paddingHorizontal: 20
     },
     text: {
-        fontSize: 15,
+        fontSize: 20,
         color: '#ffffff',
-        paddingBottom: 1
+        paddingBottom: 2
     }
 });
 
