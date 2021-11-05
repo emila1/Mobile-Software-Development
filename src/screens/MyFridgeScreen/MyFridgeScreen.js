@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, SectionList } from 'react-native';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, SectionList, Modal } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
@@ -22,9 +22,14 @@ export default class MyFridge extends Component {
                     data: ["Wheat Flour", "Sugar", "Salt", "Peper"]
                 }
             ],
-            value: ''
+            value: '',
+            modalVisible: false
         };
 
+    }
+
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
     }
 
     onChangeValue = event => {
@@ -82,6 +87,25 @@ export default class MyFridge extends Component {
                         <AntDesign name='pluscircle' size={30} color={'green'} />
                     </TouchableOpacity>
                 </View> */}
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        this.setModalVisible(!modalVisible)
+                    }}>
+                    <View style={MealStyles.fridgeModalView} >
+                        <View style={MealStyles.fridgeInputModal} >
+                            <TextInput style={MealStyles.fridgeInput}
+                                placeholder='Add an item to your fridge'
+                                value={this.state.value}
+                                onChange={this.onChangeValue.bind(this)} />
+                            <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} >
+                                <Ionicons name='checkmark' size={20} color={'black'} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
                 <SectionList
                     sections={this.state.fridgeItems}
                     keyExtractor={(item, index) => item + index}
@@ -90,7 +114,10 @@ export default class MyFridge extends Component {
                     renderSectionHeader={({ section: { title } }) => (
                         <View style={MealStyles.fridgeInputContainer} >
                             <Text style={{ fontSize: 30 }} >{title}</Text>
-                            <TouchableOpacity onPress={() => this.onAddItem()} >
+                            <TouchableOpacity onPress={() =>
+                                //this.onAddItem()
+                                this.setModalVisible(true)
+                            } >
                                 <AntDesign name='pluscircle' size={30} color={'green'} />
                             </TouchableOpacity>
                         </View>

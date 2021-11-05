@@ -158,7 +158,7 @@ export const MealStyles = StyleSheet.create({
         width: windowWidth,
         padding: 6,
         justifyContent: 'center',
-        margin: 4
+        margin: 4,
     },
     fridgeInput: {
         height: 40,
@@ -166,13 +166,41 @@ export const MealStyles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        width: '80%'
+        width: '80%',
     },
     fridgeItem: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        width: windowWidth
+        width: windowWidth,
+    },
+    fridgeModalView: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(100,100,100, 0.5)',
+        padding: 20,
+        // flex: 1,
+        // justifyContent: "center",
+        // alignItems: "center",
+        // marginTop: 22,
+    },
+    fridgeInputModal: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        flexDirection: 'row'
     }
 
 
