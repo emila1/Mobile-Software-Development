@@ -82,6 +82,8 @@ function TabNavigator({ navigation, extraData }) {
                     iconName = focused ? 'ios-list-circle' : 'ios-list';
                 } else if (route.name === 'Shopping') {
                     iconName = focused ? 'basket' : 'basket-outline'
+                } else if (route.name === 'Recipes') {
+                    iconName = focused ? 'ios-compass' : 'ios-compass-outline'
                 } else if (route.name === 'Favorites') {
                     iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
                 }
