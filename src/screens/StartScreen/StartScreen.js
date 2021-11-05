@@ -14,8 +14,8 @@ export default function StartScreen() {
                 <Image source={require('../../../assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }} />
             </View>
 
-            <Text style={MealStyles.red}>Keep your meal up to date......</Text>
-            <Text style={MealStyles.blue}>. . . .</Text>
+            <Text style={MealStyles.red}>Sign in, or try out the app as guest!</Text>
+            <Text style={MealStyles.blue}>. . . . .</Text>
 
             <View style={MealStyles.buttonGuest}>
                 <Button style={MealStyles.buttonStyle} title="Sign in" />

@@ -1,17 +1,16 @@
-import * as React from 'react';
-import { Text, View, Image, Button, StyleSheet, Pressable, ScrollView, Dimensions } from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, Image, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
-import RecipeCard from '../../components/recipeCard';
 
-
-export default class MealMeScreen extends React.Component {
+export default class MealMeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
 
         };
+        
     }
     render() {
         return (
@@ -82,5 +81,3 @@ export default class MealMeScreen extends React.Component {
         );
     }
 }
-
-
