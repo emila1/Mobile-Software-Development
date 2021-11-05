@@ -9,6 +9,8 @@ const windowHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('screen').width;
 const screenHeight = Dimensions.get('screen').height;
 
+// This is a test comment for github
+
 
 const recipe = recipes;
 const ind = 30;                // Manual input for recipe index. 
