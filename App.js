@@ -29,7 +29,7 @@ const Tab = createBottomTabNavigator();
 function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
-            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}  />
+            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
         </StackHome.Navigator>
     )
@@ -40,8 +40,8 @@ function ShoppingStack({ navigation }) {
     return (
 
         <StackShopping.Navigator initialRouteName="ShoppingTab" navigation={navigation} >
-            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} options={{ headerShown: false }} />
-            <StackShopping.Screen name="ShoppingTab" component={ShoppingScreen} />
+            <StackShopping.Screen name="Your Inventory" component={MyFridgeScreen} options={{ headerTitle: "Your inventory", headerTitleAlign: 'center' }} />
+            <StackShopping.Screen name="ShoppingTab" component={ShoppingScreen} options={{ headerShown: false }} />
         </StackShopping.Navigator>
     )
 }
