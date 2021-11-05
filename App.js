@@ -54,7 +54,7 @@ function TabNavigator({ navigation, extraData }) {
             <Tab.Screen name="Surprise" component={SurpriseMeScreen} options={{ headerShown: false }}/>
             <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ headerShown: false }}/>
             <Tab.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Recipes" component={SettingScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Recipes" component={RecipeScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
     )
 }

@@ -9,7 +9,7 @@ class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            randomRecipes: getRandomRecipe(1),
+            randomRecipes: getRandomRecipe(20),
         };
     }
 
@@ -18,7 +18,7 @@ class RecipeScreen extends React.Component {
             <SafeAreaView style={test.Container}>
                 <FlatList
                     data={this.state.randomRecipes}
-                    keyExtractor={item => this.state.randomRecipes.image_urls} // Only unique thing that can be used as key
+                    keyExtractor={item => this.state.randomRecipes.image_urls} // Only "unique" thing that can be used as key, others give error randomly
                     keyboardDismissMode="on-drag"
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => {
