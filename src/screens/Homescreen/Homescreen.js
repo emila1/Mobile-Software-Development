@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, ScrollView } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealStyles } from '../../styles/global';
+import RecipeCard from '../../components/recipeCard'
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -10,16 +12,15 @@ export default class HomeScreen extends React.Component {
         this.state = {
 
         };
-        
     }
     render() {
         return (
             <View style={MealStyles.container}>
                 {/*<Text style={MealStyles.green}>MealMe</Text> */}
-               {/*} <Text style={MealStyles.pink}>Your Health and Time are important for us</Text> */}
-               {/* <Text style={MealStyles.gold}>Start to find some good recipes. The surprise ME will surprise you</Text> */}
+                {/*} <Text style={MealStyles.pink}>Your Health and Time are important for us</Text> */}
+                {/* <Text style={MealStyles.gold}>Start to find some good recipes. The surprise ME will surprise you</Text> */}
 
-               {/*} <View style={MealStyles.mealButtons}> 
+                {/*} <View style={MealStyles.mealButtons}> 
                     <View style={MealStyles.alignMe1}>
                         <Button style={MealStyles.button} title="Recipes" onPress={() => this.props.navigation.navigate('Recipe')} /> 
                     </View>
@@ -66,7 +67,7 @@ export default class HomeScreen extends React.Component {
                         style={MealStyles.cardScrollerText}
                     >
                         Random recipes
-                        </Text>
+                    </Text>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
