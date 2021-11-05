@@ -4,8 +4,8 @@ import { getRandomRecipe, searchIngredients } from '../../utils/search'
 import { MealStyles } from '../../styles/global'
 import { AuthContext } from '../../AuthContext/AuthContext';
 
-
-export default function StartScreen(props) {
+export default function StartScreen() {
+    
     const { signInGuest } = useContext(AuthContext)
 
     return (
@@ -14,8 +14,8 @@ export default function StartScreen(props) {
                 <Image source={require('../../../assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }} />
             </View>
 
-            <Text style={MealStyles.red}>Keep your meal up to date......</Text>
-            <Text style={MealStyles.blue}>. . . .</Text>
+            <Text style={MealStyles.red}>Sign in, or try out the app as guest!</Text>
+            <Text style={MealStyles.blue}>. . . . .</Text>
 
             <View style={MealStyles.buttonGuest}>
                 <Button style={MealStyles.buttonStyle} title="Sign in" />
@@ -31,6 +31,4 @@ export default function StartScreen(props) {
 
         </View>
     );
-
 }
-

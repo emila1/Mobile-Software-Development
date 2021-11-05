@@ -12,7 +12,7 @@ import { AuthContext } from './src/AuthContext/AuthContext';
 //import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
 //import MyFridge from "./src/screens/myFridge";
 //import SettingScreen from "./src/screens/settings";
-import { Homescreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -29,7 +29,7 @@ const Tab = createBottomTabNavigator();
 function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
-            <StackHome.Screen name="HomeScreen" component={Homescreen} options={{ title: "Home" }} />
+            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ title: "Home" }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
         </StackHome.Navigator>
     )

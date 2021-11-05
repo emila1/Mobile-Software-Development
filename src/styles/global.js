@@ -1,21 +1,35 @@
 import { StyleSheet, Dimensions, StatusBar } from 'react-native';
-
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('screen').width;
+const screenHeight = Dimensions.get('screen').height;
 
 export const MealStyles = StyleSheet.create({
     //CSS for App.js
     container: {
-        paddingTop: 30,
+        paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
+    },
+    cardScroller: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 50,
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+    },
+    cardScrollerText: {
+        padding: 5,
+        textAlign: 'left',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     buttonStyle: {
         color: 'black'
     },
     buttonCreat: {
-        paddingTop: 180
+        paddingTop: 150
     },
     red: {
         justifyContent: 'center',
@@ -91,6 +105,7 @@ export const MealStyles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 23,
         paddingRight: 23,
+        height: 85
 
     },
 
@@ -99,7 +114,7 @@ export const MealStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        width: Dimensions.get('window').width,
+        width: windowWidth,
 
     },
     ShoppingButton: {
@@ -123,8 +138,8 @@ export const MealStyles = StyleSheet.create({
         fontSize: 20,
     },
     fridgeContainer: {
-        height: Dimensions.get('window').height,
-        width: Dimensions.get('window').width,
+        height: windowHeight,
+        width: windowWidth,
         alignContent: 'center',
         alignItems: 'center',
         paddingTop: StatusBar.currentHeight,
@@ -132,7 +147,7 @@ export const MealStyles = StyleSheet.create({
     fridgeInputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: Dimensions.get('window').width,
+        width: windowWidth,
         padding: 6,
         justifyContent: 'center',
         margin: 4
@@ -149,7 +164,7 @@ export const MealStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        width: Dimensions.get('window').width
+        width: windowWidth
     }
 
 
