@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 import { MealStyles } from '../../styles/global';
 
-export default class FavoritesScreen extends Component {
+export default class FavoritesScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
