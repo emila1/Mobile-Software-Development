@@ -2,9 +2,10 @@ import React from 'react';
 import { Text, View, Image, SafeAreaView, TouchableOpacity, TextInput, FlatList, StyleSheet } from 'react-native';
 import { MealStyles } from '../../styles/global';
 import { getRandomRecipe } from '../../utils/search';
-import Recepies from '../../../recipes/recipes.json';
+import Recipes from '../../../recipes/recipes.json';
 
-
+const recipe = Recipes;
+const ind = 55;
 class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +27,7 @@ class RecipeScreen extends React.Component {
                             <TouchableOpacity style={test.touchContainer}>
 
                             <Image style={test.image}
-                                source={require('../../../recipes/full/00f1cf5a0611f25aeb447db5a3845602034d6813.jpg')}
+                                source={{uri: recipe[ind].image_urls[0]}}
                                 resizeMode="cover"
                             />
                 
