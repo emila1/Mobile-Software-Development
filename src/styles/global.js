@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { useFonts, Montserrat,} from '@expo-google-fonts/inter';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('screen').width;
@@ -20,7 +21,8 @@ export const MealStyles = StyleSheet.create({
         alignSelf: 'center',
     },
     cardScrollerText: {
-        padding: 5,
+        paddingTop: '3%',
+        paddingLeft: '2%',
         textAlign: 'left',
         fontSize: 20,
         fontWeight: 'bold',
