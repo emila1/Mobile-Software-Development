@@ -23,13 +23,16 @@ export default class MyFridge extends Component {
                 }
             ],
             value: '',
-            modalVisible: false
+            modalVisible: false,
+            title: ''
         };
-
     }
 
-    setModalVisible = (visible) => {
+
+    setModalVisible = (visible, title) => {
+        this.setState({ title: title })
         this.setState({ modalVisible: visible });
+        this.setState({ value: '' })
     }
 
     onChangeValue = event => {
@@ -37,19 +40,19 @@ export default class MyFridge extends Component {
     };
 
     onAddItem = () => {
+        console.log(this.state.title)
         if (this.state.value != '') {
-            if (!this.state.fridgeItems.includes(this.state.value)) {
 
-                this.setState(state => {
-                    const fridgeItems = state.fridgeItems.concat(state.value);
-                    return {
-                        fridgeItems,
-                        value: '',
-                    };
-                });
-            } else {
-                Alert.alert("Item already exists")
-            }
+            this.state.fridgeItems.forEach(element => {
+                if ((element.title == this.state.title) && !element.data.includes(this.state.value)) {
+                    console.log("Specific", element)
+                    this.setState(state => {
+                        console.log("state: " + [...state.fridgeItems])
+                        element.data = [...element.data, state.value]
+                    })
+                }
+            })
+            this.setModalVisible(!this.state.modalVisible, '')
         }
     };
 
@@ -73,11 +76,9 @@ export default class MyFridge extends Component {
                 </TouchableOpacity>
             </View >
         )
-        console.log(this.state)
         return (
 
             <View style={MealStyles.fridgeContainer} >
-                <Text style={MealStyles.green} > Your inventory </Text>
                 {/* <View style={MealStyles.fridgeInputContainer}>
                     <TextInput style={MealStyles.fridgeInput}
                         placeholder='Add an item to your fridge'
@@ -88,6 +89,7 @@ export default class MyFridge extends Component {
                     </TouchableOpacity>
                 </View> */}
                 <Modal
+
                     animationType="fade"
                     transparent={true}
                     visible={this.state.modalVisible}
@@ -100,7 +102,7 @@ export default class MyFridge extends Component {
                                 placeholder='Add an item to your fridge'
                                 value={this.state.value}
                                 onChange={this.onChangeValue.bind(this)} />
-                            <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} >
+                            <TouchableOpacity onPress={() => this.onAddItem()} >
                                 <Ionicons name='checkmark' size={20} color={'black'} />
                             </TouchableOpacity>
                         </View>
@@ -116,7 +118,7 @@ export default class MyFridge extends Component {
                             <Text style={{ fontSize: 30 }} >{title}</Text>
                             <TouchableOpacity onPress={() =>
                                 //this.onAddItem()
-                                this.setModalVisible(true)
+                                this.setModalVisible(true, title)
                             } >
                                 <AntDesign name='pluscircle' size={30} color={'green'} />
                             </TouchableOpacity>

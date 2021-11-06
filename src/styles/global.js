@@ -112,7 +112,7 @@ export const MealStyles = StyleSheet.create({
 
     //ShoppingScreen
     ShoppingViewContainer: {
-        paddingTop: 10,
+        paddingTop: '20%',
         paddingLeft: 10,
         paddingRight: 10,
         flex: 1,
