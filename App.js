@@ -3,15 +3,6 @@ import { Text, View, Image, Button, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
-//import { MealStyles } from './src/styles/global';
-//import MealMeScreen from "./src/screens/mealMe";
-//import RecipeScreen from "./src/screens/recipes";
-//import SurpriseMeScreen from "./src/screens/surpriseMe";
-//import Homescreen from './src/screens/Homescreen/Homescreen';
-//import StartScreen from './src/screens/StartScreen/StartScreen';
-//import FavoritesScreen from './src/screens/FavoritesScreen/FavoritesScreen';
-//import MyFridge from "./src/screens/myFridge";
-//import SettingScreen from "./src/screens/settings";
 import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
@@ -82,12 +73,12 @@ function TabNavigator({ navigation, extraData }) {
                     iconName = focused ? 'ios-home' : 'ios-home-outline';
                 } else if (route.name === 'Settings') {
                     iconName = focused ? 'ios-list-circle' : 'ios-list';
-                } else if (route.name === 'Shopping') {
+                } else if (route.name === 'Fridge') {
                     iconName = focused ? 'basket' : 'basket-outline'
                 } else if (route.name === 'Recipes') {
                     iconName = focused ? 'ios-compass' : 'ios-compass-outline'
                 } else if (route.name === 'Favorites') {
-                    iconName = focused ? 'heart-circle-sharp' : 'heart-circle-outline'
+                    iconName = focused ? 'restaurant' : 'restaurant-outline'
                 }
 
                 // You can return any component that you like here!
@@ -99,7 +90,7 @@ function TabNavigator({ navigation, extraData }) {
             <Tab.Screen name="Home" >
                 {props => <HomeStack {...props} extraData={extraData} />}
             </Tab.Screen>
-            <Tab.Screen name="Shopping" component={ShoppingStack} />
+            <Tab.Screen name="Fridge" component={ShoppingStack} />
             <Tab.Screen name="Favorites" component={FavoriteStack} />
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
@@ -147,17 +138,6 @@ function App() {
                         </>
                     )}
                 </MainStack.Navigator>
-
-
-                {/* <Stack.Navigator initialRouteName="Start" >
-                <Stack.Screen name="Home" component={Homescreen} />
-                <Stack.Screen name="Start" component={StartScreen} />
-                <Stack.Screen name="MealMe" component={MealMeScreen} />
-                <Stack.Screen name="Recipe" component={RecipeScreen} />
-                <Stack.Screen name="SurpriseMe" component={SurpriseMeScreen} />
-                <Stack.Screen name="MyFridge" component={MyFridge} />
-                <Stack.Screen name="Setting" component={SettingScreen} />
-            </Stack.Navigator> */}
             </NavigationContainer>
         </AuthContext.Provider>
     );

@@ -25,8 +25,9 @@ function searchIngredients(ingredientList, n) {
     recipeIndex = sortByFrequency(recipeIndex);   // Returns duplicate-free, sorted list of recipes  
     recipeIndex = recipeIndex.slice(0, n);        // Limit returned list to N recipes
 
-    recipeIndex.map((index) => {                  // Add found recipes to returned list.
-        returnList.push(index, recipes[index]);
+    recipeIndex.map((index) => {                  // Add found recipe indexes to returned list.
+        //returnList.push(index, recipes[index]);
+        returnList.push(parseInt(index));
     });
     return returnList;
     //return returnList;
@@ -41,7 +42,7 @@ function getRandomRecipe(n = 5) {
 
     for (let i = 0; i < n; i++) {
         let rnd = randomNumber(0, recipes.length);
-        returnRecipes.push(rnd, recipes[rnd]);
+        returnRecipes.push(parseInt(rnd));
         // console.log(rnd, recipes[rnd]);
     }
     return returnRecipes;
@@ -69,11 +70,15 @@ function sortByFrequency(array) {
 
 
 
-// let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"]; 
+//let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"]; 
 
 // let t0= performance.now(); //start time
-// console.log(searchIngredients(list, 10)); 
-// console.log(getRandomRecipe(10));
+//let ing = searchIngredients(list, 10);
+
+//console.log(ing);
+//ing.map(recipe => console.log(recipe));
+//console.log(ing[2]);
+//console.log(getRandomRecipe(10));
 // let t1= performance.now(); //end time
 
 // console.log('Time taken to execute function:'+ (t1-t0) +' milliseconds');

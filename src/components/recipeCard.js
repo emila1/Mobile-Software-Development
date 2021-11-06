@@ -9,37 +9,35 @@ const windowHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('screen').width;
 const screenHeight = Dimensions.get('screen').height;
 
-// This is a test comment for github
-
 
 const recipe = recipes;
-const ind = 30;                // Manual input for recipe index. 
 class RecipeCard extends React.Component {
-    
-    // Get recipe info here. 
+    state = {
+        id : this.props.value       // index of the recipe 
+    }
 
-    render() { 
+    render() {
         return (
         <View style={styles.cardContainer}>
             <Image 
                 style={styles.image}
-                source={{uri: recipe[ind].image_urls[0]}}/>
+                source={{uri: recipe[this.state.id].image_urls[0]}}/>
             <View
                 style={styles.textContainer}
             >
-                <Text numberOfLines={2} style={styles.titleText}>{recipe[ind].title}</Text>
+                <Text numberOfLines={2} style={styles.titleText}>{recipe[this.state.id].title}</Text>
 
                 <View style={styles.headTextContainer}>
                     <Ionicons name={'time'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[ind].head[0]}</Text>
+                    <Text style={styles.headText}>{recipe[this.state.id].head[0]}</Text>
                     <Ionicons name={'hourglass'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[ind].head[1]}</Text>
+                    <Text style={styles.headText}>{recipe[this.state.id].head[1]}</Text>
                     <Ionicons name={'people'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[ind].head[2]}</Text>
+                    <Text style={styles.headText}>{recipe[this.state.id].head[2]}</Text>
                     <Ionicons name={'book'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[ind].head[3]}</Text>
+                    <Text style={styles.headText}>{recipe[this.state.id].head[3]}</Text>
                 </View>
-
+  
             </View>
         </View>
         );
@@ -47,7 +45,7 @@ class RecipeCard extends React.Component {
 }
 
 
-const styles = StyleSheet.create({  // Temporary styling, move to global stylesheet
+const styles = StyleSheet.create({  
     cardContainer: {
         margin: windowWidth * 0.02,
         width: windowWidth * 0.7,
@@ -69,24 +67,26 @@ const styles = StyleSheet.create({  // Temporary styling, move to global stylesh
         width: windowWidth * 0.7,
         bottom: 0,
     },
-    headTextContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: "space-around",
-        paddingRight: '10%',
-    },
     titleText: {
         color:'black',
         fontWeight: 'bold',
         fontSize: 17,
-
         bottom: 0,
         left: 0,
     },
+    headTextContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center",
+        paddingLeft: '13%',
+        position: 'absolute',
+        bottom: 0
+    },
     headText: {
-
         color:'black',
-        fontSize: 10,
+        fontSize: 12,
+        padding: 3
     },
     image: {
         height: windowHeight * 0.25,
