@@ -1,16 +1,9 @@
-import { StyleSheet, Dimensions, StatusBar } from 'react-native';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const screenWidth = Dimensions.get('screen').width;
-const screenHeight = Dimensions.get('screen').height;
+import { StyleSheet } from 'react-native';
+
 
 export const MealStyles = StyleSheet.create({
     //CSS for App.js
-    container: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-    },
+
     cardScroller: {
         paddingTop: 10,
         paddingLeft: 10,
@@ -19,13 +12,7 @@ export const MealStyles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
     },
-    cardScrollerText: {
-        paddingTop: '3%',
-        paddingLeft: '2%',
-        textAlign: 'left',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
+
     buttonStyle: {
         color: 'black'
     },
@@ -144,66 +131,4 @@ export const MealStyles = StyleSheet.create({
         width: '100%',
         fontSize: 20,
     },
-    fridgeContainer: {
-        height: windowHeight,
-        width: windowWidth,
-        alignContent: 'center',
-        alignItems: 'center',
-        paddingTop: StatusBar.currentHeight,
-        flex: 1,
-        paddingBottom: '4%'
-    },
-    fridgeInputContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: windowWidth,
-        padding: 6,
-        justifyContent: 'center',
-        margin: 4,
-    },
-    fridgeInput: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 10,
-        width: '80%',
-    },
-    fridgeItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: windowWidth,
-    },
-    fridgeModalView: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(100,100,100, 0.5)',
-        padding: 20,
-        // flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
-        // marginTop: 22,
-    },
-    fridgeInputModal: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        flexDirection: 'row'
-    }
-
-
-
 });

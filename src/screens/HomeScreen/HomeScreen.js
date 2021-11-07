@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, Image, Button, StyleSheet, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MealStyles } from '../../styles/global';
 import RecipeCard from '../../components/recipeCard'
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
@@ -19,13 +18,13 @@ export default class HomeScreen extends Component {
     render() {
         return (
 
-            <View style={MealStyles.container}>
+            <View style={styles.container}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                 >
 
                     <Text
-                        style={MealStyles.cardScrollerText}
+                        style={styles.cardScrollerText}
                     >Your recipes</Text>
                     <ScrollView
                         horizontal={true}
@@ -40,7 +39,7 @@ export default class HomeScreen extends Component {
                     </ScrollView>
 
                     <Text
-                        style={MealStyles.cardScrollerText}
+                        style={styles.cardScrollerText}
                     >
                         Random recipes
                     </Text>
@@ -60,7 +59,7 @@ export default class HomeScreen extends Component {
                     </ScrollView>
 
                     <Text
-                        style={MealStyles.cardScrollerText}
+                        style={styles.cardScrollerText}
                     >
                         Recommended recipes
                     </Text>
@@ -78,3 +77,18 @@ export default class HomeScreen extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    cardScrollerText: {
+        paddingTop: '3%',
+        paddingLeft: '2%',
+        textAlign: 'left',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+})
