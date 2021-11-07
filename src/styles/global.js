@@ -203,8 +203,32 @@ export const MealStyles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         flexDirection: 'row'
+    },
+
+    //RecipeScreen CSS 
+    recipeContainer: {
+        flex: 1,
+        backgroundColor: '#C1553E'
+    },
+    recipeflatListContainer: {
+        marginTop: 10,
+    },
+    recipeTouchContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: 10,
+        padding: 10,
+    },
+    recipeTitle: {
+        fontSize: 60,
+        color: '#ffffff',
+        textAlign: 'center',
+        marginTop: 25,
+    },
+    RecipeSubtext: {
+        fontSize: 14,
+        color: '#ffffff',
+        textAlign: 'center',
     }
-
-
 
 });

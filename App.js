@@ -26,6 +26,14 @@ function HomeStack({ navigation }) {
     )
 }
 
+function RecipieStack({ navigation }) { // Temp for testing RecipieScreen
+    return (
+        <StackFavorite.Navigator navigation={navigation} >
+            <StackFavorite.Screen name="RecipeScreen" component={RecipeScreen} options={{ headerShown: false }} />
+        </StackFavorite.Navigator>
+    )
+}
+
 //Implement Shopping Screen with MyFridge and ShoppingList screens nested. Change initialroute
 function ShoppingStack({ navigation }) {
     return (
@@ -95,6 +103,7 @@ function TabNavigator({ navigation, extraData }) {
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
             </Tab.Screen>
+            <Tab.Screen name="Recipes" component={RecipieStack} />
         </Tab.Navigator>
     )
 }
