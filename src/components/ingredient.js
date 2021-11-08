@@ -1,21 +1,36 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Text, TextInput,View, Image } from 'react-native';
+import { StyleSheet, Dimensions, Text, View, CheckBox} from 'react-native';
 import IngredientContext from '../IngredientContext/IngredientContext';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('screen').width;
+import { Ionicons } from '@expo/vector-icons'
 
 class Ingredient extends React.Component {
-    static contextType = IngredientContext;
+    //static contextType = IngredientContext;
+
+    state = {
+        element : this.props.value
+    }
+
+    constructor(props) {
+        super(props);
+        this.handlePress.bind(this);
+    }
+
+    handlePress() {
+        console.log("Item clicked", this);
+    }
     
     render() {
-        const input = this.context;
 
         return(
             <View style={styles.listContainer}> 
-                {input.map( element => <Text>{element.name}</Text>)}
-                <TextInput>Input item here</TextInput> 
-
+                <CheckBox 
+                    value={this.state.element.owned}
+                    tintColors={{ true: '#F15927', false: 'black' }} 
+                />
+                <Text style={styles.textContainer}>{this.state.element.name}</Text>
             </View>
         );
     }
@@ -23,29 +38,26 @@ class Ingredient extends React.Component {
 
 const styles = StyleSheet.create({  
     listContainer: {
-        width: screenWidth * .90,
-        height: windowHeight * 0.25,
-        marginLeft: '2%',
-        marginTop: '5%',
-        paddingTop: '5%',
-        backgroundColor: 'orange',
-        resizeMode: 'contain',
-        borderColor: '#007060',         // Same color as backgroundColor
-        borderRadius: 20,
-        shadowColor: "black",
-        elevation: 7,
-        overflow: 'hidden',     
-    // Android only, needs ios support https://stackoverflow.com/questions/55015715/react-native-drop-shadow
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     textContainer: {
-        paddingTop: '3%',
-        paddingLeft: '5%',
-        textAlign: 'left',
-        fontSize: 20,
+    },
+    bold: {
         fontWeight: 'bold',
     },
-    listText: {
-
+    italic: {
+        fontStyle: 'italic',
+        paddingTop: '1%',
+        paddingLeft: '5%',
+        fontSize: 20,
+    },
+    underline: {
+        fontStyle: 'italic',
+        textDecorationLine: 'underline',
+        paddingTop: '1%',
+        paddingLeft: '5%',
+        fontSize: 20,
     }
 });
 

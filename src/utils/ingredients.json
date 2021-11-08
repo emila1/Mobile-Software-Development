@@ -12,7 +12,7 @@
     {   
         "name": "Milk", 
         "amount": 1, 
-        "owned": true
+        "owned": false
     },
     {   
         "name": "Spaghetti", 

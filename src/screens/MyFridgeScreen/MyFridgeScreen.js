@@ -1,37 +1,80 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet, Dimensions, StatusBar,TouchableOpacity, Alert, SectionList, Modal } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { IngredientProvider } from '../../IngredientContext/IngredientContext';
+import IngredientContext from '../../IngredientContext/IngredientContext';
 import Ingredient from '../../components/ingredient';
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-//let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"];
-//const ingredient = { name: 'onion', amount: 3, owned: true } 
 
 class MyFridge extends React.Component { 
+    
+    handleInputFocus = () => {
+        this.setState({
+            ingredientText: ""
+        });
+    }
+
+    handleInputBlur = () => {
+        // If input text is empty, reset the state to the default
+        if (this.state.enterIngredient === "") {
+            this.setState({
+                ingredientText: "Add an ingredient"
+        });
+    }}
+
+
+    static contextType = IngredientContext;
+    state = {
+        input: this.context,
+        ingredientText: 'Add an ingredient',
+        enterIngredient: ''
+    };
+
     render() {
 
         return (
             <View style={styles.fridgeContainer}>
                 <Text style={styles.fridgeText}>Ingredients</Text>
-                <Ingredient />
+                { this.state.input.map( element => <Ingredient key={this.state.input.indexOf(element)} value={element} /> )}
+                <TextInput 
+                    style={styles.underline}
+                    onFocus={this.handleInputFocus}
+                    onBlur={this.handleInputBlur}
+                    // onEnterKey={this.handleEnterKey}
+                    onChangeText={(text) => this.setState({ enterIngredient: text })}
+                    autoComplete={true}
+                >{this.state.ingredientText}</TextInput>  
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({  
-    fridgeContainer: {
-        paddingTop: 10,
-        paddingLeft: 10,
+    container: {
+        paddingTop: '10%',
+        paddingLeft: '2%',
         paddingRight: 10,
+    },
+    fridgeContainer: {
+        width: windowWidth * .9,
+        height: windowHeight * .9,
+        marginLeft: '5%',
+        marginTop: '10%',
+       // backgroundColor: 'orange',
+        resizeMode: 'contain',
+      //  borderColor: '#007060',         // Same color as backgroundColor
+      //  borderRadius: 20,
+      //  shadowColor: "black",
+        elevation: 7,
+        overflow: 'hidden',   
     },
     fridgeText: {
         paddingTop: '3%',
-        paddingLeft: '2%',
+        paddingBottom: '5%',
+        //paddingLeft: '2%',
         textAlign: 'left',
         fontSize: 20,
         fontWeight: 'bold',
@@ -89,6 +132,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 4,
     },
+    underline: {
+        fontStyle: 'italic',
+        textDecorationLine: 'underline',
+        paddingTop: '1%',
+        paddingLeft: '10%',
+    }
 })
 
 

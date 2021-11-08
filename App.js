@@ -20,7 +20,7 @@ const StackAuth = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
-const tmpIngredients = ingredients;
+const recievedIngredients = ingredients;
 
 
 function HomeStack({ navigation }) {
@@ -128,7 +128,7 @@ function App() {
     }), []);
 
     return (
-        <IngredientContext.Provider value={tmpIngredients}>
+        <IngredientContext.Provider value={recievedIngredients}>
         <AuthContext.Provider value={authContext} >
             <NavigationContainer>
                 <MainStack.Navigator initialRouteName="StartScreen" >

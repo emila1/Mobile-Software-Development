@@ -7,8 +7,8 @@ import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
 let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"]; // Development list
 export default class HomeScreen extends Component {
+    
     constructor(props) {
-
         super(props);
         this.state = {
             foundRecipes: searchIngredients(list, 6),
@@ -80,8 +80,8 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 10,
-        paddingLeft: 10,
+        paddingTop: '10%',
+        paddingLeft: '2%',
         paddingRight: 10,
     },
     cardScrollerText: {

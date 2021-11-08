@@ -23,30 +23,5 @@ export class IngredientProvider extends React.Component {
 }
  
 export default IngredientContext;
-/* 
-class IngredientProvider extends React.Component {
-    state = {
-        name: "",
-        amount: "",
-        owned: false,
-    }
 
-    
-
-
-    render() { 
-        const {name, amount, owned} = this.state;
-        // const for functions here
-        return (
-            <IngredientContext.Provider value={
-                name,
-                amount, 
-                owned
-                // functions provided here
-            }>
-                {this.props.children}
-            </IngredientContext.Provider>
-        )
-    }
-} */
  
