@@ -4,7 +4,7 @@ import { MealStyles } from '../../styles/global';
 import { getRandomRecipe } from '../../utils/search';
 import RecipeCard from '../../components/recipeCard';
 
-class RecipeScreen extends React.Component {
+export default class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +25,7 @@ class RecipeScreen extends React.Component {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity style={MealStyles.recipeTouchContainer}>
+                            <TouchableOpacity style={MealStyles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen")}>
 
                             <RecipeCard value={item}/>
                 
@@ -37,5 +37,3 @@ class RecipeScreen extends React.Component {
         );
     }
 }
-
-export default RecipeScreen;

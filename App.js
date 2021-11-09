@@ -3,7 +3,7 @@ import { Text, View, Image, Button, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
-import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, RecipeInfoScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -13,6 +13,7 @@ const StackHome = createNativeStackNavigator();
 const StackShopping = createNativeStackNavigator();
 const StackFavorite = createNativeStackNavigator();
 const StackSettings = createNativeStackNavigator();
+const StackRecipe = createNativeStackNavigator();
 const StackAuth = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -26,11 +27,12 @@ function HomeStack({ navigation }) {
     )
 }
 
-function RecipieStack({ navigation }) { // Temp for testing RecipieScreen
+function RecipieStack({ navigation }) {
     return (
-        <StackFavorite.Navigator navigation={navigation} >
-            <StackFavorite.Screen name="RecipeScreen" component={RecipeScreen} options={{ headerShown: false }} />
-        </StackFavorite.Navigator>
+        <StackRecipe.Navigator initialRouteName="RecipeScreen" navigation={navigation} >
+            <StackRecipe.Screen name="RecipeScreen" component={RecipeScreen} />
+            <StackRecipe.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} options={{ headerShown: false }} />
+        </StackRecipe.Navigator>
     )
 }
 

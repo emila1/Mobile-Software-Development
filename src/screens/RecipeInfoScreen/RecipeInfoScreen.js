@@ -1,14 +1,15 @@
 import React from 'react';
 import { Text, View, Image, SafeAreaView, StyleSheet } from 'react-native';
-import Recepies from '../../../recipes/recipes.json';
+import { MealStyles } from '../../styles/global';
 
-class RecipeInfoScreen extends React.Component {
+export default class RecipeInfoScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
 
         };
     }
+
     render() {
         return (
         <View>
@@ -17,5 +18,3 @@ class RecipeInfoScreen extends React.Component {
         );
     }
 }
-
-export default RecipeInfoScreen;
