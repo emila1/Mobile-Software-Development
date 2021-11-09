@@ -205,7 +205,7 @@ export const MealStyles = StyleSheet.create({
         flexDirection: 'row'
     },
 
-    //RecipeScreen CSS 
+    //RecipeScreen 
     recipeContainer: {
         flex: 1,
         backgroundColor: '#C1553E'
@@ -229,6 +229,47 @@ export const MealStyles = StyleSheet.create({
         fontSize: 14,
         color: '#ffffff',
         textAlign: 'center',
-    }
+    },
 
+    //RecipeInfoScreen
+    infoContainer: {
+        backgroundColor: '#C1553E',
+        padding: 10,
+        flex: 1
+    },
+    infoImageContainer: {
+        height: '30%',
+        width: '100%',
+    },
+    infoBoxContainer: {
+        backgroundColor: 'green',
+        flex: 1,
+    },
+    infoListContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    infoImage: {
+        height: '100%',
+        width: '100%',
+        borderRadius: 25,
+    },
+    infoTextTitle: {
+        fontSize: 30,
+        textAlign: 'left'
+    },
+    infoTextSubtitle: {
+        fontSize: 30,
+        textAlign: 'left'
+    },
+    test: {
+        fontSize: 30,
+        height: 0,
+    },
+    test2: {
+        width: '50%'
+    },
+    flatListo: {
+        marginTop: 25
+    }
 });

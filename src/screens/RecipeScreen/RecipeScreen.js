@@ -8,7 +8,7 @@ export default class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            randomRecipes: getRandomRecipe(20),
+            randomRecipes: getRandomRecipe(1),
         };
     }
 

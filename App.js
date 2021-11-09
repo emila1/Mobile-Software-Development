@@ -30,7 +30,7 @@ function HomeStack({ navigation }) {
 function RecipieStack({ navigation }) {
     return (
         <StackRecipe.Navigator initialRouteName="RecipeScreen" navigation={navigation} >
-            <StackRecipe.Screen name="RecipeScreen" component={RecipeScreen} />
+            <StackRecipe.Screen name="RecipeScreen" component={RecipeScreen} options={{ headerShown: false }} />
             <StackRecipe.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} options={{ headerShown: false }} />
         </StackRecipe.Navigator>
     )
