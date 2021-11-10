@@ -229,9 +229,10 @@ export const MealStyles = StyleSheet.create({
 
   //RecipeInfoScreen
   infoContainer: {
-    backgroundColor: '#C1553E',
+    backgroundColor: 'white',
     padding: 10,
-    flex: 1,
+    flex: 1,  
+    
   },
   infoImageContainer: {
     height: '40%',
@@ -240,7 +241,7 @@ export const MealStyles = StyleSheet.create({
   infoImage: {
     height: '100%',
     width: '100%',
-    borderRadius: 35,
+    borderRadius: 39,
   },
   infoRecipeContainer: {
     alignSelf: 'flex-start',
@@ -251,12 +252,12 @@ export const MealStyles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white'
+    color: 'black'
   },
   infoTextSubtitle: {
     fontSize: 10,
     textAlign: 'center',
-    color: 'white'
+    color: 'black'
   },
   infoHeadContainer: {
     flexDirection: 'row',
@@ -266,10 +267,9 @@ export const MealStyles = StyleSheet.create({
   infoTextHead: {
     fontSize: 15,
     marginRight: 5,
-    color: 'white'
+    color: 'black'
   },
   infoTitleContainer: {
-    flexDirection: 'row',
     justifyContent: 'space-around',
     height: '5%'
   },
@@ -292,7 +292,7 @@ export const MealStyles = StyleSheet.create({
   infoIngredientsText: {
     marginTop: 5,
     fontSize: 12,
-    color: 'white'
+    color: 'black'
   },
   infoInstructionsContainer: {
     flex: 1,
@@ -300,6 +300,6 @@ export const MealStyles = StyleSheet.create({
   infoInstructionsText: {
     marginTop: 5,
     fontSize: 12,
-    color: 'white'
+    color: 'black'
   }
 });
