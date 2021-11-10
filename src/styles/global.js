@@ -234,22 +234,29 @@ export const MealStyles = StyleSheet.create({
     flex: 1,
   },
   infoImageContainer: {
-    height: '30%',
+    height: '40%',
     width: '100%',
   },
   infoImage: {
     height: '100%',
     width: '100%',
-    borderRadius: 25,
+    borderRadius: 35,
+  },
+  infoRecipeContainer: {
+    alignSelf: 'flex-start',
+    justifyContent: "center",
+    alignItems: "center",
   },
   infoTextTitle: {
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'white'
   },
   infoTextSubtitle: {
-    fontSize: 15,
+    fontSize: 10,
     textAlign: 'center',
+    color: 'white'
   },
   infoHeadContainer: {
     flexDirection: 'row',
@@ -258,7 +265,8 @@ export const MealStyles = StyleSheet.create({
   },
   infoTextHead: {
     fontSize: 15,
-    marginRight: 5
+    marginRight: 5,
+    color: 'white'
   },
   infoTitleContainer: {
     flexDirection: 'row',
@@ -266,8 +274,8 @@ export const MealStyles = StyleSheet.create({
     height: '5%'
   },
   infoTextTitleBox: {
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 25,
+    fontWeight: 'bold',
   },
   infoBoxContainer: {
     flex: 1,
@@ -275,18 +283,23 @@ export const MealStyles = StyleSheet.create({
   infoListContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginTop: 5,
     flex: 1,
   },
   infoIngredientsContainer: {
     flex: 1,
   },
   infoIngredientsText: {
-    fontSize: 15
+    marginTop: 5,
+    fontSize: 12,
+    color: 'white'
   },
   infoInstructionsContainer: {
     flex: 1,
   },
   infoInstructionsText: {
-    fontSize: 15
+    marginTop: 5,
+    fontSize: 12,
+    color: 'white'
   }
 });
