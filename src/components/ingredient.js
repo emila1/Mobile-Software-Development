@@ -10,13 +10,21 @@ class Ingredient extends React.Component {
     //static contextType = IngredientContext;
 
     state = {
-        element : this.props.value
+        element : this.props.value,
+        // ingredientName state from element state
+        //ingredientName : this.props.value.name,
+        // owned state from element state
+        //owned : this.props.value.owned,
+        //ingredientName : this.state.element.name,
+        //owned: this.state.element.owned,
     }
 
-    constructor(props) {
+
+     constructor(props) {
         super(props);
-        this.handlePress.bind(this);
-    }
+        console.log('From ingredient!:', this.state.element);
+        //this.handlePress.bind(this);
+    } 
 
     handlePress() {
         console.log("Item clicked", this);
@@ -27,14 +35,17 @@ class Ingredient extends React.Component {
         return(
             <View style={styles.listContainer}> 
                 <CheckBox 
-                    value={this.state.element.owned}
-                    tintColors={{ true: '#F15927', false: 'black' }} 
+                    value={this.state.owned}
+                    tintColors={{ true: '#F15927', false: 'black' }}
+                    onPress={this.props.handleOwned}
+                    //onpress={() => this.setState({owned: !this.state.owned})}
                 />
-                <Text style={styles.textContainer}>{this.state.element.name}</Text>
+                <Text style={styles.textContainer}>{this.state.ingredientName}</Text>
+                <Ionicons onPress={this.handlePress} style={styles.icon} name="trash" color={'tomato'} />
             </View>
         );
     }
-}
+} 
 
 const styles = StyleSheet.create({  
     listContainer: {
@@ -58,6 +69,10 @@ const styles = StyleSheet.create({
         paddingTop: '1%',
         paddingLeft: '5%',
         fontSize: 20,
+    },
+    icon: {
+        paddingLeft: '5%',
+        fontSize: 18,
     }
 });
 

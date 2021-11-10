@@ -1,7 +1,8 @@
 import React from 'react';
-import ingredients from '../utils/ingredients.json'
+import ingredients from '../utils/ingredients.json';
 
 const IngredientContext = React.createContext();
+
 
 export class IngredientProvider extends React.Component {
 
