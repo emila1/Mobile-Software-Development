@@ -36,10 +36,26 @@ export default function RecipeInfoScreen({ route }) {
           <Ionicons name={"book"} color={"black"} />
           <Text style={MealStyles.infoTextHead}>{recipe[id].head[3]}</Text>
         </View>
-      </View>
+      </View> 
 
+      <Text style={MealStyles.infoTextTitleBox}>instructions</Text>
       <View style={MealStyles.infoTitleContainer}>
-            <Text style={MealStyles.infoTextTitleBox}>Ingredients</Text>
+            
+            <FlatList
+            style={MealStyles.infoInstructionsContainer}
+            showsVerticalScrollIndicator={false}
+            keyboardDismissMode="on-drag"
+            data={recipe[id].instructions}
+            renderItem={({ item }) => (
+              <Text style={MealStyles.infoInstructionsText}>{item}</Text>
+            )}
+          />
+      </View>
+        
+
+      <Text style={MealStyles.infoTextTitleBox}>Ingredients</Text>
+      <View style={MealStyles.infoTitleContainer}>
+          
             <View style={MealStyles.infoBoxContainer}>
             <View style={MealStyles.infoListContainer}>
 
@@ -56,45 +72,7 @@ export default function RecipeInfoScreen({ route }) {
             </View>
             </View>
       </View>
-
-
-      <View style={MealStyles.infoTitleContainer}>
-            
-            <Text style={MealStyles.infoTextTitleBox}>instructions</Text>
-            <FlatList
-            style={MealStyles.infoInstructionsContainer}
-            showsVerticalScrollIndicator={false}
-            keyboardDismissMode="on-drag"
-            data={recipe[id].instructions}
-            renderItem={({ item }) => (
-              <Text style={MealStyles.infoInstructionsText}>{item}</Text>
-            )}
-          />
-
-      </View>
-        
-  {/*     <View style={MealStyles.infoBoxContainer}>
-        <View style={MealStyles.infoListContainer}>
-          <FlatList
-            style={MealStyles.infoIngredientsContainer}
-            showsVerticalScrollIndicator={false}
-            keyboardDismissMode="on-drag"
-            data={recipe[id].ingredients}
-            renderItem={({ item }) => (
-              <Text style={MealStyles.infoInstructionsText}>{item}</Text>
-            )}
-          />
-          <FlatList
-            style={MealStyles.infoInstructionsContainer}
-            showsVerticalScrollIndicator={false}
-            keyboardDismissMode="on-drag"
-            data={recipe[id].instructions}
-            renderItem={({ item }) => (
-              <Text style={MealStyles.infoInstructionsText}>{item}</Text>
-            )}
-          />
-        </View>
-      </View> */}
+      
       </ScrollView> 
     </SafeAreaView> 
   ); 
