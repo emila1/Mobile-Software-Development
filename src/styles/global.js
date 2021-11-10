@@ -270,12 +270,12 @@ export const MealStyles = StyleSheet.create({
   },
   infoTitleContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    height: '5%'
+    justifyContent: 'center',
   },
   infoTextTitleBox: {
     fontSize: 25,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   infoBoxContainer: {
     flex: 1,

@@ -3,6 +3,9 @@ import {Text, View, Image, SafeAreaView, StyleSheet, FlatList, List,} from "reac
 import { MealStyles } from "../../styles/global";
 import recipes from "../../../recipes/recipes.json";
 import { Ionicons } from "@expo/vector-icons";
+import { TabView, SceneMap } from "react-native-tab-view";
+import { ScrollView } from "react-native-gesture-handler";
+
 
 const recipe = recipes;
 
@@ -10,7 +13,9 @@ export default function RecipeInfoScreen({ route }) {
   const { item: id } = route.params;
 
   return (
-    <SafeAreaView style={MealStyles.infoContainer}>
+   
+   <SafeAreaView style={MealStyles.infoContainer}>
+     <ScrollView> 
       <View style={MealStyles.infoImageContainer}>
         <Image
           style={MealStyles.infoImage}
@@ -22,34 +27,34 @@ export default function RecipeInfoScreen({ route }) {
         <Text style={MealStyles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
 
         <View style={MealStyles.infoHeadContainer}>
-          <Ionicons name={"time"} color={"white"} />
+          <Ionicons name={"time"} color={"black"} />
           <Text style={MealStyles.infoTextHead}>{recipe[id].head[0]}</Text>
-          <Ionicons name={"hourglass"} color={"white"} />
+          <Ionicons name={"hourglass"} color={"black"} />
           <Text style={MealStyles.infoTextHead}>{recipe[id].head[1]}</Text>
-          <Ionicons name={"people"} color={"white"} />
+          <Ionicons name={"people"} color={"black"} />
           <Text style={MealStyles.infoTextHead}>{recipe[id].head[2]}</Text>
-          <Ionicons name={"book"} color={"white"} />
+          <Ionicons name={"book"} color={"black"} />
           <Text style={MealStyles.infoTextHead}>{recipe[id].head[3]}</Text>
         </View>
-      </View>
+      </View> 
 
+      <Text style={MealStyles.infoTextTitleBox}>ingredients</Text>
       <View style={MealStyles.infoTitleContainer}>
-            <Text style={MealStyles.infoTextTitleBox}>Ingredients</Text>
-            <Text style={MealStyles.infoTextTitleBox}>instructions</Text>
-      </View>
-        
-      <View style={MealStyles.infoBoxContainer}>
-        <View style={MealStyles.infoListContainer}>
-          <FlatList
-            style={MealStyles.infoIngredientsContainer}
+            
+      <FlatList
+            style={MealStyles.infoInstructionsContainer}
             showsVerticalScrollIndicator={false}
             keyboardDismissMode="on-drag"
             data={recipe[id].ingredients}
             renderItem={({ item }) => (
-              <Text style={MealStyles.infoInstructionsText}>{item}</Text>
+              <Text style={MealStyles.infoIngredientsText}>{item}</Text>
             )}
           />
-          <FlatList
+      </View>
+
+      <Text style={MealStyles.infoTextTitleBox}>instructions</Text>
+      <View style={MealStyles.infoTitleContainer}>
+            <FlatList
             style={MealStyles.infoInstructionsContainer}
             showsVerticalScrollIndicator={false}
             keyboardDismissMode="on-drag"
@@ -58,8 +63,9 @@ export default function RecipeInfoScreen({ route }) {
               <Text style={MealStyles.infoInstructionsText}>{item}</Text>
             )}
           />
-        </View>
       </View>
-    </SafeAreaView>
-  );
+      
+      </ScrollView> 
+    </SafeAreaView> 
+  ); 
 }
