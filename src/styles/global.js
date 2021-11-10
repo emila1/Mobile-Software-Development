@@ -237,40 +237,56 @@ export const MealStyles = StyleSheet.create({
     height: '30%',
     width: '100%',
   },
-  infoBoxContainer: {
-    backgroundColor: 'green',
-    flex: 1,
-  },
-  infoListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   infoImage: {
     height: '100%',
     width: '100%',
     borderRadius: 25,
   },
   infoTextTitle: {
-    fontSize: 15,
-    textAlign: 'left',
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   infoTextSubtitle: {
     fontSize: 15,
-    textAlign: 'left',
+    textAlign: 'center',
   },
-  test: {
+  infoHeadContainer: {
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  infoTextHead: {
+    fontSize: 15,
+    marginRight: 5
+  },
+  infoTitleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: '5%'
+  },
+  infoTextTitleBox: {
     fontSize: 30,
-    height: 0,
+    fontWeight: 'bold'
   },
-  test2: {
-    backgroundColor: 'yellow',
+  infoBoxContainer: {
     flex: 1,
   },
-  test3: {
-    fontSize: 10,
-  },
-  test4: {
-    backgroundColor: 'red',
+  infoListContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     flex: 1,
   },
+  infoIngredientsContainer: {
+    flex: 1,
+  },
+  infoIngredientsText: {
+    fontSize: 15
+  },
+  infoInstructionsContainer: {
+    flex: 1,
+  },
+  infoInstructionsText: {
+    fontSize: 15
+  }
 });

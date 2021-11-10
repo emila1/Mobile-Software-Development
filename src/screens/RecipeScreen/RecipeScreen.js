@@ -8,7 +8,7 @@ export default class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            randomRecipes: getRandomRecipe(1),
+            randomRecipes: getRandomRecipe(5),
         };
     }
 
@@ -25,7 +25,7 @@ export default class RecipeScreen extends React.Component {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity style={MealStyles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen")}>
+                            <TouchableOpacity style={MealStyles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", {item})}>
 
                             <RecipeCard value={item}/>
                 
