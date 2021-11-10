@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TextInput, StyleSheet, Dimensions, Button, CheckBox } from 'react-native';
+import { View, Text, ScrollView, TextInput, StyleSheet, Dimensions, Button} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import IngredientContext from '../../IngredientContext/IngredientContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,7 +24,7 @@ class MyFridge extends React.Component {
         };
         //this.getDataFromAsyncStorage();
         this.handleOwned = this.handleOwned.bind(this);
-        this.handleSetIngredient = this.handleSetIngredient.bind(this);
+        this.handleAddIngredient = this.handleAddIngredient.bind(this);
         this.handleDeleteIngredient = this.handleDeleteIngredient.bind(this);
     }
 
@@ -65,7 +66,18 @@ class MyFridge extends React.Component {
         }
     }
 
-    setDataToAsyncStorage = async () => {
+/*     setDataToAsyncStorage = async () => {
+        try {
+            let data = this.state.ingredients;
+            await AsyncStorage.setItem('ingredients', JSON.stringify(data));
+            console.log("Data saved to AsyncStorage");
+        } catch (error) {
+            console.log("Error saving data to AsyncStorage", error.message);
+        }
+    }
+ */
+    // function to save ingredients data to AsyncStorage
+    handleSetData = async () => {
         try {
             let data = this.state.ingredients;
             await AsyncStorage.setItem('ingredients', JSON.stringify(data));
@@ -76,13 +88,11 @@ class MyFridge extends React.Component {
     }
 
 
-    handleSetIngredient = () => {
-        console.log('button pressed!')
+    handleAddIngredient = () => {
         const newIngredient = {
             name: this.state.ingredientName,
             owned: true,
         };
-        // check if newIngredient.name does not exists in ingredients array
 
         if (newIngredient.name !== "") {
             // make sure that newIngredient.name does not exist in ingredients array
@@ -99,38 +109,26 @@ class MyFridge extends React.Component {
 
     handleOwned = (index) => {
         // flip owned value of ingredient at index
-        const newIngredients = this.state.ingredients;
+        const newIngredients = [...this.state.ingredients];
+        console.log("Name of ingredient", newIngredients[index].name);
+        console.log("Owned before:", newIngredients[index].owned);
         newIngredients[index].owned = !newIngredients[index].owned;
         this.setState({
             ingredients: newIngredients,
         });
+        console.log("Owned after", newIngredients[index].owned);
         //this.saveDataToAsyncStorage();
-        
     }
-
-    // function to save data to AsyncStorage
 
     // handle remove ingredient
     handleDeleteIngredient = (index) => {
         const newIngredients = [...this.state.ingredients];
-        //console.log(index);
-        //console.log(newIngredients[index]);
         newIngredients.splice(index, 1);
         this.setState({
             ingredients: newIngredients
         });
-        console.log('new ingredients', newIngredients);
-        console.log('updated ingredients: ', this.state.ingredients);
         //this.saveDataToAsyncStorage();
     }
-
-    // method to submit on pressing enter on mobile keyboard
-    // handleSubmitEditing(event) {
-    //     if (event.key === "Enter") {
-    //         this.handleSetIngredient();
-    //     }
-    // }
-
 
     handleGet = () => {
         this.getDataFromAsyncStorage();
@@ -145,8 +143,9 @@ class MyFridge extends React.Component {
                 { this.state.ingredients.map( element => <Ingredient 
                     key={element.name}
                     value={element}
+                    
                     handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
-                    handleSetIngredient={this.handleSetIngredient}
+                    //handleAddIngredient={this.handleAddIngredient}
                     handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
                 /> )}
                 <View style={styles.inputContainer}>
@@ -154,14 +153,14 @@ class MyFridge extends React.Component {
                         style={styles.icon} 
                         name="ios-add" 
                         color={'tomato'} 
-                        onPress={this.handleSetIngredient}
+                        onPress={this.handleAddIngredient}
                         //onKeyPress={this.handleOnKeyPress} 
                     />
                     <TextInput 
                         style={styles.underline}
                         onFocus={this.handleInputFocus}
                         onBlur={this.handleInputBlur}
-                        onSubmitEditing={this.handleSetIngredient}
+                        onSubmitEditing={this.handleAddIngredient}
                         onChangeText={(text) => this.setState({ ingredientName: text })}
                         autoComplete={true}
                     >{this.state.ingredientText}</TextInput>  
@@ -172,6 +171,8 @@ class MyFridge extends React.Component {
         );
     }
 }
+
+
 
 class Ingredient extends React.Component {
 
@@ -184,8 +185,14 @@ class Ingredient extends React.Component {
 
      constructor(props) {
         super(props);
-    } 
+    }
 
+    handleNativeChange = () => {
+        this.setState({
+            owned: !this.state.owned,
+        });
+        this.props.handleOwned();
+    }
 
     render() {
 
@@ -193,9 +200,11 @@ class Ingredient extends React.Component {
             <View style={styles.listContainer}> 
                 <CheckBox 
                     value={this.state.owned}
-                    tintColors={{ true: '#F15927', false: 'black' }}
-                    onPress={this.props.handleOwned}
-                    //onpress={() => this.setState({owned: !this.state.owned})}
+                    tintColors={{ true: '#F15927', false: '#F15927' }}
+                    // change value of CheckBox 
+                    onValueChange={this.handleNativeChange}
+                    //onChange={this.props.handleOwned}
+                    //onChange={this.props.handleOwned}
                 />
                 <Text style={styles.textContainer}>{this.state.ingredientName}</Text>
                 <Ionicons onPress={this.props.handleDeleteIngredient} style={styles.icon} name="trash" color={'tomato'} />
@@ -203,9 +212,6 @@ class Ingredient extends React.Component {
         );
     }
 } 
-
-// React component Ingredient that takes an onPress method and ingrediont information into
-// the constructor
 
 const styles = StyleSheet.create({  
     container: {
