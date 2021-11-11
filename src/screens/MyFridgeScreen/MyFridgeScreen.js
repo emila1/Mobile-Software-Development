@@ -14,7 +14,7 @@ class MyFridge extends React.Component {
     constructor(props) {
         super(props);
         //this.initData = mockIngredients;
-        //this.getData();
+        this.getData();
         this.state = {
             ingredients: [],
             //ingredients: this.initData,
@@ -22,11 +22,46 @@ class MyFridge extends React.Component {
             ingredientName: '',
             owned: true,
         };
+        //this.getData();
         //this.getDataFromAsyncStorage();
         this.handleOwned = this.handleOwned.bind(this);
         this.handleAddIngredient = this.handleAddIngredient.bind(this);
         this.handleDeleteIngredient = this.handleDeleteIngredient.bind(this);
     }
+
+
+    // function to save ingredients to async storage 
+    saveData = async () => {
+        try {
+            await AsyncStorage.setItem('ingredients', JSON.stringify(this.state.ingredients));
+        } catch (error) {
+            console.log(error.mesage);
+        }   
+    }
+
+    // function to get ingredients from async storage
+    getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('ingredients');
+            if (value !== null) {
+                this.setState({
+                    ingredients: JSON.parse(value),
+                });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // function to remove ingredient from async storage
+    handleDeleteIngredient(index) {
+        this.state.ingredients.splice(index, 1);
+        this.setState({
+            ingredients: this.state.ingredients,
+        });
+        this.saveData();
+    }
+        
 
     handleInputFocus = () => {
         this.setState({
@@ -49,43 +84,6 @@ class MyFridge extends React.Component {
         }
       }
 
-    getDataFromAsyncStorage = async () => {
-        try {
-            const data = await AsyncStorage.getItem('ingredients');
-            if (data === null) {
-                data = this.initData;
-                await AsyncStorage.setItem('ingredients', JSON.stringify(data));
-                this.setState({ ingredients: data });
-                return;
-            }
-            data = JSON.parse(data);
-            this.setState({ ingredients: data });
-            console.log('Data loaded successfully');
-        } catch (error) {
-            console.log('Error loading data:', error.message);
-        }
-    }
-
-/*     setDataToAsyncStorage = async () => {
-        try {
-            let data = this.state.ingredients;
-            await AsyncStorage.setItem('ingredients', JSON.stringify(data));
-            console.log("Data saved to AsyncStorage");
-        } catch (error) {
-            console.log("Error saving data to AsyncStorage", error.message);
-        }
-    }
- */
-    // function to save ingredients data to AsyncStorage
-    handleSetData = async () => {
-        try {
-            let data = this.state.ingredients;
-            await AsyncStorage.setItem('ingredients', JSON.stringify(data));
-            console.log("Data saved to AsyncStorage");
-        } catch (error) {
-            console.log("Error saving data to AsyncStorage", error.message);
-        }
-    }
 
 
     handleAddIngredient = () => {
@@ -102,37 +100,23 @@ class MyFridge extends React.Component {
                     ingredientName: '',
                     ingredientText: 'Add an ingredient',
                 });
+                this.saveData();
             }
         }
-        //this.saveDataToAsyncStorage();
+
     }
 
     handleOwned = (index) => {
         // flip owned value of ingredient at index
         const newIngredients = [...this.state.ingredients];
-        console.log("Name of ingredient", newIngredients[index].name);
-        console.log("Owned before:", newIngredients[index].owned);
         newIngredients[index].owned = !newIngredients[index].owned;
         this.setState({
             ingredients: newIngredients,
         });
-        console.log("Owned after", newIngredients[index].owned);
-        //this.saveDataToAsyncStorage();
+        this.saveData();
+
     }
 
-    // handle remove ingredient
-    handleDeleteIngredient = (index) => {
-        const newIngredients = [...this.state.ingredients];
-        newIngredients.splice(index, 1);
-        this.setState({
-            ingredients: newIngredients
-        });
-        //this.saveDataToAsyncStorage();
-    }
-
-    handleGet = () => {
-        this.getDataFromAsyncStorage();
-    }
 
     render() {
 
@@ -145,7 +129,6 @@ class MyFridge extends React.Component {
                     value={element}
                     
                     handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
-                    //handleAddIngredient={this.handleAddIngredient}
                     handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
                 /> )}
                 <View style={styles.inputContainer}>
@@ -154,7 +137,6 @@ class MyFridge extends React.Component {
                         name="ios-add" 
                         color={'tomato'} 
                         onPress={this.handleAddIngredient}
-                        //onKeyPress={this.handleOnKeyPress} 
                     />
                     <TextInput 
                         style={styles.underline}
@@ -201,10 +183,7 @@ class Ingredient extends React.Component {
                 <CheckBox 
                     value={this.state.owned}
                     tintColors={{ true: '#F15927', false: '#F15927' }}
-                    // change value of CheckBox 
                     onValueChange={this.handleNativeChange}
-                    //onChange={this.props.handleOwned}
-                    //onChange={this.props.handleOwned}
                 />
                 <Text style={styles.textContainer}>{this.state.ingredientName}</Text>
                 <Ionicons onPress={this.props.handleDeleteIngredient} style={styles.icon} name="trash" color={'tomato'} />

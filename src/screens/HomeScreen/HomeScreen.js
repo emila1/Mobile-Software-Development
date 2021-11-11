@@ -5,13 +5,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
-let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"]; // Development list
+let list = ["tomato", "aubergine", "chili", "oil"]; // Development list
 export default class HomeScreen extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            foundRecipes: searchIngredients(list, 6),
+            foundRecipes: searchIngredients(list, 20),
             randomRecipes: getRandomRecipe(6),
         };
     }
@@ -36,6 +36,12 @@ export default class HomeScreen extends Component {
                         <RecipeCard value={this.state.foundRecipes[3]}/>
                         <RecipeCard value={this.state.foundRecipes[4]}/>
                         <RecipeCard value={this.state.foundRecipes[5]}/>
+                        <RecipeCard value={this.state.foundRecipes[6]}/>
+                        <RecipeCard value={this.state.foundRecipes[7]}/>
+                        <RecipeCard value={this.state.foundRecipes[8]}/>
+                        <RecipeCard value={this.state.foundRecipes[9]}/>
+                        <RecipeCard value={this.state.foundRecipes[10]}/>
+                        <RecipeCard value={this.state.foundRecipes[11]}/>
                     </ScrollView>
 
                     <Text
