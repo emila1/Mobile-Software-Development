@@ -5,10 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
 import ingredients from './src/utils/ingredients.json'
 import IngredientContext from './src/IngredientContext/IngredientContext';
-import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, RecipeInfoScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
-
 
 
 const MainStack = createNativeStackNavigator();
@@ -16,8 +15,8 @@ const StackHome = createNativeStackNavigator();
 const StackShopping = createNativeStackNavigator();
 const StackFavorite = createNativeStackNavigator();
 const StackSettings = createNativeStackNavigator();
-const StackRecipe = createNativeStackNavigator();
 const StackAuth = createNativeStackNavigator();
+const StackRecipe = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
