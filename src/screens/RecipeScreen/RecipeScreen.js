@@ -1,44 +1,35 @@
 import React from 'react';
-import { Text, View, Image, SafeAreaView, TouchableOpacity, TextInput, FlatList, StyleSheet } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
 import { MealStyles } from '../../styles/global';
 import { getRandomRecipe } from '../../utils/search';
-import Recipes from '../../../recipes/recipes.json';
+import RecipeCard from '../../components/recipeCard';
 
-const recipe = Recipes;
-const ind = 55;
-class RecipeScreen extends React.Component {
+export default class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            randomRecipes: getRandomRecipe(20),
+            randomRecipes: getRandomRecipe(5),
         };
     }
 
     render() {
         return (
-            <SafeAreaView style={test.Container}>
-                <FlatList
+            <SafeAreaView style={MealStyles.recipeContainer}>
+                <Text style={MealStyles.recipeTitle}>Recipes</Text>
+                <Text style={MealStyles.RecipeSubtext}>Select any recipe to display full instructions!</Text>
+
+                <FlatList style={MealStyles.recipeflatListContainer}
                     data={this.state.randomRecipes}
-                    keyExtractor={item => this.state.randomRecipes.image_urls} // Only "unique" thing that can be used as key, others give error randomly
+                    keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
                     keyboardDismissMode="on-drag"
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity style={test.touchContainer}>
+                            <TouchableOpacity style={MealStyles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", {item})}>
 
-                            <Image style={test.image}
-                                source={{uri: recipe[ind].image_urls[0]}}
-                                resizeMode="cover"
-                            />
+                            <RecipeCard value={item}/>
                 
-                            <View>
-                                <Text style={test.text}>{item.title}</Text>
-                                <Text style={test.text}>{item.subtitle}</Text>
-                                <Text style={test.text}>{item.head}</Text>
-                            </View>
-                
-                
-                        </TouchableOpacity>
+                            </TouchableOpacity>
                         )
                     }}
                 />
@@ -46,32 +37,3 @@ class RecipeScreen extends React.Component {
         );
     }
 }
-
-const test = StyleSheet.create({
-    Container: {
-        flex: 1,
-        backgroundColor: '#C1553E'
-    },
-    touchContainer: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: 10,
-        marginTop: 10,
-    },
-    image: {
-        height: 150,
-        width: 150,
-        borderRadius: 30
-    },
-    v: {
-        width: '65%',
-        paddingHorizontal: 20
-    },
-    text: {
-        fontSize: 20,
-        color: '#ffffff',
-        paddingBottom: 2
-    }
-});
-
-export default RecipeScreen;

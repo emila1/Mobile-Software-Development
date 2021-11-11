@@ -16,6 +16,7 @@ const StackHome = createNativeStackNavigator();
 const StackShopping = createNativeStackNavigator();
 const StackFavorite = createNativeStackNavigator();
 const StackSettings = createNativeStackNavigator();
+const StackRecipe = createNativeStackNavigator();
 const StackAuth = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -29,6 +30,15 @@ function HomeStack({ navigation }) {
             <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
         </StackHome.Navigator>
+    )
+}
+
+function RecipieStack({ navigation }) {
+    return (
+        <StackRecipe.Navigator initialRouteName="RecipeScreen" navigation={navigation} >
+            <StackRecipe.Screen name="RecipeScreen" component={RecipeScreen} options={{ headerShown: false }} />
+            <StackRecipe.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} options={{ headerShown: false }} />
+        </StackRecipe.Navigator>
     )
 }
 
@@ -100,6 +110,7 @@ function TabNavigator({ navigation, extraData }) {
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
             </Tab.Screen>
+            <Tab.Screen name="Recipes" component={RecipieStack} />
         </Tab.Navigator>
     )
 }
