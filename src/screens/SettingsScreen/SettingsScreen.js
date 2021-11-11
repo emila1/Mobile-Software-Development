@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
 import { MealStyles } from '../../styles/global.js';
 
-export default class SettingScreen extends Component {
+export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Bell Pepper", 
+        "amount": 3, 
+        "owned": true
+    },
+    {
+        "name": "Aubergine", 
+        "amount": 1, 
+        "owned": true
+    },
+    {   
+        "name": "Milk", 
+        "amount": 1, 
+        "owned": false
+    },
+    {   
+        "name": "Spaghetti", 
+        "amount": 3, 
+        "owned": true
+    },
+    {   
+        "name": "Olive Oil", 
+        "amount": 1, 
+        "owned": false
+    } 
+] 
+
+

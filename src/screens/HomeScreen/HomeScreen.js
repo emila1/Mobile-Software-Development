@@ -2,30 +2,29 @@ import React, { Component } from 'react';
 import { Text, View, Image, Button, StyleSheet, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MealStyles } from '../../styles/global';
 import RecipeCard from '../../components/recipeCard'
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
-let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"]; // Development list
+let list = ["tomato", "aubergine", "chili", "oil"]; // Development list
 export default class HomeScreen extends Component {
+    
     constructor(props) {
-
         super(props);
         this.state = {
-            foundRecipes: searchIngredients(list, 6),
+            foundRecipes: searchIngredients(list, 20),
             randomRecipes: getRandomRecipe(6),
         };
     }
     render() {
         return (
 
-            <View style={MealStyles.container}>
+            <View style={styles.container}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                 >
 
                     <Text
-                        style={MealStyles.cardScrollerText}
+                        style={styles.cardScrollerText}
                     >Your recipes</Text>
                     <ScrollView
                         horizontal={true}
@@ -37,10 +36,16 @@ export default class HomeScreen extends Component {
                         <RecipeCard value={this.state.foundRecipes[3]}/>
                         <RecipeCard value={this.state.foundRecipes[4]}/>
                         <RecipeCard value={this.state.foundRecipes[5]}/>
+                        <RecipeCard value={this.state.foundRecipes[6]}/>
+                        <RecipeCard value={this.state.foundRecipes[7]}/>
+                        <RecipeCard value={this.state.foundRecipes[8]}/>
+                        <RecipeCard value={this.state.foundRecipes[9]}/>
+                        <RecipeCard value={this.state.foundRecipes[10]}/>
+                        <RecipeCard value={this.state.foundRecipes[11]}/>
                     </ScrollView>
 
                     <Text
-                        style={MealStyles.cardScrollerText}
+                        style={styles.cardScrollerText}
                     >
                         Random recipes
                     </Text>
@@ -60,7 +65,7 @@ export default class HomeScreen extends Component {
                     </ScrollView>
 
                     <Text
-                        style={MealStyles.cardScrollerText}
+                        style={styles.cardScrollerText}
                     >
                         Recommended recipes
                     </Text>
@@ -78,3 +83,18 @@ export default class HomeScreen extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: '10%',
+        paddingLeft: '2%',
+        paddingRight: 10,
+    },
+    cardScrollerText: {
+        paddingTop: '3%',
+        paddingLeft: '2%',
+        textAlign: 'left',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+})

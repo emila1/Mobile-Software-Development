@@ -6,12 +6,11 @@ import recipes from '../../recipes/recipes.json';
 import { Ionicons } from '@expo/vector-icons'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-const screenWidth = Dimensions.get('screen').width;
-const screenHeight = Dimensions.get('screen').height;
 
 
 const recipe = recipes;
 class RecipeCard extends React.Component {
+    
     state = {
         id : this.props.value       // index of the recipe 
     }

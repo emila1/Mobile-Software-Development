@@ -3,7 +3,9 @@ import { Text, View, Image, Button, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
-import { HomeScreen, MyFridgeScreen, RecipeScreen, RecipeInfoScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, ShoppingScreen } from './src/screens'
+import ingredients from './src/utils/ingredients.json'
+import IngredientContext from './src/IngredientContext/IngredientContext';
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, RecipeInfoScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -13,15 +15,18 @@ const StackHome = createNativeStackNavigator();
 const StackShopping = createNativeStackNavigator();
 const StackFavorite = createNativeStackNavigator();
 const StackSettings = createNativeStackNavigator();
-const StackRecipe = createNativeStackNavigator();
 const StackAuth = createNativeStackNavigator();
+const StackRecipe = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+
+const recievedIngredients = ingredients;
 
 
 function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
-            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}  />
+            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
         </StackHome.Navigator>
     )
@@ -40,9 +45,8 @@ function RecipieStack({ navigation }) {
 function ShoppingStack({ navigation }) {
     return (
 
-        <StackShopping.Navigator initialRouteName="ShoppingTab" navigation={navigation} >
-            <StackShopping.Screen name="MyFridge" component={MyFridgeScreen} options={{ headerShown: false }} />
-            <StackShopping.Screen name="ShoppingTab" component={ShoppingScreen} />
+        <StackShopping.Navigator initialRouteName="Your Inventory" navigation={navigation} >
+            <StackShopping.Screen name="Your Inventory" component={MyFridgeScreen} options={{ headerShown: false}} />
         </StackShopping.Navigator>
     )
 }
@@ -110,6 +114,8 @@ function TabNavigator({ navigation, extraData }) {
     )
 }
 
+//const IngredientContext = React.createContext();
+
 
 function App() {
 
@@ -132,6 +138,7 @@ function App() {
     }), []);
 
     return (
+        <IngredientContext.Provider value={recievedIngredients}>
         <AuthContext.Provider value={authContext} >
             <NavigationContainer>
                 <MainStack.Navigator initialRouteName="StartScreen" >
@@ -151,6 +158,7 @@ function App() {
                 </MainStack.Navigator>
             </NavigationContainer>
         </AuthContext.Provider>
+        </IngredientContext.Provider>
     );
 }
 
