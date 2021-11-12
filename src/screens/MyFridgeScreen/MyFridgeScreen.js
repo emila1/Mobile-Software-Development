@@ -85,25 +85,19 @@ class MyFridge extends React.Component {
       }
 
 
-
-    handleAddIngredient = () => {
-        const newIngredient = {
-            name: this.state.ingredientName,
-            owned: true,
-        };
-
-        if (newIngredient.name !== "") {
-            // make sure that newIngredient.name does not exist in ingredients array
-            if (this.state.ingredients.find(element => element.name === newIngredient.name) === undefined) {
-                this.setState({
-                    ingredients: [...this.state.ingredients, newIngredient],
-                    ingredientName: '',
-                    ingredientText: 'Add an ingredient',
-                });
-                this.saveData();
-            }
+    // function to add ingredient to state and async storage
+    handleAddIngredient() {
+        if (this.state.ingredientName !== "") {
+            this.state.ingredients.push({
+                name: this.state.ingredientName,
+                owned: this.state.owned,
+            });
+            this.setState({
+                ingredients: this.state.ingredients,
+                ingredientName: '',
+            });
+            this.saveData();
         }
-
     }
 
     handleOwned = (index) => {
@@ -116,7 +110,6 @@ class MyFridge extends React.Component {
         this.saveData();
 
     }
-
 
     render() {
 
@@ -147,7 +140,6 @@ class MyFridge extends React.Component {
                         autoComplete={true}
                     >{this.state.ingredientText}</TextInput>  
                 </View>
-                {/* <Button title="Get!" onPress={this.handleGet}/> */}
                 </ScrollView>
             </View>
         );
