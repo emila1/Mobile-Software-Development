@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
 import ingredients from './src/utils/ingredients.json'
 import IngredientContext from './src/IngredientContext/IngredientContext';
-import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, RecipeInfoScreene } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, RecipeInfoScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -13,7 +13,6 @@ import { Ionicons } from '@expo/vector-icons'
 const MainStack = createNativeStackNavigator();
 const StackHome = createNativeStackNavigator();
 const StackShopping = createNativeStackNavigator();
-const StackFavorite = createNativeStackNavigator();
 const StackSettings = createNativeStackNavigator();
 const StackAuth = createNativeStackNavigator();
 const StackRecipe = createNativeStackNavigator();
@@ -51,14 +50,6 @@ function ShoppingStack({ navigation }) {
     )
 }
 
-function FavoriteStack({ navigation }) {
-    return (
-        <StackFavorite.Navigator navigation={navigation} >
-            <StackFavorite.Screen name="FavoritesScreen" component={FavoritesScreen} options={{ headerShown: false }} />
-        </StackFavorite.Navigator>
-    )
-}
-
 function SettingsStack({ navigation }) {
     return (
         <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} >
@@ -90,8 +81,6 @@ function TabNavigator({ navigation, extraData }) {
                 } else if (route.name === 'Fridge') {
                     iconName = focused ? 'basket' : 'basket-outline'
                 } else if (route.name === 'Recipes') {
-                    iconName = focused ? 'ios-compass' : 'ios-compass-outline'
-                } else if (route.name === 'Favorites') {
                     iconName = focused ? 'restaurant' : 'restaurant-outline'
                 }
 
@@ -105,7 +94,6 @@ function TabNavigator({ navigation, extraData }) {
                 {props => <HomeStack {...props} extraData={extraData} />}
             </Tab.Screen>
             <Tab.Screen name="Fridge" component={ShoppingStack} />
-            <Tab.Screen name="Favorites" component={FavoriteStack} />
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
             </Tab.Screen>

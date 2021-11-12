@@ -13,7 +13,10 @@ class RecipeCard extends React.Component {
     
     state = {
         id : this.props.value
+        // size indicator to conditionally change styling
     }
+
+
 
     render() {
         return (
