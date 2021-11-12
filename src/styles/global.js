@@ -7,42 +7,42 @@ const screenHeight = Dimensions.get('screen').height;
 
 
 export const MealStyles = StyleSheet.create({
-    //CSS for App.js
+  //CSS for App.js
 
-    cardScroller: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        height: 50,
-        alignItems: 'center',
-        alignSelf: 'center',
-    },
+  cardScroller: {
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 50,
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
 
-    buttonStyle: {
-        color: 'black'
-    },
-    buttonCreat: {
-        paddingTop: 150
-    },
-    red: {
-        justifyContent: 'center',
-        color: 'black',
-        width: '100%',
-        paddingTop: 20,
-    },
-    blue: {
-        justifyContent: 'center',
-        color: 'black',
-        fontSize: 60,
-        paddingBottom: 30
-    },
-    buttonGuest: {
-        backgroundColor: '#0FAFE4',
-        borderRadius: 30,
-        width: 200,
-        height: 35,
-        margin: 5,
-    },
+  buttonStyle: {
+    color: 'black'
+  },
+  buttonCreat: {
+    paddingTop: 150
+  },
+  red: {
+    justifyContent: 'center',
+    color: 'black',
+    width: '100%',
+    paddingTop: 20,
+  },
+  blue: {
+    justifyContent: 'center',
+    color: 'black',
+    fontSize: 60,
+    paddingBottom: 30
+  },
+  buttonGuest: {
+    backgroundColor: '#0FAFE4',
+    borderRadius: 30,
+    width: 200,
+    height: 35,
+    margin: 5,
+  },
   //CSS for App.js
   container: {
     paddingTop: 10,
@@ -264,40 +264,40 @@ export const MealStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-    //ShoppingScreen
-    ShoppingViewContainer: {
-        paddingTop: '20%',
-        paddingLeft: 10,
-        paddingRight: 10,
-        flex: 1,
-    },
-    ButtonContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 0.5,
-        width: '100%',
+  //ShoppingScreen
+  ShoppingViewContainer: {
+    paddingTop: '20%',
+    paddingLeft: 10,
+    paddingRight: 10,
+    flex: 1,
+  },
+  ButtonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 0.5,
+    width: '100%',
 
-    },
-    ShoppingButton: {
-        margin: 10,
-        borderColor: 'black',
-        borderWidth: 2,
-        width: '75%',
-        height: '25%',
-        borderRadius: 12,
-        justifyContent: 'center',
-        padding: '3%',
-        backgroundColor: 'darkorange',
+  },
+  ShoppingButton: {
+    margin: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    width: '75%',
+    height: '25%',
+    borderRadius: 12,
+    justifyContent: 'center',
+    padding: '3%',
+    backgroundColor: 'darkorange',
 
-    },
-    ShoppingButtonText: {
-        textAlign: 'center',
-        alignContent: 'center',
-        textDecorationColor: 'red',
-        height: '100%',
-        width: '100%',
-        fontSize: 20,
-    },
+  },
+  ShoppingButtonText: {
+    textAlign: 'center',
+    alignContent: 'center',
+    textDecorationColor: 'red',
+    height: '100%',
+    width: '100%',
+    fontSize: 20,
+  },
   //RecipeInfoScreen
   infoContainer: {
     backgroundColor: '#C1553E',

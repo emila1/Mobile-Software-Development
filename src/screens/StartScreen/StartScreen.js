@@ -10,8 +10,8 @@ export default function StartScreen() {
 
     return (
         <View style={MealStyles.container, { alignItems: 'center', alignSelf: 'center' }}>
-            <View>
-                <Image source={require('../../../assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }} />
+            <View style={{ flex: 0.8 }} >
+                <Image source={require('../../../assets/salmon.jpg')} style={{ resizeMode: "contain", height: '70%', top: '20%', borderRadius: 12 }} />
             </View>
 
             <Text style={MealStyles.red}>Sign in, or try out the app as guest!</Text>
@@ -25,7 +25,7 @@ export default function StartScreen() {
                 <Button style={MealStyles.buttonStyle} title="Continue as guest" onPress={() => signInGuest()} />
             </View>
 
-            <View style={MealStyles.buttonCreat}>
+            <View style={MealStyles.buttonGuest}>
                 <Button style={MealStyles.buttonStyle} onPress={() => alert("Try guest acount")} title="Create an account" />
             </View>
 
