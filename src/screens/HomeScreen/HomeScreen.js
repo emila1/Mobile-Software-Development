@@ -6,7 +6,7 @@ import RecipeCard from '../../components/recipeCard'
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
 let list = ["tomato", "aubergine", "chili", "oil"]; // Development list
-let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229, 253, 315, 383, 5, 20, 24, 55, 97, 119, 121, 136]
+let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
     
     constructor(props) {
@@ -64,6 +64,7 @@ export default class HomeScreen extends Component {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
+                        
                     </ScrollView>
                 </ScrollView>
             </View>

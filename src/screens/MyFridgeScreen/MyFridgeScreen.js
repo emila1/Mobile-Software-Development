@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet, Dimensions, Button} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import IngredientContext from '../../IngredientContext/IngredientContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { searchIngredients } from '../../utils/search';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -17,7 +17,7 @@ class MyFridge extends React.Component {
         this.getData();
         this.state = {
             ingredients: [],
-            //ingredients: this.initData,
+            foundRecipeIndexes: [],
             ingredientText: 'Add an ingredient',
             ingredientName: '',
             owned: true,
@@ -47,6 +47,60 @@ class MyFridge extends React.Component {
                 this.setState({
                     ingredients: JSON.parse(value),
                 });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    saveRecipeIndexes = () => {
+        try {
+            AsyncStorage.setItem('foundRecipeIndexes', JSON.stringify(this.state.foundRecipeIndexes));
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // function to get foundRecipeIndexes from async storage
+    getRecipeIndexes = async () => {
+        try {
+            const value = await AsyncStorage.getItem('foundRecipeIndexes');
+            if (value !== null) {
+                this.setState({
+                    foundRecipeIndexes: JSON.parse(value),
+                });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // function to run searchIngredients based on ingredients list
+    handleSearch = () => {
+        this.setState({
+            foundRecipeIndexes: searchIngredients(this.state.ingredients, 15),
+        });
+    }
+
+    // function to save foundRecipeIndexes to async storage
+    saveRecipeIndexes = () => {
+        try {
+            AsyncStorage.setItem('foundRecipeIndexes', JSON.stringify(this.state.foundRecipeIndexes));
+            console.log('saved: ', ...this.state.foundRecipeIndexes);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // function to get foundRecipeIndexes from async storage
+    getRecipeIndexes = async () => {
+        try {
+            const value = await AsyncStorage.getItem('foundRecipeIndexes');
+            if (value !== null) {
+                this.setState({
+                    foundRecipeIndexes: JSON.parse(value),
+                });
+                console.log('fetched', ...this.state.foundRecipeIndexes);
             }
         } catch (error) {
             console.log(error.message);
@@ -140,6 +194,9 @@ class MyFridge extends React.Component {
                         autoComplete={true}
                     >{this.state.ingredientText}</TextInput>  
                 </View>
+                <Button onClick={this.handleSearch} title="Search" />
+                <Button onClick={this.saveRecipeIndexes} title="Save Recipes to Async" />
+                <Button onClick={this.getRecipeIndexes} title="Get Recipes from Async" />
                 </ScrollView>
             </View>
         );
