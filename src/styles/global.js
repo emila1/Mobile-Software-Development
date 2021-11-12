@@ -70,6 +70,7 @@ export const MealStyles = StyleSheet.create({
   buttonCreat: {
     paddingTop: 150,
   },
+
   red: {
     justifyContent: 'center',
     color: 'black',
@@ -88,6 +89,13 @@ export const MealStyles = StyleSheet.create({
     width: 200,
     height: 35,
     margin: 5,
+  },
+  buttonGuestText: {
+    color: 'white',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 17,
+    flex: 1
   },
 
   //CSS For MealMe Screen

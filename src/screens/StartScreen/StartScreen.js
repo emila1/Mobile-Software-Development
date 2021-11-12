@@ -3,6 +3,7 @@ import { View, Text, Button, Image } from 'react-native';
 import { getRandomRecipe, searchIngredients } from '../../utils/search'
 import { MealStyles } from '../../styles/global'
 import { AuthContext } from '../../AuthContext/AuthContext';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function StartScreen() {
 
@@ -17,17 +18,27 @@ export default function StartScreen() {
             <Text style={MealStyles.red}>Sign in, or try out the app as guest!</Text>
             <Text style={MealStyles.blue}>. . . . .</Text>
 
-            <View style={MealStyles.buttonGuest}>
-                <Button style={MealStyles.buttonStyle} title="Sign in" />
-            </View>
+            {/* <View style={MealStyles.buttonGuest}>
+                <Button style={MealStyles.buttonStyle} title="Sign in" onPress={() => alert("Pretending to navigate to a login screen")} />
+            </View> */}
+            <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => alert("Pretending to navigate to a login screen")} >
+                <Text style={MealStyles.buttonGuestText} >SIGN IN</Text>
+            </TouchableOpacity>
 
-            <View style={MealStyles.buttonGuest}>
+            {/* <View style={MealStyles.buttonGuest}>
                 <Button style={MealStyles.buttonStyle} title="Continue as guest" onPress={() => signInGuest()} />
-            </View>
+            </View> */}
+            <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signInGuest()} >
+                <Text style={MealStyles.buttonGuestText} >CONTINUE AS GUEST</Text>
+            </TouchableOpacity>
 
-            <View style={MealStyles.buttonGuest}>
+            <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => alert("Try guest acount")} >
+                <Text style={MealStyles.buttonGuestText} >CREATE AN ACCOUNT</Text>
+            </TouchableOpacity>
+
+            {/* <View style={MealStyles.buttonGuest}>
                 <Button style={MealStyles.buttonStyle} onPress={() => alert("Try guest acount")} title="Create an account" />
-            </View>
+            </View> */}
 
         </View>
     );
