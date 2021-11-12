@@ -58,13 +58,12 @@ export default class HomeScreen extends Component {
                     <Text
                         style={styles.cardScrollerText}
                     >
-                        Recommended recipes
+                    Recently viewed
                     </Text>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                        
                     </ScrollView>
                 </ScrollView>
             </View>
