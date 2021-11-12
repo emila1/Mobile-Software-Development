@@ -6,23 +6,24 @@ import RecipeCard from '../../components/recipeCard'
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
 let list = ["tomato", "aubergine", "chili", "oil"]; // Development list
+let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            foundRecipes: searchIngredients(list, 20),
-            randomRecipes: getRandomRecipe(6),
+            foundRecipes: myRecipeIndexes,
+            //foundRecipes: searchIngredients(list, 20),
+            randomRecipes: getRandomRecipe(10),
         };
     }
+
     render() {
         return (
-
             <View style={styles.container}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                 >
-
                     <Text
                         style={styles.cardScrollerText}
                     >Your recipes</Text>
@@ -30,54 +31,40 @@ export default class HomeScreen extends Component {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <RecipeCard value={this.state.foundRecipes[0]}/>
-                        <RecipeCard value={this.state.foundRecipes[1]}/>
-                        <RecipeCard value={this.state.foundRecipes[2]}/>
-                        <RecipeCard value={this.state.foundRecipes[3]}/>
-                        <RecipeCard value={this.state.foundRecipes[4]}/>
-                        <RecipeCard value={this.state.foundRecipes[5]}/>
-                        <RecipeCard value={this.state.foundRecipes[6]}/>
-                        <RecipeCard value={this.state.foundRecipes[7]}/>
-                        <RecipeCard value={this.state.foundRecipes[8]}/>
-                        <RecipeCard value={this.state.foundRecipes[9]}/>
-                        <RecipeCard value={this.state.foundRecipes[10]}/>
-                        <RecipeCard value={this.state.foundRecipes[11]}/>
+                        {this.state.foundRecipes.map((index) => <RecipeCard
+                            key={index}
+                            value={index}
+                            //navigation={this.props.navigation}
+                            />
+                        )}
                     </ScrollView>
-
                     <Text
                         style={styles.cardScrollerText}
                     >
-                        Random recipes
+                    Random recipes
                     </Text>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <RecipeCard value={this.state.randomRecipes[0]}/>
-                        <RecipeCard value={this.state.randomRecipes[1]}/>
-                        <RecipeCard value={this.state.randomRecipes[2]}/>
-                        <RecipeCard value={this.state.randomRecipes[3]}/>
-                        <RecipeCard value={this.state.randomRecipes[4]}/>
-                        <RecipeCard value={this.state.randomRecipes[5]}/>
-                    {/*    <RecipeCard />
-                        <RecipeCard />
-                    <RecipeCard /> */}
+                        {this.state.randomRecipes.map((index) => <RecipeCard
+                            key={index}
+                            value={index}
+                            //navigation={this.props.navigation}
+                            />
+                        )}
                     </ScrollView>
 
                     <Text
                         style={styles.cardScrollerText}
                     >
-                        Recommended recipes
+                    Recently viewed
                     </Text>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                    {/*    <RecipeCard />
-                        <RecipeCard />
-                    <RecipeCard />  */}
                     </ScrollView>
-
                 </ScrollView>
             </View>
         );

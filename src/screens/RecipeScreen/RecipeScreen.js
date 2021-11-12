@@ -16,19 +16,21 @@ export default class RecipeScreen extends React.Component {
         return (
             <SafeAreaView style={MealStyles.recipeContainer}>
                 <Text style={MealStyles.recipeTitle}>Recipes</Text>
-                <Text style={MealStyles.RecipeSubtext}>Select any recipe to display full instructions!</Text>
+                {/* <Text style={MealStyles.RecipeSubtext}>Select any recipe to display full instructions!</Text> */}
 
                 <FlatList style={MealStyles.recipeflatListContainer}
                     data={this.state.randomRecipes}
-                    keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
+                    //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
+                    keyExtractor={(index) => index.toString()}
                     keyboardDismissMode="on-drag"
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => {
                         return (
                             <TouchableOpacity style={MealStyles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", {item})}>
-
-                            <RecipeCard value={item}/>
-                
+                                <RecipeCard
+                                    key={item} 
+                                    value={item}
+                                />
                             </TouchableOpacity>
                         )
                     }}
