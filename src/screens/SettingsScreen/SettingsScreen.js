@@ -11,7 +11,7 @@ export default function SettingScreen(props) {
     return (
         <SafeAreaView style={MealStyles.container, { alignItems: 'center', marginTop: '10%', flex: 1 }}>
             <Text style={MealStyles.green}>Settings</Text>
-            <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%' }} >
+            <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', justifyContent: 'center' }} >
                 <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signOut()} >
                     <Text style={MealStyles.buttonGuestText} >SIGN OUT</Text>
                 </TouchableOpacity>
