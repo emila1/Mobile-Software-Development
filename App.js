@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
 import ingredients from './src/utils/ingredients.json'
 import IngredientContext from './src/IngredientContext/IngredientContext';
-import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, RecipeInfoScreen } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, RecipeInfoScreen } from './src/screens'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -13,7 +13,6 @@ import { Ionicons } from '@expo/vector-icons'
 const MainStack = createNativeStackNavigator();
 const StackHome = createNativeStackNavigator();
 const StackShopping = createNativeStackNavigator();
-const StackFavorite = createNativeStackNavigator();
 const StackSettings = createNativeStackNavigator();
 const StackAuth = createNativeStackNavigator();
 const StackRecipe = createNativeStackNavigator();
@@ -46,11 +45,10 @@ function ShoppingStack({ navigation }) {
     return (
 
         <StackShopping.Navigator initialRouteName="Your Inventory" navigation={navigation} >
-            <StackShopping.Screen name="Your Inventory" component={MyFridgeScreen} options={{ headerShown: false }} />
+            <StackShopping.Screen name="Your Inventory" component={MyFridgeScreen} options={{ headerShown: false}} />
         </StackShopping.Navigator>
     )
 }
-
 
 function SettingsStack({ navigation }) {
     return (
@@ -96,10 +94,10 @@ function TabNavigator({ navigation, extraData }) {
                 {props => <HomeStack {...props} extraData={extraData} />}
             </Tab.Screen>
             <Tab.Screen name="Fridge" component={ShoppingStack} />
-            <Tab.Screen name="Recipes" component={RecipieStack} />
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
             </Tab.Screen>
+            <Tab.Screen name="Recipes" component={RecipieStack} />
         </Tab.Navigator>
     )
 }
@@ -119,7 +117,7 @@ function App() {
             Alert.alert("Navigating to sign in", data)
         },
         signOut: async () => {
-            setUser(null)
+            Alert.alert("Signing out", data)
         },
         signInGuest: async () => {
             setUser('Guest')
@@ -129,25 +127,25 @@ function App() {
 
     return (
         <IngredientContext.Provider value={recievedIngredients}>
-            <AuthContext.Provider value={authContext} >
-                <NavigationContainer>
-                    <MainStack.Navigator initialRouteName="StartScreen" >
-                        {user ? (
-                            <>
-                                <MainStack.Screen name="HomeScreen" options={{ headerShown: false }} >
-                                    {props => <TabNavigator {...props} extraData={user} />}
-                                </MainStack.Screen>
-                            </>
-                        ) : (
-                            <>
-                                <MainStack.Screen name="Start" options={{ headerShown: false }}>
-                                    {props => <AuthStack {...props} />}
-                                </MainStack.Screen>
-                            </>
-                        )}
-                    </MainStack.Navigator>
-                </NavigationContainer>
-            </AuthContext.Provider>
+        <AuthContext.Provider value={authContext} >
+            <NavigationContainer>
+                <MainStack.Navigator initialRouteName="StartScreen" >
+                    {user ? (
+                        <>
+                            <MainStack.Screen name="HomeScreen" options={{ headerShown: false }} >
+                                {props => <TabNavigator {...props} extraData={user} />}
+                            </MainStack.Screen>
+                        </>
+                    ) : (
+                        <>
+                            <MainStack.Screen name="Start" options={{ headerShown: false }}>
+                                {props => <AuthStack {...props} />}
+                            </MainStack.Screen>
+                        </>
+                    )}
+                </MainStack.Navigator>
+            </NavigationContainer>
+        </AuthContext.Provider>
         </IngredientContext.Provider>
     );
 }
