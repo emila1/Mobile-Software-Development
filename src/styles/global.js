@@ -84,7 +84,7 @@ export const MealStyles = StyleSheet.create({
     paddingBottom: 30,
   },
   buttonGuest: {
-    backgroundColor: '#0FAFE4',
+    backgroundColor: 'tomato',
     borderRadius: 30,
     width: 200,
     height: 35,
