@@ -5,5 +5,4 @@ export { default as SurpriseMeScreen } from './SurpriseMeScreen/SurpriseMeScreen
 export { default as StartScreen } from './StartScreen/StartScreen'
 export { default as MyFridgeScreen } from './MyFridgeScreen/MyFridgeScreen'
 export { default as SettingScreen } from './SettingsScreen/SettingsScreen'
-export { default as FavoritesScreen } from './FavoritesScreen/FavoritesScreen'
 export { default as ShoppingScreen } from './ShoppingScreen/ShoppingScreen'
