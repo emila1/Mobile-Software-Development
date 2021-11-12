@@ -5,11 +5,11 @@ import { MealStyles } from '../../styles/global'
 import { AuthContext } from '../../AuthContext/AuthContext';
 
 export default function StartScreen() {
-    
+
     const { signInGuest } = useContext(AuthContext)
 
     return (
-        <View style={MealStyles.container}>
+        <View style={MealStyles.container, { alignItems: 'center', alignSelf: 'center' }}>
             <View>
                 <Image source={require('../../../assets/splash.png')} style={{ resizeMode: "contain", width: 250, height: 250 }} />
             </View>
