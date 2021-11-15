@@ -1,20 +1,21 @@
-import React, { Component, useContext } from 'react';
-import { View, Text, Button, Image, SafeAreaView } from 'react-native';
+import React, { Component, useContext, useEffect, useState } from 'react';
+import { View, Text, Button, Image, SafeAreaView, ActivityIndicator } from 'react-native';
 import { getRandomRecipe, searchIngredients } from '../../utils/search'
 import { MealStyles } from '../../styles/global'
 import { AuthContext } from '../../AuthContext/AuthContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Inter_300Light } from '@expo-google-fonts/inter';
+import ContentLoader from 'react-native-easy-content-loader';
 
 export default function StartScreen() {
 
     const { signInGuest } = useContext(AuthContext)
+    const salmon = require('../../../assets/salmon.jpg')
 
     return (
         <SafeAreaView style={{ alignItems: 'center', alignSelf: 'center', paddingTop: '20%', paddingLeft: 10, paddingRight: 10, }}>
             <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'tomato' }} >WELCOME TO MealMe</Text>
             <View style={{ flex: 0.8 }} >
-                <Image source={require('../../../assets/salmon.jpg')} style={{ resizeMode: "contain", height: '80%', top: '20%', borderRadius: 12 }} />
+                <Image source={salmon} style={{ resizeMode: "contain", height: '80%', top: '20%', borderRadius: 12 }} />
             </View>
 
             <Text style={MealStyles.red}>Sign in, or try out the app as guest!</Text>

@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Button, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'
+import RecipeCardLoading from '../../components/recipeCardLoading';
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
 
 let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
-            foundRecipes: myRecipeIndexes,
+            foundRecipes: null,
             //foundRecipes: searchIngredients(list, 20),
-            randomRecipes: getRandomRecipe(10),
+            randomRecipes: null,
+            loading: true
         };
+    }
+
+
+    componentDidMount() {
+        this.setState({ randomRecipes: getRandomRecipe(10) })
+        this.setState({ foundRecipes: myRecipeIndexes })
+        setTimeout(() => { this.setState({ loading: false }) }, 100)
+
     }
 
     render() {
@@ -30,34 +40,51 @@ export default class HomeScreen extends Component {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                        {this.state.foundRecipes.map((index) => <RecipeCard
-                            key={index}
-                            value={index}
-                            //navigation={this.props.navigation}
-                            />
-                        )}
+                        {this.state.loading ? (
+                            <>
+                                <RecipeCardLoading />
+                            </>
+                        ) : (
+                            <>
+                                {this.state.foundRecipes.map((index) => <RecipeCard
+                                    key={index}
+                                    value={index}
+                                //navigation={this.props.navigation}
+                                />
+                                )}
+                            </>
+                        )
+                        }
                     </ScrollView>
                     <Text
                         style={styles.cardScrollerText}
                     >
-                    Random recipes
+                        Random recipes
                     </Text>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                        {this.state.randomRecipes.map((index) => <RecipeCard
-                            key={index}
-                            value={index}
-                            //navigation={this.props.navigation}
-                            />
+                        {this.state.loading ? (
+                            <>
+                                <RecipeCardLoading />
+                            </>
+                        ) : (
+                            <>
+                                {this.state.randomRecipes.map((index) => <RecipeCard
+                                    key={index}
+                                    value={index}
+                                //navigation={this.props.navigation}
+                                />
+                                )}
+                            </>
                         )}
                     </ScrollView>
 
                     <Text
                         style={styles.cardScrollerText}
                     >
-                    Recently viewed
+                        Recently viewed
                     </Text>
                     <ScrollView
                         horizontal={true}
