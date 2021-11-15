@@ -8,7 +8,7 @@ import { getRandomRecipe, searchIngredients } from '../../utils/search';
 let list = ["tomato", "aubergine", "chili", "oil"]; // Development list
 let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -34,14 +34,14 @@ export default class HomeScreen extends Component {
                         {this.state.foundRecipes.map((index) => <RecipeCard
                             key={index}
                             value={index}
-                            //navigation={this.props.navigation}
-                            />
+                        //navigation={this.props.navigation}
+                        />
                         )}
                     </ScrollView>
                     <Text
                         style={styles.cardScrollerText}
                     >
-                    Random recipes
+                        Random recipes
                     </Text>
                     <ScrollView
                         horizontal={true}
@@ -50,15 +50,15 @@ export default class HomeScreen extends Component {
                         {this.state.randomRecipes.map((index) => <RecipeCard
                             key={index}
                             value={index}
-                            //navigation={this.props.navigation}
-                            />
+                        //navigation={this.props.navigation}
+                        />
                         )}
                     </ScrollView>
 
                     <Text
                         style={styles.cardScrollerText}
                     >
-                    Recently viewed
+                        Recently viewed
                     </Text>
                     <ScrollView
                         horizontal={true}
