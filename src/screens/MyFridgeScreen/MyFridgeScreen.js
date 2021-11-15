@@ -34,7 +34,6 @@ class MyFridge extends React.Component {
 
     // function to save ingredients to async storage 
     saveData = async () => {
-        console.log("Save data!");  
           try {
               await AsyncStorage.setItem('ingredients', JSON.stringify(this.state.ingredients));
               this.handleSearch();
@@ -59,7 +58,6 @@ class MyFridge extends React.Component {
       }
   
       saveRecipeIndexes = () => {
-        console.log("Save recipe indexes!");
           try {
               AsyncStorage.setItem('foundRecipeIndexes', JSON.stringify(this.state.foundRecipeIndexes));
           } catch (error) {
@@ -83,21 +81,17 @@ class MyFridge extends React.Component {
   
       // function to run searchIngredients based on ingredients list
       handleSearch = () => {
-        console.log("Handle search!");
         // map names of ingredients to list
         let ingredientList = this.state.ingredients.map(element => element.name);
           this.setState({
               foundRecipeIndexes: searchIngredients(ingredientList, 15),
           }, this.saveRecipeIndexes);
-          console.log(...this.state.foundRecipeIndexes);
       }
   
       // function to save foundRecipeIndexes to async storage
       saveRecipeIndexes = () => {
-        console.log("Save recipe indexes!");
           try {
               AsyncStorage.setItem('foundRecipeIndexes', JSON.stringify(this.state.foundRecipeIndexes));
-              console.log('saved: ', ...this.state.foundRecipeIndexes);
           } catch (error) {
               console.log(error.message);
           }
@@ -110,7 +104,7 @@ class MyFridge extends React.Component {
               if (value !== null) {
                   this.setState({
                       foundRecipeIndexes: JSON.parse(value),
-                  }, console.log('fetched', ...this.state.foundRecipeIndexes));
+                  });
   
               }
           } catch (error) {
@@ -120,7 +114,6 @@ class MyFridge extends React.Component {
   
           // function to add ingredient to state and async storage
       handleAddIngredient() {
-          console.log("Handle Add Ingredient");
           if (this.state.ingredientName !== "") {
               this.state.ingredients.push({
                   name: this.state.ingredientName,
@@ -136,7 +129,6 @@ class MyFridge extends React.Component {
   
       // function to remove ingredient from async storage
       handleDeleteIngredient(index) {
-        console.log("Handle delete ingredient!");
           this.state.ingredients.splice(index, 1);
           this.setState({
               ingredients: this.state.ingredients,
@@ -166,9 +158,7 @@ class MyFridge extends React.Component {
           }
         }
   
-  
-  
-  
+
       handleOwned = (index) => {
           // flip owned value of ingredient at index
           const newIngredients = [...this.state.ingredients];
@@ -190,7 +180,6 @@ class MyFridge extends React.Component {
                   { this.state.ingredients.map( element => <Ingredient 
                       key={element.name}
                       value={element}
-                      
                       handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
                       handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
                   /> )}
@@ -210,9 +199,6 @@ class MyFridge extends React.Component {
                           autoComplete={true}
                       >{this.state.ingredientText}</TextInput>  
                   </View>
-                  <Button onPress={this.handleSearch} title="Search" />
-                  <Button onPress={this.saveRecipeIndexes} title="Save Recipes to Async" />
-                  <Button onPress={this.getRecipeIndexes} title="Get Recipes from Async" />
                   </ScrollView>
               </View>
           );

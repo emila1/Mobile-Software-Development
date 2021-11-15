@@ -13,6 +13,7 @@ export default class RecipeScreen extends React.Component {
         this.state = {
             randomRecipes: [],
         };
+        this.getRecipeIndexes = this.getRecipeIndexes.bind(this);
     }
 
     getRecipeIndexes = async () => {
@@ -31,9 +32,9 @@ export default class RecipeScreen extends React.Component {
 
     render() {
 
-
         return (
-
+            <>
+            <FetchRecipeIndexes onFocused={this.getRecipeIndexes}/>
             <SafeAreaView style={MealStyles.recipeContainer}>
                 <Text style={MealStyles.recipeTitle}>Recipes</Text>
                 {/* <Text style={MealStyles.RecipeSubtext}>Select any recipe to display full instructions!</Text> */}
@@ -56,6 +57,19 @@ export default class RecipeScreen extends React.Component {
                     }}
                 />
             </SafeAreaView>
+            </>
         );
     }
 }
+
+function FetchRecipeIndexes({ onFocused }) {
+    useFocusEffect(
+      React.useCallback(() => {
+        onFocused();
+        return () => {
+            }
+      }, [])
+    );
+  
+    return null;
+  }
