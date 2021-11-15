@@ -94,10 +94,11 @@ function TabNavigator({ navigation, extraData }) {
                 {props => <HomeStack {...props} extraData={extraData} />}
             </Tab.Screen>
             <Tab.Screen name="Fridge" component={ShoppingStack} />
+            <Tab.Screen name="Recipes" component={RecipieStack} />
             <Tab.Screen name="Settings" >
                 {props => <SettingsStack {...props} extraData={extraData} />}
             </Tab.Screen>
-            <Tab.Screen name="Recipes" component={RecipieStack} />
+
         </Tab.Navigator>
     )
 }
