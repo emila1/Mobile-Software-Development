@@ -124,46 +124,58 @@ setIndex(id) {
   }
 }
 
-
 render() {
 
   const { item: id } = this.props.route.params;
   this.setIndex(id)
 
   return (
-   
-   <>
+      <> 
+      <ScrollView>
       <Image
           style={styles.infoImage}
           source={{ uri: recipe[id].image_urls[0] }}
       /> 
-      {/* <View style={{ backgroundColor: "#7cb48f", flex: 1 }} /> */}
-      <View style={{ backgroundColor: "#7CA1B4", flex: 2 }} />
-{/*         <Image
-          style={styles.infoImage}
-          source={{ uri: recipe[id].image_urls[0] }}
-        /> */}
-
-          <Ionicons name={"pin"} color={"black"} />
+      <View style={{ backgroundColor: "#7CA1B4", flex: 2 }} >
+        <View style={styles.titleContainer}>
+          <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
+          <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
+          <View style={styles.infoHeadContainer}>
+            <Ionicons name={"time"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[0]}</Text>
+            <Ionicons name={"hourglass"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[1]}</Text>
+            <Ionicons name={"people"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[2]}</Text>
+            <Ionicons name={"book"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[3]}</Text>
+          </View>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.switchButton}>
+              <Text>Ingredients</Text> 
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.switchButton}>
+              <Text>Instructions</Text> 
+            </TouchableOpacity>
+        </View>
+        </View>
           <TouchableOpacity style={styles.toggleButton} onPress={this.togglePin}>
-          <Text style={MealStyles.infoTextHead}> {this.state.isPinned ? "Pinned" : "Pin"} </Text>
-
-
-{/* 
-      <View style={styles.container}>
+          <Ionicons name={"pin"} color={"black"} />
+          <Text style={styles.infoTextHead}> {this.state.isPinned ? "Pinned" : "Pin"} </Text>
+          </TouchableOpacity> 
+        <View>
+          {recipe[id].ingredients.map((ingredient, index) => (
+            <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))}
+        </View>         
+      </View>  
+      </ScrollView>
+      </>
+ 
+/*        <View style={styles.container}>
         <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
         <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
 
-        <View style={styles.infoHeadContainer}>
-          <Ionicons name={"time"} color={"tomato"} />
-          <Text style={styles.infoTextHead}>{recipe[id].head[0]}</Text>
-          <Ionicons name={"hourglass"} color={"tomato"} />
-          <Text style={styles.infoTextHead}>{recipe[id].head[1]}</Text>
-          <Ionicons name={"people"} color={"tomato"} />
-          <Text style={styles.infoTextHead}>{recipe[id].head[2]}</Text>
-          <Ionicons name={"book"} color={"tomato"} />
-          <Text style={styles.infoTextHead}>{recipe[id].head[3]}</Text>
-        </View>
+
       </View>
 
       <Text style={styles.infoTextTitleBox}>Ingredients</Text>
@@ -191,23 +203,31 @@ render() {
               <Text style={styles.infoInstructionsText}>{item}</Text>
             )}
           />
-      </View>
-       */}
-    </> 
-  ); 
+      </View>  */ 
+
+    ); 
+  }
 }
-}
+
 
 const styles = StyleSheet.create({
     container: {
-      color: 'black',
-      paddingTop: '10%'
+      paddingTop: '10%',
+      paddingLeft: '2%',
+      paddingRight: 10,
+  },
+    titleContainer: {
+      paddingTop: '5%',
+      paddingLeft: '5%',
+      paddingRight: '5%',
+      backgroundColor: "white", 
+      height: windowHeight * .3
     },
     infoImage: {
       marginTop: '0%',
       marginBottom: '0%',
       paddingBottom: 0,
-
+      height: windowHeight * .3,
       flex: 1,
       resizeMode: 'cover',
       //height: windowHeight * .3,
@@ -230,14 +250,14 @@ const styles = StyleSheet.create({
       alignItems: "center",
     },
     infoTextTitle: {
-      fontSize: 30,
+      fontSize: 25,
       fontWeight: 'bold',
       textAlign: 'left',
       color: 'black'
     },
     infoTextSubtitle: {
-      fontSize: 10,
-      textAlign: 'center',
+      fontSize: 15,
+      textAlign: 'left',
       color: 'black'
     },
     infoHeadContainer: {
@@ -245,13 +265,15 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: "center",
       alignItems: "center",
+      justifyContent: 'space-evenly',
       //paddingLeft: '13%',
-      position: 'absolute',
+      //position: 'absolute',
       bottom: 0
     },
     infoTextHead: {
       color:'black',
-      fontSize: 20,
+      fontWeight:'bold',
+      fontSize: 15,
       padding: 3
     },
     infoTitleContainer: {
@@ -262,6 +284,12 @@ const styles = StyleSheet.create({
       fontSize: 25,
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+    infoTextIngredients: {
+      paddingLeft: '5%',
+      fontSize: 15,
+      textAlign: 'left',
+      color: 'black'
     },
     infoBoxContainer: {
       flex: 1,
@@ -287,11 +315,25 @@ const styles = StyleSheet.create({
       marginTop: 5,
       fontSize: 12,
       color: 'black'
-    }
+    },
   toggleButton: {
-    backgroundColor: "black",
+    backgroundColor: "green",
     height: 35,
     width: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    //justifyContent: 'space-around',
+    flex: 1,
+    //height: windowHeight * .1,
+  },
+  switchButton: {
+    backgroundColor: "white",
+    height: 35,
+    width: windowWidth * .5,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -6,12 +6,20 @@ const recipes = require('../../recipes/recipes.json')
  * @param {number of returned recipes} n 
  */
 function searchIngredients(ingredientList, n) {
+    // convert all strings in ingredientList to lowercase
+    ingredientList = ingredientList.map(function (item) {
+        return item.toLowerCase()
+    })
     let returnList = [];
     let recipeIndex = [];
 
     Object.keys(recipes).forEach(key => {            // Looks up every recipe
         let ingredients = recipes[key].ingredients; // Assign current ingredient list to variable
 
+        // convert all strings in ingredients to lowercase
+        ingredients = ingredients.map(function (item) {
+            return item.toLowerCase();
+        });
         ingredients.forEach(element => {            // Check each string in ingredients list 
             ingredientList.forEach(item => {        // Check against each item in MyFridge
                 if (element.includes(item)) {
