@@ -49,7 +49,6 @@ export default class HomeScreen extends Component {
                                 {this.state.foundRecipes.map((index) => <RecipeCard
                                     key={index}
                                     value={index}
-                                    size="small"
                                 //navigation={this.props.navigation}
                                 />
                                 )}
@@ -75,7 +74,6 @@ export default class HomeScreen extends Component {
                                 {this.state.randomRecipes.map((index) => <RecipeCard
                                     key={index}
                                     value={index}
-                                    size="small"
                                 //navigation={this.props.navigation}
                                 />
                                 )}
