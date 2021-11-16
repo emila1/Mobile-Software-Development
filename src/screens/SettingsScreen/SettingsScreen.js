@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AuthContext } from '../../AuthContext/AuthContext.js';
 import { MealStyles } from '../../styles/global.js';
 import { Entypo } from '@expo/vector-icons'
+import { HelpModalText } from '../../components/modalText.js';
 
 export default function SettingScreen(props) {
 
@@ -41,12 +42,7 @@ export default function SettingScreen(props) {
                             height: 2
                         }
                     }} >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }} >MealMe app</Text>
-                        <Text style={{ padding: 12 }} >Browse through 500 delicious recipes to help you decide your dish</Text>
-                        <Text style={{ padding: 12 }}>You can add ingredients to the 'Fridge' tab and MealMe will automatically help filter recipes that includes those ingredients</Text>
-                        <Text style={{ padding: 12 }}>You can pin and unpin your favorite recipes to easily find them again, or clear all pinned recipes</Text>
-                        <Text style={{ padding: 12 }}>If you would like to indulge in the attractive and handy features of a premium account for 10$,
-                            you can register with an account and start now</Text>
+                        <HelpModalText />
                         <Pressable style={{
                             borderRadius: 20,
                             padding: 10,

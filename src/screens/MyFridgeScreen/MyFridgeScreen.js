@@ -5,6 +5,7 @@ import { Ionicons, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { searchIngredients } from '../../utils/search';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FridgeModalText } from '../../components/modalText';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -187,30 +188,9 @@ class MyFridge extends React.Component {
                         this.setModalVisible(!modalVisible)
                     }}
                 >
-                    <View style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: 22
-                    }} >
-                        <View style={{
-                            margin: 20,
-                            backgroundColor: "white",
-                            borderRadius: 20,
-                            padding: 35,
-                            alignItems: "center",
-                            shadowColor: "#000",
-                            shadowOffset: {
-                                width: 0,
-                                height: 2
-                            }
-                        }} >
-                            <Text style={{ fontSize: 20, fontWeight: 'bold' }} >Your Fridge:</Text>
-                            <Text>Here you can add every ingredient that you posses (or want to posses)</Text>
-                            <Text>The checkbox defines whether you own an ingredient or not</Text>
-                            <Text>If it is checked: recipes containing that ingredient will show in the 'Recipes' tab</Text>
-                            <Text>Uncheck an ingredient to filter it from available recipes</Text>
-                            <Text>You can remove an ingredient entirely from the list by pressing the 'Trash' icon</Text>
+                    <View style={styles.modalCotainer} >
+                        <View style={styles.modalView} >
+                            <FridgeModalText />
                             <Pressable style={{
                                 borderRadius: 20,
                                 padding: 10,
@@ -321,15 +301,7 @@ const styles = StyleSheet.create({
     fridgeTouchable: {
         alignSelf: 'center',
     },
-    fridgeModalView: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(100,100,100, 0.5)',
-        padding: 20,
-    },
-    fridgeInputModal: {
+    modalView: {
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
@@ -339,11 +311,16 @@ const styles = StyleSheet.create({
         shadowOffset: {
             width: 0,
             height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        flexDirection: 'row'
+        }
+    },
+    modalCotainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalText: {
+
     },
     fridgeInput: {
         height: 40,
