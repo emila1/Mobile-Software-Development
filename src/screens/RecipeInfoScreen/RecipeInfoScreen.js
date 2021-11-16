@@ -7,13 +7,128 @@ import { TabView, SceneMap } from "react-native-tab-view";
 import { ScrollView } from "react-native-gesture-handler";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 const recipe = recipes;
 
-export default function RecipeInfoScreen({ route }) {
-  const { item: id } = route.params;
+export default class RecipeInfoScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.getPinData()
+    this.state = {
+        isPinned: false,
+        pinnedRecipeIndexes: [],
+        viewedRecipeIndexes: [],
+        index: null,
+    }
+}
+
+    // This is called at construction. It fetches pinned recipe indexes (if any exist) from local storage
+    getPinData = async () => {
+      try {
+          const items = await AsyncStorage.getItem('pinnedRecipeIndexes')
+          if (items !== null) {
+              this.setState({
+                pinnedRecipeIndexes: JSON.parse(items),
+              });
+          }
+          this.checkIfPinned()
+      } catch (error) {
+          console.log(error.message)
+      }
+  }
+
+  // Checks if this recipe's index is found in the fetched pin indexes and sets pin state accordingly
+  checkIfPinned() {
+    if (this.state.pinnedRecipeIndexes.includes(this.state.index)) {
+      this.setState({
+        isPinned: true
+      })
+    } else {
+      this.setState({
+        isPinned: false
+      })
+    }
+  }
+
+  // Either removed this recipe index or adds it to the fetched pin indexes
+  handlePin () {
+    if (this.state.isPinned == true) {
+      const index = this.state.pinnedRecipeIndexes.indexOf(this.state.index)
+      this.state.pinnedRecipeIndexes.splice(index, 1)
+    } else {
+      this.state.pinnedRecipeIndexes.push(this.state.index)
+    }
+    this.saveChange()
+  }
+
+  // Fetches the viewed recipe indexes in local storage
+  getViewData = async () => {
+    try {
+        const items = await AsyncStorage.getItem('viewedRecipeIndexes');
+        if (items !== null) {
+            this.setState({
+              viewedRecipeIndexes: JSON.parse(items),
+            });
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+    this.saveViewData()
+  }
+
+    // Saves this recipe's index to viewed recipe indexes in local storage
+  saveViewData = async () => {
+    try {
+      // Deletes an earlier view index if found
+      if (this.state.viewedRecipeIndexes.includes(this.state.index)) {
+        const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
+        this.state.viewedRecipeIndexes.splice(index, 1)
+        console.log("deleted old entry")
+      }
+      // Pushes view index to the back of the array and saves to viewed recipe indexes local storage
+      this.state.viewedRecipeIndexes.push(this.state.index)
+      await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
+      console.log("saved to view history")
+    } catch (error) {
+        console.log(error.mesage)
+    }
+}
+
+  // Saves pin change to pinned recipe indexes in local storage
+  saveChange = async () => {
+    try {
+        await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify(this.state.pinnedRecipeIndexes));
+    } catch (error) {
+        console.log(error.mesage)
+    }
+}
+
+// Flip-flops the pin state after change
+togglePin = () => {
+  this.setState({
+    isPinned: !this.state.isPinned
+  })
+  this.handlePin()
+}
+
+// This only goes through the if() once, for the sake of getting and setting this recipe's index
+setIndex(id) {
+  if (this.state.index == null) { // To prevent a loop of setting state and rendering
+    this.setState({
+      index: id
+    })
+    this.getViewData()
+  }
+}
+
+
+render() {
+
+  const { item: id } = this.props.route.params;
+  this.setIndex(id)
 
   return (
    
@@ -29,6 +144,9 @@ export default function RecipeInfoScreen({ route }) {
           source={{ uri: recipe[id].image_urls[0] }}
         /> */}
 
+          <Ionicons name={"pin"} color={"black"} />
+          <TouchableOpacity style={styles.toggleButton} onPress={this.togglePin}>
+          <Text style={MealStyles.infoTextHead}> {this.state.isPinned ? "Pinned" : "Pin"} </Text>
 
 
 {/* 
@@ -77,6 +195,7 @@ export default function RecipeInfoScreen({ route }) {
        */}
     </> 
   ); 
+}
 }
 
 const styles = StyleSheet.create({
@@ -169,4 +288,11 @@ const styles = StyleSheet.create({
       fontSize: 12,
       color: 'black'
     }
-})
+  toggleButton: {
+    backgroundColor: "black",
+    height: 35,
+    width: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
