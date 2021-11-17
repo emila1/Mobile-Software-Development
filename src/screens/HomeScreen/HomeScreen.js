@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'
 import RecipeCardLoading from '../../components/recipeCardLoading';
-import { getRandomRecipe, searchIngredients } from '../../utils/search';
+import { getRandomRecipe } from '../../utils/search';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -60,7 +60,6 @@ export default class HomeScreen extends Component {
         this.setState({ randomRecipes: getRandomRecipe(10) })
         //this.setState({ foundRecipes: myRecipeIndexes })
         setTimeout(() => { this.setState({ loading: false }) }, 100)
-
     }
 
     render() {
@@ -88,7 +87,7 @@ export default class HomeScreen extends Component {
                                 {this.state.hasPins ? (this.state.pinnedRecipeIndexes.map((index) =>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                 <RecipeCard
-                                    key={index}
+                                    key={this.generateID()}
                                     value={index}
                                     size="small"
                                 //navigation={this.props.navigation}
@@ -146,7 +145,7 @@ export default class HomeScreen extends Component {
                                 {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                 <RecipeCard
-                                    key={index}
+                                    key={this.generateID()}
                                     value={index}
                                     size="small"
                                 //navigation={this.props.navigation}

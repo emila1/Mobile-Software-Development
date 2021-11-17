@@ -8,7 +8,7 @@ import { HelpModalText } from '../../components/modalText.js';
 
 export default function SettingScreen(props) {
 
-
+    
     const { signOut, signUp, signIn } = useContext(AuthContext)
     const [modalVisible, setModalVisible] = useState(false)
     const [isEnabled, setIsEnabled] = useState(false);
