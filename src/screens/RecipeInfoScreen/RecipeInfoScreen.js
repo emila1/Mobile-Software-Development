@@ -1,9 +1,8 @@
 import React from "react";
-import {Text, View, Image, SafeAreaView,Button ,TouchableOpacity, StyleSheet, FlatList, List, Dimensions} from "react-native";
-import { MealStyles } from "../../styles/global";
+import {Text, View, Image, TouchableOpacity, StyleSheet, Dimensions} from "react-native";
 import recipes from "../../../recipes/recipes.json";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import { TabView, SceneMap } from "react-native-tab-view";
+import { Divider } from 'react-native-elements';
 import { ScrollView } from "react-native-gesture-handler";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -150,7 +149,7 @@ render() {
       /> 
       <View style={styles.bodyContainer} >
       <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.goBack()}>
-      <Ionicons name="arrow-back" size={25} />
+      <Ionicons name="arrow-back" size={25} color="tomato" />
       </TouchableOpacity>
         <View style={styles.titleContainer}>
           <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
@@ -179,11 +178,12 @@ render() {
               </Text> 
             </TouchableOpacity>
         </View>
+          <View style={{ borderBottomColor: 'lightgray', borderBottomWidth: 1,}} />
         </View>
             <TouchableOpacity onPress={this.togglePin}>
                 {this.state.isPinned ? (
                   <>
-                    <AntDesign name="pushpin" size={25} color="black" />
+                    <AntDesign name="pushpin" size={25} color="tomato" />
                   </>
                 ) : (
                   <>
