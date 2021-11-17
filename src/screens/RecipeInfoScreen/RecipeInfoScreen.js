@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Image, SafeAreaView, StyleSheet, FlatList, List, TouchableOpacity } from "react-native";
 import { MealStyles } from "../../styles/global";
 import recipes from "../../../recipes/recipes.json";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -157,8 +157,16 @@ export default class RecipeInfoScreen extends React.Component {
               <Text style={MealStyles.infoTextHead}>{recipe[id].head[3]}</Text>
 
               <Ionicons name={"pin"} color={"black"} />
-              <TouchableOpacity style={styles.toggleButton} onPress={this.togglePin}>
-                <Text style={MealStyles.infoTextHead}> {this.state.isPinned ? "Pinned" : "Pin"} </Text>
+              <TouchableOpacity onPress={this.togglePin}>
+                {this.state.isPinned ? (
+                  <>
+                    <AntDesign name="pushpin" size={25} color="black" />
+                  </>
+                ) : (
+                  <>
+                    <AntDesign name="pushpino" size={25} color="black" />
+                  </>
+                )}
               </TouchableOpacity>
 
             </View>
