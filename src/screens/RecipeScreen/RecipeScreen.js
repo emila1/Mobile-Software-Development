@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import RecipeCard from '../../components/recipeCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class RecipeScreen extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export default class RecipeScreen extends React.Component {
         this.getRecipeIndexes();
         this.state = {
             randomRecipes: [],
+            foundRecipeIndexes: [],
         };
         this.getRecipeIndexes = this.getRecipeIndexes.bind(this);
     }
@@ -33,10 +35,8 @@ export default class RecipeScreen extends React.Component {
         return (
             <>
             <FetchRecipeIndexes onFocused={this.getRecipeIndexes}/>
-            <SafeAreaView style={styles.recipeContainer}>
+            <View style={styles.container}>
                 <Text style={styles.recipeTitle}>Suggested recipes</Text>
-                {/* <Text style={MealStyles.RecipeSubtext}>Select any recipe to display full instructions!</Text> */}
-
                 <FlatList style={styles.recipeflatListContainer}
                     data={this.state.foundRecipeIndexes}
                     //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
@@ -54,7 +54,7 @@ export default class RecipeScreen extends React.Component {
                         )
                     }}
                 />
-            </SafeAreaView>
+            </View>
             </>
         );
     }
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         paddingTop: '10%',
         paddingLeft: '2%',
         paddingRight: 10,
+        
     },
     recipeContainer: {
         flex: 1,

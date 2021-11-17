@@ -22,6 +22,7 @@ export default class RecipeInfoScreen extends React.Component {
         pinnedRecipeIndexes: [],
         viewedRecipeIndexes: [],
         index: null,
+        displayIngredients: true
     }
 }
 
@@ -86,12 +87,10 @@ export default class RecipeInfoScreen extends React.Component {
       if (this.state.viewedRecipeIndexes.includes(this.state.index)) {
         const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
         this.state.viewedRecipeIndexes.splice(index, 1)
-        console.log("deleted old entry")
       }
       // Pushes view index to the back of the array and saves to viewed recipe indexes local storage
       this.state.viewedRecipeIndexes.push(this.state.index)
       await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
-      console.log("saved to view history")
     } catch (error) {
         console.log(error.mesage)
     }
@@ -124,6 +123,18 @@ setIndex(id) {
   }
 }
 
+setIngredientsText = () => {
+  this.setState({
+    displayIngredients: true
+  }, console.log('Ingredients: ', this.state.displayIngredients)) 
+}
+
+setInstructionsText = () => {
+  this.setState({
+    displayIngredients: false
+  }, console.log('Ingredients: ', this.state.displayIngredients))
+}
+
 render() {
 
   const { item: id } = this.props.route.params;
@@ -136,7 +147,7 @@ render() {
           style={styles.infoImage}
           source={{ uri: recipe[id].image_urls[0] }}
       /> 
-      <View style={{ backgroundColor: "#7CA1B4", flex: 2 }} >
+      <View style={styles.bodyContainer} >
         <View style={styles.titleContainer}>
           <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
           <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
@@ -151,11 +162,17 @@ render() {
             <Text style={styles.infoTextHead}>{recipe[id].head[3]}</Text>
           </View>
           <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.switchButton}>
-              <Text>Ingredients</Text> 
+            <TouchableOpacity style={styles.switchButton} onPress={this.setIngredientsText}>
+              <Text 
+                style={[this.state.displayIngredients ? styles.orange : styles.black]}
+                >Ingredients
+              </Text> 
             </TouchableOpacity>
-            <TouchableOpacity style={styles.switchButton}>
-              <Text>Instructions</Text> 
+            <TouchableOpacity style={styles.switchButton} onPress={this.setInstructionsText}>
+              <Text 
+                style={[this.state.displayIngredients ? styles.black : styles.orange]}
+                >Instructions
+              </Text> 
             </TouchableOpacity>
         </View>
         </View>
@@ -163,9 +180,20 @@ render() {
           <Ionicons name={"pin"} color={"black"} />
           <Text style={styles.infoTextHead}> {this.state.isPinned ? "Pinned" : "Pin"} </Text>
           </TouchableOpacity> 
-        <View>
-          {recipe[id].ingredients.map((ingredient, index) => (
-            <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))}
+        <View style={styles.infoInstructionsContainer}>
+          {this.state.displayIngredients ? (
+            <>
+              {recipe[id].ingredients.map((ingredient, index) => (
+              <Text style={styles.infoTextIngredients}>• {ingredient}</Text>))}
+            </>
+          ) : (
+            <>
+              {recipe[id].instructions.map((instruction, index) => (
+              <Text style={styles.infoTextIngredients}>{index + 1}. {instruction}</Text>))}
+            </>
+          )}
+{/*           {recipe[id].ingredients.map((ingredient, index) => (
+            <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))} */}
         </View>         
       </View>  
       </ScrollView>
@@ -215,13 +243,16 @@ const styles = StyleSheet.create({
       paddingTop: '10%',
       paddingLeft: '2%',
       paddingRight: 10,
-  },
+    },
     titleContainer: {
       paddingTop: '5%',
       paddingLeft: '5%',
       paddingRight: '5%',
       backgroundColor: "white", 
       height: windowHeight * .3
+    },
+    bodyContainer: {
+      flex: 2
     },
     infoImage: {
       marginTop: '0%',
@@ -234,6 +265,12 @@ const styles = StyleSheet.create({
       margin: '0%',
       width: windowWidth,
       borderRadius: 10,
+    },
+    black: {
+      color: 'black'
+    },
+    orange: {
+      color: 'tomato'
     },
     buttonContainer: {
       flex: 1,
