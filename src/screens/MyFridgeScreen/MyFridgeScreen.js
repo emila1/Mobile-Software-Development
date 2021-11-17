@@ -44,20 +44,20 @@ class MyFridge extends React.Component {
       };
   
       // function to get ingredients from async storage
-      getData = async () => {
-          try {
-              const value = await AsyncStorage.getItem('ingredients');
-              if (value !== null) {
-                  this.setState({
-                      ingredients: JSON.parse(value),
-                  });
-              }
-          } catch (error) {
-              console.log(error.message);
-          }
-      }
+    getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('ingredients');
+          if (value !== null) {
+            this.setState({
+                ingredients: JSON.parse(value),
+            });
+        }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
   
-      saveRecipeIndexes = () => {
+    saveRecipeIndexes = () => {
           try {
               AsyncStorage.setItem('foundRecipeIndexes', JSON.stringify(this.state.foundRecipeIndexes));
           } catch (error) {
@@ -112,11 +112,20 @@ class MyFridge extends React.Component {
           }
       }
 
-
+            // function to prevent duplicate entries in this.state.ingredients
+    handleIngredientName = (text) => {
+        if (this.state.ingredients.find(element => element.name === text)) {
+            return false;                
+        } else {
+            return true;
+        }
+    };
+      
   
           // function to add ingredient to state and async storage
       handleAddIngredient() {
         if (this.state.ingredientName !== "") {
+            if (this.handleIngredientName(this.state.ingredientName)) {
               this.state.ingredients.push({
                   name: this.state.ingredientName,
                   owned: this.state.owned,
@@ -127,6 +136,7 @@ class MyFridge extends React.Component {
               }, this.saveData);
               //this.saveData();
           
+            }
         }
     }
   
@@ -169,10 +179,9 @@ class MyFridge extends React.Component {
           this.setState({
               ingredients: newIngredients,
           },  this.saveData);
-  
-  
       }
-  
+
+
       render() {
   
         

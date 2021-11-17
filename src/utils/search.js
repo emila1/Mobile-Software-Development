@@ -76,23 +76,7 @@ function sortByFrequency(array) {
     });
 }
 
-
-
-//let list = ["onion", "aubergine", "milk", "butter", "spaghetti", "oil"]; 
-
-// let t0= performance.now(); //start time
-//let ing = searchIngredients(list, 10);
-
-//console.log(ing);
-//ing.map(recipe => console.log(recipe));
-//console.log(ing[2]);
-//console.log(getRandomRecipe(10));
-// let t1= performance.now(); //end time
-
-// console.log('Time taken to execute function:'+ (t1-t0) +' milliseconds');
-
-
-export { searchIngredients, getRandomRecipe };
+export { searchIngredients, getRandomRecipe};
 
 
 
