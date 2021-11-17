@@ -135,8 +135,6 @@ setInstructionsText = () => {
 
 render() {
 
-  render() {
-
     const { item: id } = this.props.route.params;
     this.setIndex(id)
   return (
