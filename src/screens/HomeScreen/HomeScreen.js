@@ -75,12 +75,14 @@ export default class HomeScreen extends Component {
                             </>
                         ) : (
                             <>
-                                {this.state.randomRecipes.map((index) => <RecipeCard
-                                    key={index}
-                                    value={index}
-                                    size="small"
-                                //navigation={this.props.navigation}
-                                />
+                                {this.state.randomRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                    <RecipeCard
+                                        key={index}
+                                        value={index}
+                                        size="small"
+                                    //navigation={this.props.navigation}
+                                    />
+                                </TouchableOpacity>
                                 )}
                             </>
                         )}
