@@ -23,21 +23,21 @@ export default class RecipeInfoScreen extends React.Component {
         index: null,
         displayIngredients: true
     }
-}
+  }
 
-    // This is called at construction. It fetches pinned recipe indexes (if any exist) from local storage
-    getPinData = async () => {
-      try {
-          const items = await AsyncStorage.getItem('pinnedRecipeIndexes')
-          if (items !== null) {
-              this.setState({
-                pinnedRecipeIndexes: JSON.parse(items),
-              });
-          }
-          this.checkIfPinned()
-      } catch (error) {
-          console.log(error.message)
+  // This is called at construction. It fetches pinned recipe indexes (if any exist) from local storage
+  getPinData = async () => {
+    try {
+      const items = await AsyncStorage.getItem('pinnedRecipeIndexes')
+      if (items !== null) {
+        this.setState({
+          pinnedRecipeIndexes: JSON.parse(items),
+        });
       }
+      this.checkIfPinned()
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   // Checks if this recipe's index is found in the fetched pin indexes and sets pin state accordingly
@@ -54,7 +54,7 @@ export default class RecipeInfoScreen extends React.Component {
   }
 
   // Either removed this recipe index or adds it to the fetched pin indexes
-  handlePin () {
+  handlePin() {
     if (this.state.isPinned == true) {
       const index = this.state.pinnedRecipeIndexes.indexOf(this.state.index)
       this.state.pinnedRecipeIndexes.splice(index, 1)
@@ -67,19 +67,19 @@ export default class RecipeInfoScreen extends React.Component {
   // Fetches the viewed recipe indexes in local storage
   getViewData = async () => {
     try {
-        const items = await AsyncStorage.getItem('viewedRecipeIndexes');
-        if (items !== null) {
-            this.setState({
-              viewedRecipeIndexes: JSON.parse(items),
-            });
-        }
+      const items = await AsyncStorage.getItem('viewedRecipeIndexes');
+      if (items !== null) {
+        this.setState({
+          viewedRecipeIndexes: JSON.parse(items),
+        });
+      }
     } catch (error) {
-        console.log(error.message)
+      console.log(error.message)
     }
     this.saveViewData()
   }
 
-    // Saves this recipe's index to viewed recipe indexes in local storage
+  // Saves this recipe's index to viewed recipe indexes in local storage
   saveViewData = async () => {
     try {
       // Deletes an earlier view index if found
@@ -91,37 +91,36 @@ export default class RecipeInfoScreen extends React.Component {
       this.state.viewedRecipeIndexes.push(this.state.index)
       await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
     } catch (error) {
-        console.log(error.mesage)
+      console.log(error.mesage)
     }
-}
+  }
 
   // Saves pin change to pinned recipe indexes in local storage
   saveChange = async () => {
     try {
-        await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify(this.state.pinnedRecipeIndexes));
+      await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify(this.state.pinnedRecipeIndexes));
     } catch (error) {
-        console.log(error.mesage)
+      console.log(error.mesage)
     }
-}
-
-// Flip-flops the pin state after change
-togglePin = () => {
-  this.setState({
-    isPinned: !this.state.isPinned
-  })
-  this.handlePin()
-}
-
-// This only goes through the if() once, for the sake of getting and setting this recipe's index
-setIndex(id) {
-  if (this.state.index == null) { // To prevent a loop of setting state and rendering
-    this.setState({
-      index: id
-    })
-    this.getViewData()
   }
-}
 
+  // Flip-flops the pin state after change
+  togglePin = () => {
+    this.setState({
+      isPinned: !this.state.isPinned
+    })
+    this.handlePin()
+  }
+
+  // This only goes through the if() once, for the sake of getting and setting this recipe's index
+  setIndex(id) {
+    if (this.state.index == null) { // To prevent a loop of setting state and rendering
+      this.setState({
+        index: id
+      })
+      this.getViewData()
+    }
+  }
 setIngredientsText = () => {
   this.setState({
     displayIngredients: true
@@ -136,9 +135,10 @@ setInstructionsText = () => {
 
 render() {
 
-  const { item: id } = this.props.route.params;
-  this.setIndex(id)
+  render() {
 
+    const { item: id } = this.props.route.params;
+    this.setIndex(id)
   return (
       <> 
 

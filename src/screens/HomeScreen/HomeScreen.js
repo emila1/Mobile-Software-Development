@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'
 import RecipeCardLoading from '../../components/recipeCardLoading';
 import { getRandomRecipe, searchIngredients } from '../../utils/search';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
@@ -46,11 +47,12 @@ export default class HomeScreen extends Component {
                             </>
                         ) : (
                             <>
-                                {this.state.foundRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                {this.state.foundRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })} >
                                     <RecipeCard
-                                        key={index.toString()}
+                                        key={index}
                                         value={index}
-                                //navigation={this.props.navigation}
+                                        size="small"
+                                    //navigation={this.props.navigation}
                                     />
                                 </TouchableOpacity>
                                 )}
@@ -75,9 +77,10 @@ export default class HomeScreen extends Component {
                             <>
                                 {this.state.randomRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                     <RecipeCard
-                                        key={index.toString()}
+                                        key={index}
                                         value={index}
-                                //navigation={this.props.navigation}
+                                        size="small"
+                                    //navigation={this.props.navigation}
                                     />
                                 </TouchableOpacity>
                                 )}
