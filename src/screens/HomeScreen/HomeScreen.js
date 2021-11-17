@@ -20,6 +20,10 @@ export default class HomeScreen extends Component {
         };
     }
 
+    // generate random number between 500 and 10000
+    generateID() {
+        return Math.floor(Math.random() * (10000 - 500 + 1)) + 500;
+    }
 
     componentDidMount() {
         this.setState({ randomRecipes: getRandomRecipe(10) })
@@ -49,7 +53,7 @@ export default class HomeScreen extends Component {
                             <>
                                 {this.state.foundRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })} >
                                     <RecipeCard
-                                        key={index}
+                                        key={this.generateID()}
                                         value={index}
                                         size="small"
                                     //navigation={this.props.navigation}
@@ -77,7 +81,7 @@ export default class HomeScreen extends Component {
                             <>
                                 {this.state.randomRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                     <RecipeCard
-                                        key={index}
+                                        key={this.generateID()}
                                         value={index}
                                         size="small"
                                     //navigation={this.props.navigation}
