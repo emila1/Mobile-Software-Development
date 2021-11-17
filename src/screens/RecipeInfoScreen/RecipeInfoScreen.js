@@ -68,9 +68,13 @@ export default class RecipeInfoScreen extends React.Component {
   getViewData = async () => {
     try {
       const items = await AsyncStorage.getItem('viewedRecipeIndexes');
-      if (items !== null) {
+      const itemsArr = JSON.parse(items)
+      if (itemsArr !== null) {
+        if (itemsArr.length > 5) {
+          itemsArr.shift()
+        }
         this.setState({
-          viewedRecipeIndexes: JSON.parse(items),
+          viewedRecipeIndexes: itemsArr,
         });
       }
     } catch (error) {

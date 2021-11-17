@@ -30,7 +30,7 @@ export default class HomeScreen extends Component {
 
     // generate random number between 500 and 10000
     generateID() {
-        return Math.floor(Math.random() * (10000 - 500 + 1)) + 500;
+        return Math.floor(Math.random() * (10000)) + 500;
     }
     
     // Fetches pin and view indexes from local storage
@@ -80,12 +80,12 @@ export default class HomeScreen extends Component {
                     >
                         {this.state.loading ? (
                             <>
-                                <RecipeCardLoading />
+                                <RecipeCardLoading key={this.generateID()} />
                             </>
                         ) : (
                             <>
                                 {this.state.hasPins ? (this.state.pinnedRecipeIndexes.map((index) =>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                 <RecipeCard
                                     key={this.generateID()}
                                     value={index}
@@ -109,11 +109,11 @@ export default class HomeScreen extends Component {
                     >
                         {this.state.loading ? (
                             <>
-                                <RecipeCardLoading />
+                                <RecipeCardLoading key={this.generateID()} />
                             </>
                         ) : (
                             <>
-                                {this.state.randomRecipes.map((index) => <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                {this.state.randomRecipes.map((index) => <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                     <RecipeCard
                                         key={this.generateID()}
                                         value={index}
@@ -138,12 +138,12 @@ export default class HomeScreen extends Component {
                     >
                         {this.state.loading ? (
                             <>
-                                <RecipeCardLoading />
+                                <RecipeCardLoading key={this.generateID()} />
                             </>
                         ) : (
                             <>
                                 {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                 <RecipeCard
                                     key={this.generateID()}
                                     value={index}
