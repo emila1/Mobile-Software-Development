@@ -2,7 +2,7 @@ import React from "react";
 import {Text, View, Image, SafeAreaView,Button ,TouchableOpacity, StyleSheet, FlatList, List, Dimensions} from "react-native";
 import { MealStyles } from "../../styles/global";
 import recipes from "../../../recipes/recipes.json";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { ScrollView } from "react-native-gesture-handler";
 const windowWidth = Dimensions.get('window').width;
@@ -142,12 +142,16 @@ render() {
 
   return (
       <> 
+
       <ScrollView>
       <Image
           style={styles.infoImage}
           source={{ uri: recipe[id].image_urls[0] }}
       /> 
       <View style={styles.bodyContainer} >
+      <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.goBack()}>
+      <Ionicons name="arrow-back" size={25} />
+      </TouchableOpacity>
         <View style={styles.titleContainer}>
           <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
           <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
@@ -176,20 +180,27 @@ render() {
             </TouchableOpacity>
         </View>
         </View>
-          <TouchableOpacity style={styles.toggleButton} onPress={this.togglePin}>
-          <Ionicons name={"pin"} color={"black"} />
-          <Text style={styles.infoTextHead}> {this.state.isPinned ? "Pinned" : "Pin"} </Text>
-          </TouchableOpacity> 
+            <TouchableOpacity onPress={this.togglePin}>
+                {this.state.isPinned ? (
+                  <>
+                    <AntDesign name="pushpin" size={25} color="black" />
+                  </>
+                ) : (
+                  <>
+                    <AntDesign name="pushpino" size={25} color="black" />
+                  </>
+            )}
+            </TouchableOpacity>
         <View style={styles.infoInstructionsContainer}>
           {this.state.displayIngredients ? (
             <>
               {recipe[id].ingredients.map((ingredient, index) => (
-              <Text style={styles.infoTextIngredients}>• {ingredient}</Text>))}
+              <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))}
             </>
           ) : (
             <>
               {recipe[id].instructions.map((instruction, index) => (
-              <Text style={styles.infoTextIngredients}>{index + 1}. {instruction}</Text>))}
+              <Text key={index} style={styles.infoTextIngredients}>{index + 1}. {instruction}</Text>))}
             </>
           )}
 {/*           {recipe[id].ingredients.map((ingredient, index) => (

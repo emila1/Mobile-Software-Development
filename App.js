@@ -28,6 +28,7 @@ function HomeStack({ navigation }) {
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
             <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
             <StackHome.Screen name="Recipe" component={RecipeScreen} />
+            <StackHome.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} options={{ headerShown: false }} />
         </StackHome.Navigator>
     )
 }
