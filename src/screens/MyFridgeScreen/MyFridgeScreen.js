@@ -111,10 +111,12 @@ class MyFridge extends React.Component {
               console.log(error.message);
           }
       }
+
+
   
           // function to add ingredient to state and async storage
       handleAddIngredient() {
-          if (this.state.ingredientName !== "") {
+        if (this.state.ingredientName !== "") {
               this.state.ingredients.push({
                   name: this.state.ingredientName,
                   owned: this.state.owned,
@@ -124,8 +126,9 @@ class MyFridge extends React.Component {
                 ingredientName: '',
               }, this.saveData);
               //this.saveData();
-          }
-      }
+          
+        }
+    }
   
       // function to remove ingredient from async storage
       handleDeleteIngredient(index) {
