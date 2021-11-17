@@ -52,10 +52,10 @@ function ShoppingStack({ navigation }) {
     )
 }
 
-function SettingsStack({ navigation }) {
+function SettingsStack({ navigation, extraData }) {
     return (
         <StackSettings.Navigator initialRouteName="Setting" navigation={navigation} >
-            <StackSettings.Screen name="Setting" component={SettingScreen} options={{ headerShown: false }} />
+            <StackSettings.Screen name="Setting" component={SettingScreen} options={{ headerShown: false }} initialParams={{ user: extraData }} />
         </StackSettings.Navigator>
     )
 }
@@ -71,7 +71,7 @@ function AuthStack({ navigation }) {
 
 function TabNavigator({ navigation, extraData }) {
     return (
-        <Tab.Navigator initialRouteName="Home" navigation={navigation} screenOptions={({ route }) => ({
+        <Tab.Navigator initialRouteName="Home" navigation={navigation} extraData={extraData} screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
@@ -113,10 +113,10 @@ function App() {
 
     const authContext = React.useMemo(() => ({
         signUp: async data => {
-            Alert.alert("Signing up", data)
+            Alert.alert("Navigating to Create An Account screen", data)
         },
         signIn: async data => {
-            Alert.alert("Navigating to sign in", data)
+            Alert.alert("Navigating to Log In screen", data)
         },
         signOut: async () => {
             setUser(null)

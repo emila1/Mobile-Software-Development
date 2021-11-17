@@ -198,7 +198,7 @@ render() {
           ) : (
             <>
               {recipe[id].instructions.map((instruction, index) => (
-              <Text key={index} style={styles.infoTextIngredients}>{index + 1}. {instruction}</Text>))}
+              <Text key={index} style={styles.infoTextIngredients}>• {instruction}</Text>))}
             </>
           )}
 {/*           {recipe[id].ingredients.map((ingredient, index) => (
