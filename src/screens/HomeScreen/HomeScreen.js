@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Button, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, ScrollView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'

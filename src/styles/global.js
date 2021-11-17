@@ -247,25 +247,9 @@ export const MealStyles = StyleSheet.create({
   },
 
   //RecipeScreen
-  recipeContainer: {
-    flex: 1,
-    backgroundColor: '#C1553E',
-  },
-  recipeflatListContainer: {
-    marginTop: 10,
-  },
-  recipeTouchContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 10,
-    padding: 10,
-  },
-  recipeTitle: {
-    fontSize: 60,
-    color: '#ffffff',
-    textAlign: 'center',
-    marginTop: 25,
-  },
+
+
+
   RecipeSubtext: {
     fontSize: 14,
     color: '#ffffff',
@@ -305,80 +289,6 @@ export const MealStyles = StyleSheet.create({
     height: '100%',
     width: '100%',
     fontSize: 20,
-  },
-  //RecipeInfoScreen
-  infoContainer: {
-    backgroundColor: '#C1553E',
-    padding: 10,
-    flex: 1,
-  },
-  infoImageContainer: {
-    height: '40%',
-    width: '100%',
-  },
-  infoImage: {
-    height: '100%',
-    width: '100%',
-    borderRadius: 35,
-  },
-  infoRecipeContainer: {
-    alignSelf: 'flex-start',
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  infoTextTitle: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'white'
-  },
-  infoTextSubtitle: {
-    fontSize: 10,
-    textAlign: 'center',
-    color: 'white'
-  },
-  infoHeadContainer: {
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  infoTextHead: {
-    fontSize: 15,
-    marginRight: 5,
-    color: 'white'
-  },
-  infoTitleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  infoTextTitleBox: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  infoBoxContainer: {
-    flex: 1,
-  },
-  infoListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 5,
-    flex: 1,
-  },
-  infoIngredientsContainer: {
-    flex: 1,
-  },
-  infoIngredientsText: {
-    marginTop: 5,
-    fontSize: 12,
-    color: 'white'
-  },
-  infoInstructionsContainer: {
-    flex: 1,
-  },
-  infoInstructionsText: {
-    marginTop: 5,
-    fontSize: 12,
-    color: 'white'
   }
+
 });

@@ -1,11 +1,13 @@
 import React from "react";
-import { Text, View, Image, SafeAreaView, StyleSheet, FlatList, List, TouchableOpacity } from "react-native";
-import { MealStyles } from "../../styles/global";
+import {Text, View, Image, TouchableOpacity, StyleSheet, Dimensions} from "react-native";
 import recipes from "../../../recipes/recipes.json";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import { TabView, SceneMap } from "react-native-tab-view";
+import { Divider } from 'react-native-elements';
 import { ScrollView } from "react-native-gesture-handler";
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const recipe = recipes;
@@ -15,10 +17,11 @@ export default class RecipeInfoScreen extends React.Component {
     super(props)
     this.getPinData()
     this.state = {
-      isPinned: false,
-      pinnedRecipeIndexes: [],
-      viewedRecipeIndexes: [],
-      index: null,
+        isPinned: false,
+        pinnedRecipeIndexes: [],
+        viewedRecipeIndexes: [],
+        index: null,
+        displayIngredients: true
     }
   }
 
@@ -83,12 +86,10 @@ export default class RecipeInfoScreen extends React.Component {
       if (this.state.viewedRecipeIndexes.includes(this.state.index)) {
         const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
         this.state.viewedRecipeIndexes.splice(index, 1)
-        console.log("deleted old entry")
       }
       // Pushes view index to the back of the array and saves to viewed recipe indexes local storage
       this.state.viewedRecipeIndexes.push(this.state.index)
       await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
-      console.log("saved to view history")
     } catch (error) {
       console.log(error.mesage)
     }
@@ -120,96 +121,265 @@ export default class RecipeInfoScreen extends React.Component {
       this.getViewData()
     }
   }
+setIngredientsText = () => {
+  this.setState({
+    displayIngredients: true
+  }, console.log('Ingredients: ', this.state.displayIngredients)) 
+}
 
+setInstructionsText = () => {
+  this.setState({
+    displayIngredients: false
+  }, console.log('Ingredients: ', this.state.displayIngredients))
+}
 
-  render() {
+render() {
 
     const { item: id } = this.props.route.params;
     this.setIndex(id)
+  return (
+      <> 
 
-    return (
-
-      <SafeAreaView style={MealStyles.infoContainer}>
-        <View style={{ flexDirection: "row", paddingTop: '8%' }} >
-          <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.goBack()}>
-            <Ionicons name="arrow-back" size={25} />
-          </TouchableOpacity>
-        </View>
-        <ScrollView>
-          <View style={MealStyles.infoImageContainer}>
-            <Image
-              style={MealStyles.infoImage}
-              source={{ uri: recipe[id].image_urls[0] }}
-            />
+      <ScrollView>
+      <Image
+          style={styles.infoImage}
+          source={{ uri: recipe[id].image_urls[0] }}
+      /> 
+      <View style={styles.bodyContainer} >
+      <TouchableOpacity style={{ flex: 1 }} onPress={() => this.props.navigation.goBack()}>
+      <Ionicons name="arrow-back" size={25} color="tomato" />
+      </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
+          <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
+          <View style={styles.infoHeadContainer}>
+            <Ionicons name={"time"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[0]}</Text>
+            <Ionicons name={"hourglass"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[1]}</Text>
+            <Ionicons name={"people"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[2]}</Text>
+            <Ionicons name={"book"} color={"tomato"} />
+            <Text style={styles.infoTextHead}>{recipe[id].head[3]}</Text>
           </View>
-          <View style={MealStyles.infoRecipeContainer}>
-            <Text style={MealStyles.infoTextTitle}>{recipe[id].title}</Text>
-            <Text style={MealStyles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
-
-            <View style={MealStyles.infoHeadContainer}>
-              <Ionicons name={"time"} color={"black"} />
-              <Text style={MealStyles.infoTextHead}>{recipe[id].head[0]}</Text>
-              <Ionicons name={"hourglass"} color={"black"} />
-              <Text style={MealStyles.infoTextHead}>{recipe[id].head[1]}</Text>
-              <Ionicons name={"people"} color={"black"} />
-              <Text style={MealStyles.infoTextHead}>{recipe[id].head[2]}</Text>
-              <Ionicons name={"book"} color={"black"} />
-              <Text style={MealStyles.infoTextHead}>{recipe[id].head[3]}</Text>
-
-              <Ionicons name={"pin"} color={"black"} />
-              <TouchableOpacity onPress={this.togglePin}>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.switchButton} onPress={this.setIngredientsText}>
+              <Text 
+                style={[this.state.displayIngredients ? styles.orange : styles.black]}
+                >Ingredients
+              </Text> 
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.switchButton} onPress={this.setInstructionsText}>
+              <Text 
+                style={[this.state.displayIngredients ? styles.black : styles.orange]}
+                >Instructions
+              </Text> 
+            </TouchableOpacity>
+        </View>
+          <View style={{ borderBottomColor: 'lightgray', borderBottomWidth: 1,}} />
+        </View>
+            <TouchableOpacity onPress={this.togglePin}>
                 {this.state.isPinned ? (
                   <>
-                    <AntDesign name="pushpin" size={25} color="black" />
+                    <AntDesign name="pushpin" size={25} color="tomato" />
                   </>
                 ) : (
                   <>
                     <AntDesign name="pushpino" size={25} color="black" />
                   </>
-                )}
-              </TouchableOpacity>
+            )}
+            </TouchableOpacity>
+        <View style={styles.infoInstructionsContainer}>
+          {this.state.displayIngredients ? (
+            <>
+              {recipe[id].ingredients.map((ingredient, index) => (
+              <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))}
+            </>
+          ) : (
+            <>
+              {recipe[id].instructions.map((instruction, index) => (
+              <Text key={index} style={styles.infoTextIngredients}>{index + 1}. {instruction}</Text>))}
+            </>
+          )}
+{/*           {recipe[id].ingredients.map((ingredient, index) => (
+            <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))} */}
+        </View>         
+      </View>  
+      </ScrollView>
+      </>
+ 
+/*        <View style={styles.container}>
+        <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
+        <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
 
-            </View>
-          </View>
 
-          <Text style={MealStyles.infoTextTitleBox}>ingredients</Text>
-          <View style={MealStyles.infoTitleContainer}>
+      </View>
 
+      <Text style={styles.infoTextTitleBox}>Ingredients</Text>
+      <View style={styles.infoTitleContainer}>
+            
+      <FlatList
+            style={styles.infoInstructionsContainer}
+            showsVerticalScrollIndicator={false}
+            keyboardDismissMode="on-drag"
+            data={recipe[id].ingredients}
+            renderItem={({ item }) => (
+              <Text style={styles.infoIngredientsText}>• {item}</Text>
+            )}
+          />
+      </View>
+
+      <Text style={styles.infoTextTitleBox}>Instructions</Text>
+      <View style={styles.infoTitleContainer}>
             <FlatList
-              style={MealStyles.infoInstructionsContainer}
-              showsVerticalScrollIndicator={false}
-              keyboardDismissMode="on-drag"
-              data={recipe[id].ingredients}
-              renderItem={({ item }) => (
-                <Text style={MealStyles.infoIngredientsText}>{item}</Text>
-              )}
-            />
-          </View>
+            style={styles.infoInstructionsContainer}
+            showsVerticalScrollIndicator={false}
+            keyboardDismissMode="on-drag"
+            data={recipe[id].instructions}
+            renderItem={({ item }) => (
+              <Text style={styles.infoInstructionsText}>{item}</Text>
+            )}
+          />
+      </View>  */ 
 
-          <Text style={MealStyles.infoTextTitleBox}>instructions</Text>
-          <View style={MealStyles.infoTitleContainer}>
-            <FlatList
-              style={MealStyles.infoInstructionsContainer}
-              showsVerticalScrollIndicator={false}
-              keyboardDismissMode="on-drag"
-              data={recipe[id].instructions}
-              renderItem={({ item }) => (
-                <Text style={MealStyles.infoInstructionsText}>{item}</Text>
-              )}
-            />
-          </View>
-
-        </ScrollView>
-      </SafeAreaView>
-    );
+    ); 
   }
 }
 
+
 const styles = StyleSheet.create({
+    container: {
+      paddingTop: '10%',
+      paddingLeft: '2%',
+      paddingRight: 10,
+    },
+    titleContainer: {
+      paddingTop: '5%',
+      paddingLeft: '5%',
+      paddingRight: '5%',
+      backgroundColor: "white", 
+      height: windowHeight * .3
+    },
+    bodyContainer: {
+      flex: 2
+    },
+    infoImage: {
+      marginTop: '0%',
+      marginBottom: '0%',
+      paddingBottom: 0,
+      height: windowHeight * .3,
+      flex: 1,
+      resizeMode: 'cover',
+      //height: windowHeight * .3,
+      margin: '0%',
+      width: windowWidth,
+      borderRadius: 10,
+    },
+    black: {
+      color: 'black'
+    },
+    orange: {
+      color: 'tomato'
+    },
+    buttonContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: "center",
+      alignItems: "center",
+      paddingLeft: '13%',
+      position: 'absolute',
+      bottom: 0
+    },
+    infoRecipeContainer: {
+      alignSelf: 'flex-start',
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    infoTextTitle: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      textAlign: 'left',
+      color: 'black'
+    },
+    infoTextSubtitle: {
+      fontSize: 15,
+      textAlign: 'left',
+      color: 'black'
+    },
+    infoHeadContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: "center",
+      alignItems: "center",
+      justifyContent: 'space-evenly',
+      //paddingLeft: '13%',
+      //position: 'absolute',
+      bottom: 0
+    },
+    infoTextHead: {
+      color:'black',
+      fontWeight:'bold',
+      fontSize: 15,
+      padding: 3
+    },
+    infoTitleContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    infoTextTitleBox: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    infoTextIngredients: {
+      paddingLeft: '5%',
+      fontSize: 15,
+      textAlign: 'left',
+      color: 'black'
+    },
+    infoBoxContainer: {
+      flex: 1,
+    },
+    infoListContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginTop: 5,
+      flex: 1,
+    },
+    infoIngredientsContainer: {
+      flex: 1,
+    },
+    infoIngredientsText: {
+      marginTop: 5,
+      fontSize: 15,
+      color: 'black'
+    },
+    infoInstructionsContainer: {
+      padding: "2%"
+    },
+    infoInstructionsText: {
+      marginTop: 5,
+      fontSize: 12,
+      color: 'black'
+    },
   toggleButton: {
-    backgroundColor: "black",
+    backgroundColor: "green",
     height: 35,
     width: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    //justifyContent: 'space-around',
+    flex: 1,
+    //height: windowHeight * .1,
+  },
+  switchButton: {
+    backgroundColor: "white",
+    height: 35,
+    width: windowWidth * .5,
     alignItems: 'center',
     justifyContent: 'center',
   },
