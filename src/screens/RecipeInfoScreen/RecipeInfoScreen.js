@@ -79,16 +79,14 @@ export default class RecipeInfoScreen extends React.Component {
     // Saves this recipe's index to viewed recipe indexes in local storage
   saveViewData = async () => {
     try {
-      // Deletes an earlier view index if found
+      // Deletes the earlier view index if found
       if (this.state.viewedRecipeIndexes.includes(this.state.index)) {
         const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
         this.state.viewedRecipeIndexes.splice(index, 1)
-        console.log("deleted old entry")
       }
       // Pushes view index to the back of the array and saves to viewed recipe indexes local storage
       this.state.viewedRecipeIndexes.push(this.state.index)
       await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
-      console.log("saved to view history")
     } catch (error) {
         console.log(error.mesage)
     }
