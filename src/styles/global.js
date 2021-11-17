@@ -319,7 +319,8 @@ export const MealStyles = StyleSheet.create({
   infoImage: {
     height: '100%',
     width: '100%',
-    borderRadius: 35,
+    borderRadius: 15,
+    resizeMode: 'contain'
   },
   infoRecipeContainer: {
     alignSelf: 'flex-start',
