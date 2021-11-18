@@ -1,20 +1,43 @@
 import React, { useContext, useState } from 'react';
-import { Button, Modal, Pressable, SafeAreaView, Text, View, Switch } from 'react-native';
+import { Button, Modal, Pressable, SafeAreaView, Text, View, Switch, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AuthContext } from '../../AuthContext/AuthContext.js';
 import { MealStyles } from '../../styles/global.js';
 import { Entypo } from '@expo/vector-icons';
 import { HelpModalText } from '../../components/modalText.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SettingScreen(props) {
 
-    
+
     const { signOut, signUp, signIn } = useContext(AuthContext)
     const [modalVisible, setModalVisible] = useState(false)
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const user = props.route.params.user
 
+    const clearPinned = async () => {
+        try {
+            await AsyncStorage.removeItem('pinnedRecipeIndexes')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const clearPinnedAlert = () => Alert.alert(
+        "Remove every pinned recipe",
+        "Are you sure you want to remove every pinned recipe?\nYou will have to repin each one again", [
+        {
+            text: "No",
+            //onPress: () => console.log("Cancel"),
+            style: "cancel"
+        }, {
+            text: "Yes",
+            onPress: () => clearPinned(),
+            style: 'destructive'
+        }
+    ]
+    )
     return (
         <SafeAreaView style={MealStyles.container, { alignItems: 'center', marginTop: '10%', flex: 1 }}>
             <Modal
@@ -77,7 +100,7 @@ export default function SettingScreen(props) {
             </View>
             <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', paddingBottom: '20%', justifyContent: 'space-evenly' }} >
                 <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%' }} >Remove every pinned recipe here</Text>
-                <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => alert("Clearing every pinned recipe")} >
+                <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => clearPinnedAlert()} >
                     <Text style={MealStyles.buttonGuestText} >CLEAR RECIPES</Text>
                 </TouchableOpacity>
                 {user == "Guest" ? (
@@ -96,7 +119,7 @@ export default function SettingScreen(props) {
                     </>
                 )}
                 <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center' }} >Would you like to sign out from {user}?</Text>
-            {/* <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', justifyContent: 'center' }} > */}
+                {/* <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', justifyContent: 'center' }} > */}
                 <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signOut()} >
                     <Text style={MealStyles.buttonGuestText} >SIGN OUT</Text>
                 </TouchableOpacity>
