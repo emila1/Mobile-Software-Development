@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'
 import RecipeCardLoading from '../../components/recipeCardLoading';
+import { PlaceholderCard } from '../../components/placeholderCard'
 import { getRandomRecipe } from '../../utils/search';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
@@ -38,23 +39,32 @@ export default class HomeScreen extends Component {
         try {
             const pins = await AsyncStorage.getItem('pinnedRecipeIndexes')
             const views = await AsyncStorage.getItem('viewedRecipeIndexes')
-            if (pins !== null) {
                 this.setState({
                   pinnedRecipeIndexes: JSON.parse(pins),
-                  hasPins: true
-                })
-            }
-            if (views !== null) {
-                this.setState({
                   viewedRecipeIndexes: JSON.parse(views),
-                  hasViews: true
                 })
-            }
+                if (this.state.pinnedRecipeIndexes.length !== 0) {
+                    this.setState({
+                        hasPins: true
+                      })
+                } else {
+                    this.setState({
+                        hasPins: false
+                      })
+                }
+                if (this.state.viewedRecipeIndexes.length !== 0) {
+                    this.setState({
+                        hasViews: true
+                      })
+                } else {
+                    this.setState({
+                        hasViews: false
+                      })
+                }
         } catch (error) {
             console.log(error.message)
         }
     }
-
 
     componentDidMount() {
         this.setState({ randomRecipes: getRandomRecipe(10) })
@@ -63,6 +73,7 @@ export default class HomeScreen extends Component {
     }
 
     render() {
+
         return (
             <>
             <FetchPinAndViewData onFocused={this.getPinAndViewData}/>
@@ -86,14 +97,17 @@ export default class HomeScreen extends Component {
                             <>
                                 {this.state.hasPins ? (this.state.pinnedRecipeIndexes.map((index) =>
                                 <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
-                                <RecipeCard
-                                    key={this.generateID()}
-                                    value={index}
-                                    size="small"
-                                //navigation={this.props.navigation}
-                                />
-                            </TouchableOpacity>
-                                )).reverse() : ( <Ionicons name="pin" color="black" /> ) }
+                                    <RecipeCard
+                                        key={this.generateID()}
+                                        value={index}
+                                        size="small"
+                                    //navigation={this.props.navigation}
+                                    />
+                                </TouchableOpacity>
+                                )).reverse() : ( <PlaceholderCard 
+                                    mainText={"No pinned recipes yet"}
+                                    secondaryText={"Tip: Tap the pin when viewing a recipe!"}
+                                /> ) }
                             </>
                         )
                         }
@@ -151,7 +165,10 @@ export default class HomeScreen extends Component {
                                 //navigation={this.props.navigation}
                                 />
                             </TouchableOpacity>
-                                )).reverse() : ( <Ionicons name="pin" color="black" /> ) }
+                                )).reverse() : ( <PlaceholderCard 
+                                    mainText={"No viewed recipes yet"}
+                                    secondaryText={"Tip: Simply start browsing recipes!"}
+                                /> ) }
                             </>
                         )
                         }
