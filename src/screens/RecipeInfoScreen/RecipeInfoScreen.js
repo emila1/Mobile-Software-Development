@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import recipes from "../../../recipes/recipes.json";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { Divider } from 'react-native-elements';
@@ -145,14 +145,27 @@ export default class RecipeInfoScreen extends React.Component {
       <>
 
         <ScrollView>
-          <TouchableOpacity style={{ flex: 1, marginTop: '7%', marginLeft: '2%', flexDirection: "row" }} onPress={() => this.props.navigation.goBack()}>
-            <Ionicons name="arrow-back" size={27} color="tomato" />
-            <Text style={{ textAlignVertical: "center", fontSize: 15, fontWeight: "bold" }} >  Back</Text>
-          </TouchableOpacity>
-          <Image
+          <ImageBackground
             style={styles.infoImage}
             source={{ uri: recipe[id].image_urls[0] }}
-          />
+          >
+            <TouchableOpacity style={{ 
+                flex: 1, 
+                marginTop: '8%', 
+                marginLeft: '5%', 
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute"}} onPress={() => this.props.navigation.goBack()}>
+              <Ionicons name="arrow-back" size={27} color="tomato" />
+              <Text style={{ textAlignVertical: "center", 
+                fontSize: 15, 
+                fontWeight: "bold", 
+                color:"black",
+                textShadowColor: "white",
+                textShadowRadius: 7}} >  Back</Text>
+            </TouchableOpacity>
+          </ImageBackground>
           <View style={styles.bodyContainer} >
             <View style={styles.titleContainer}>
               <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
@@ -213,41 +226,6 @@ export default class RecipeInfoScreen extends React.Component {
           </View>
         </ScrollView>
       </>
-
-      /*        <View style={styles.container}>
-              <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
-              <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
-      
-      
-            </View>
-      
-            <Text style={styles.infoTextTitleBox}>Ingredients</Text>
-            <View style={styles.infoTitleContainer}>
-                  
-            <FlatList
-                  style={styles.infoInstructionsContainer}
-                  showsVerticalScrollIndicator={false}
-                  keyboardDismissMode="on-drag"
-                  data={recipe[id].ingredients}
-                  renderItem={({ item }) => (
-                    <Text style={styles.infoIngredientsText}>• {item}</Text>
-                  )}
-                />
-            </View>
-      
-            <Text style={styles.infoTextTitleBox}>Instructions</Text>
-            <View style={styles.infoTitleContainer}>
-                  <FlatList
-                  style={styles.infoInstructionsContainer}
-                  showsVerticalScrollIndicator={false}
-                  keyboardDismissMode="on-drag"
-                  data={recipe[id].instructions}
-                  renderItem={({ item }) => (
-                    <Text style={styles.infoInstructionsText}>{item}</Text>
-                  )}
-                />
-            </View>  */
-
     );
   }
 }
