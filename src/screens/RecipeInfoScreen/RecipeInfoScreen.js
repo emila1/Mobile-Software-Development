@@ -112,8 +112,8 @@ export default class RecipeInfoScreen extends React.Component {
   togglePin = () => {
     this.setState({
       isPinned: !this.state.isPinned
-    })
-    this.handlePin()
+    }, this.handlePin())
+    //this.handlePin()
   }
 
   // This only goes through the if() once, for the sake of getting and setting this recipe's index
@@ -149,21 +149,24 @@ export default class RecipeInfoScreen extends React.Component {
             style={styles.infoImage}
             source={{ uri: recipe[id].image_urls[0] }}
           >
-            <TouchableOpacity style={{ 
-                flex: 1, 
-                marginTop: '8%', 
-                marginLeft: '5%', 
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute"}} onPress={() => this.props.navigation.goBack()}>
+            <TouchableOpacity style={{
+              flex: 1,
+              marginTop: '8%',
+              marginLeft: '5%',
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute"
+            }} onPress={() => this.props.navigation.goBack()}>
               <Ionicons name="arrow-back" size={27} color="tomato" />
-              <Text style={{ textAlignVertical: "center", 
-                fontSize: 15, 
-                fontWeight: "bold", 
-                color:"black",
+              <Text style={{
+                textAlignVertical: "center",
+                fontSize: 15,
+                fontWeight: "bold",
+                color: "black",
                 textShadowColor: "white",
-                textShadowRadius: 7}} >  Back</Text>
+                textShadowRadius: 7
+              }} >  Back</Text>
             </TouchableOpacity>
           </ImageBackground>
           <View style={styles.bodyContainer} >
