@@ -36,6 +36,11 @@ export default class RecipeScreen extends React.Component {
             <FetchRecipeIndexes onFocused={this.getRecipeIndexes}/>
             <View style={styles.container}>
                 <Text style={styles.recipeTitle}>Suggested recipes</Text>
+                {this.state.randomRecipes.length < 1 ? ( 
+                <View>
+                    <Text style={{ fontSize: 16 }}>Find suggested recipes by adding ingredients in the 'Fridge' tab</Text>
+                </View> 
+                ) : ( <>
                 <FlatList style={styles.recipeflatListContainer}
                     data={this.state.foundRecipeIndexes}
                     //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
@@ -52,8 +57,9 @@ export default class RecipeScreen extends React.Component {
                                 />
                         )
                     }}
-                />
-            </View>
+                /> 
+                </>)}
+            </View> 
             </>
         );
     }

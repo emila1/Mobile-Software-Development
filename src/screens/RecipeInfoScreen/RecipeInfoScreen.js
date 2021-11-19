@@ -123,22 +123,23 @@ export default class RecipeInfoScreen extends React.Component {
             style={styles.infoImage}
             source={{ uri: recipe[this.state.id].image_urls[0] }}
           >
+            <View style={{ marginTop: '10%', marginLeft: '2%'}}>
             <TouchableOpacity style={{ 
                 flex: 1,
                 marginTop: '2%', 
-                marginLeft: '4%', 
-                padding: 5, 
+                marginLeft: '2%', 
+                paddingLeft: '5%',
+                paddingTop: '5%', 
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: "white",
                 borderRadius: 25,
                 opacity: 0.90,
-                position: "absolute"}} onPress={() => this.props.navigation.goBack()}>
                 position: "absolute"}} onPress={this.handleGoBack}>
               <Ionicons name="arrow-back" size={27} color="tomato" />
             </TouchableOpacity>
-
+            </View>
           </ImageBackground>
           <View style={styles.bodyContainer} >
             <View style={styles.titleContainer}>

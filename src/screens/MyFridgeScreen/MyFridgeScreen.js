@@ -79,7 +79,9 @@ class MyFridge extends React.Component {
       // function to run searchIngredients based on ingredients list
       handleSearch = () => {
         // map names of ingredients to list
-        let ingredientList = this.state.ingredients.map(element => element.name);
+        // if ingredient is owned, add to list
+        let ownedIngredients = this.state.ingredients.filter(element => element.owned === true);
+        let ingredientList = ownedIngredients.map(element => element.name);       
           this.setState({
               foundRecipeIndexes: searchIngredients(ingredientList, 15),
           }, this.saveRecipeIndexes);
@@ -204,7 +206,7 @@ class MyFridge extends React.Component {
                       value={element}
                       handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
                       handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
-                  /> )}
+                  /> ).reverse()}
                   </ScrollView>
               </View>
           );
