@@ -18,7 +18,7 @@ export default function SettingScreen(props) {
 
     const clearPinned = async () => {
         try {
-            await AsyncStorage.removeItem('pinnedRecipeIndexes')
+            await AsyncStorage.removeItem('pinnedRecipes')
             // To prevent null when evaluating 'this.state.pinnedRecipeIndexes.map' in HomeScreen:
             await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify([]))
         } catch (error) {

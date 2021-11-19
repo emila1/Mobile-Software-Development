@@ -15,7 +15,7 @@ const recipe = recipes;
 export default class RecipeInfoScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.getPinData()
+    //this.getPinData()
     this.state = {
       isPinned: false,
       pinnedRecipeIndexes: [],
@@ -28,115 +28,75 @@ export default class RecipeInfoScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.getViewData();
-    console.log("component mounted")
+    this.getPinData();
+    this.handleViewed();
+    console.log("Component mounted with id: ", this.state.id)
   }
-/*   componentDidMount() {
-    this.setIndex(this.props.route.params.id);
-  } */
 
-  // This is called at construction. It fetches pinned recipe indexes (if any exist) from local storage
+  // get pinned recipes from async storage
   getPinData = async () => {
+    console.log("Getting pin data")
     try {
-      const items = await AsyncStorage.getItem('pinnedRecipeIndexes')
-      if (items !== null) {
+      const value = await AsyncStorage.getItem('pinnedRecipes');
+      if (value !== null) {
+        // We have data!!
+        console.log("value: ", value)
         this.setState({
-          pinnedRecipeIndexes: JSON.parse(items),
-        }, this.checkIfPinned);
+          pinnedRecipeIndexes: JSON.parse(value)
+        }, this.checkPinned)
       }
     } catch (error) {
-      console.log(error.message)
+      // Error retrieving data
+      console.log("error: ", error)
     }
   }
 
-  // Checks if this recipe's index is found in the fetched pin indexes and sets pin state accordingly
-  checkIfPinned() {
+  // if index is in pinnedRecipeIndexes, set isPinned to true
+  checkPinned = () => {
     if (this.state.pinnedRecipeIndexes.includes(this.state.id)) {
       this.setState({
         isPinned: true
       })
-    } else {
-      this.setState({
-        isPinned: false
-      })
     }
   }
 
-  // Either removed this recipe index or adds it to the fetched pin indexes
-  handlePin() {
-    if (this.state.isPinned == true) {
-      const index = this.state.pinnedRecipeIndexes.indexOf(this.state.id)
-      this.state.pinnedRecipeIndexes.splice(index, 1)
-    } else {
+  // if isPinned is true, add index to pinnedRecipes
+  // if isPinned is false, remove index from pinnedRecipes
+  savePinData = () => {
+    if (this.state.isPinned) {
       this.state.pinnedRecipeIndexes.push(this.state.id)
+    } else {
+      this.state.pinnedRecipeIndexes.splice(this.state.pinnedRecipeIndexes.indexOf(this.state.id), 1)
     }
-    this.saveChange()
+    console.log("pinnedRecipes: ", this.state.pinnedRecipeIndexes)
+    AsyncStorage.setItem('pinnedRecipes', JSON.stringify(this.state.pinnedRecipeIndexes))
   }
 
-  // Fetches the viewed recipe indexes in local storage
-  getViewData = async () => {
-    console.log("Getting view data");
-    try {
-      const items = await AsyncStorage.getItem('viewedRecipeIndexes');
-      console.log("Items from async", JSON.parse(items))
-      const itemsArr = JSON.parse(items)
-      if (items !== null) {
-/*         if (itemsArr.length > 5) {    // If the array is longer than 5, remove the first item
-          itemsArr.shift()
-        } */
-        console.log("items is not null")
-        this.setState({
-          viewedRecipeIndexes: items,
-        }, this.saveViewData);
+  // add index to viewedRecipes in async storage. If index is already in viewedRecipes, do nothing.
+  handleViewed = () => {
+    console.log("Handling viewed")
+    AsyncStorage.getItem('viewedRecipes', (err, result) => {
+      if (result !== null) {
+        console.log("result: ", result)
+        const viewedRecipes = JSON.parse(result)
+        if (!viewedRecipes.includes(this.state.id)) {
+          viewedRecipes.push(this.state.id)
+          AsyncStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes))
+        }
+      } else {
+        const viewedRecipes = [this.state.id]
+        AsyncStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes))
       }
-    } catch (error) {
-      console.log(error.message)
-    }
-
+    })
   }
 
-  // Saves this recipe's index to viewed recipe indexes in local storage
-  saveViewData = async () => {
-    console.log("Saving view data");
-    try {
-      // Deletes an earlier view index if found
-      if (this.state.viewedRecipeIndexes.includes(this.state.id)) {
-        const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
-        this.state.viewedRecipeIndexes.splice(index, 1)
-      }
-      // Pushes view index to the back of the array and saves to viewed recipe indexes local storage
-      this.state.viewedRecipeIndexes.push(this.state.index)
-      await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
-    } catch (error) {
-      console.log(error.mesage)
-    }
-  }
 
-  // Saves pin change to pinned recipe indexes in local storage
-  saveChange = async () => {
-    try {
-      await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify(this.state.pinnedRecipeIndexes));
-    } catch (error) {
-      console.log(error.mesage)
-    }
-  }
-
-  // Flip-flops the pin state after change
+  // flip value of isPinned
   togglePin = () => {
     this.setState({
       isPinned: !this.state.isPinned
-    }, this.handlePin)
+    }, this.savePinData)
   }
-
-  // This only goes through the if() once, for the sake of getting and setting this recipe's index
-/*   setIndex(id) {
-    if (this.state.index == null) { // To prevent a loop of setting state and rendering
-      this.setState({
-        index: id
-      })
-      this.getViewData()
-    }
-  } */
 
   setIngredientsText = () => {
     this.setState({
@@ -189,6 +149,7 @@ export default class RecipeInfoScreen extends React.Component {
                 textShadowColor: "white",
                 textShadowRadius: 7}} >  Back</Text>
             </TouchableOpacity>
+
           </ImageBackground>
           <View style={styles.bodyContainer} >
             <Button onPress={this.handlePrintPins} title="Print Pins" />

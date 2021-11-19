@@ -36,7 +36,7 @@ export default class HomeScreen extends Component {
     getPinAndViewData = async () => {
         this.setState({ loading: true })
         try {
-            const pins = await AsyncStorage.getItem('pinnedRecipeIndexes')
+            const pins = await AsyncStorage.getItem('pinnedRecipes')
             const views = await AsyncStorage.getItem('viewedRecipeIndexes')
             this.setState({
                 pinnedRecipeIndexes: JSON.parse(pins),
