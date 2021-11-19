@@ -36,7 +36,6 @@ export default class HomeScreen extends Component {
 
     // Fetches pin and view indexes from local storage
     getPinAndViewData = async () => {
-        this.setState({ loading: true })
         try {
             const pins = await AsyncStorage.getItem('pinnedRecipeIndexes')
             const views = await AsyncStorage.getItem('viewedRecipeIndexes')
