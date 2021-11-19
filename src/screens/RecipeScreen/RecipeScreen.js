@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import RecipeCard from '../../components/recipeCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -34,27 +34,28 @@ export default class RecipeScreen extends React.Component {
 
         return (
             <>
-            <FetchRecipeIndexes onFocused={this.getRecipeIndexes}/>
-            <View style={styles.container}>
-                <Text style={styles.recipeTitle}>Suggested recipes</Text>
-                <FlatList style={styles.recipeflatListContainer}
-                    data={this.state.foundRecipeIndexes}
-                    //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
-                    keyExtractor={(index) => index.toString()}
-                    keyboardDismissMode="on-drag"
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => {
-                        return (
-                            <TouchableOpacity style={styles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", {item})}>
-                                <RecipeCard
-                                    key={item} 
-                                    value={item}
-                                />
-                            </TouchableOpacity>
-                        )
-                    }}
-                />
-            </View>
+                <FetchRecipeIndexes onFocused={this.getRecipeIndexes} />
+                <View style={styles.container}>
+                    <Text style={styles.recipeTitle}>Suggested recipes</Text>
+                    <FlatList style={styles.recipeflatListContainer}
+                        data={this.state.foundRecipeIndexes}
+                        //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
+                        keyExtractor={(index) => index.toString()}
+                        keyboardDismissMode="on-drag"
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => {
+                            return (
+                                <TouchableOpacity style={styles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item })}>
+                                    <RecipeCard
+                                        key={item}
+                                        value={item}
+                                        size="large"
+                                    />
+                                </TouchableOpacity>
+                            )
+                        }}
+                    />
+                </View>
             </>
         );
     }
@@ -62,22 +63,22 @@ export default class RecipeScreen extends React.Component {
 
 function FetchRecipeIndexes({ onFocused }) {
     useFocusEffect(
-      React.useCallback(() => {
-        onFocused();
-        return () => {
+        React.useCallback(() => {
+            onFocused();
+            return () => {
             }
-      }, [])
+        }, [])
     );
-  
+
     return null;
-  }
+}
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: '10%',
         paddingLeft: '2%',
         paddingRight: 10,
-        
+
     },
     recipeContainer: {
         flex: 1,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 20,
         fontWeight: 'bold',
-      },
+    },
     recipeflatListContainer: {
         marginTop: 10,
     },
