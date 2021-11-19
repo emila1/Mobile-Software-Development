@@ -29,9 +29,6 @@ class MyFridge extends React.Component {
         this.handleDeleteIngredient = this.handleDeleteIngredient.bind(this);
     }
 
-
-
-
     // function to save ingredients to async storage 
     saveData = async () => {
           try {
@@ -194,7 +191,7 @@ class MyFridge extends React.Component {
                       value={element}
                       handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
                       handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
-                  /> )}
+                  /> ).reverse()}
                   <View style={styles.inputContainer}>
                       <Ionicons 
                           style={styles.icon} 

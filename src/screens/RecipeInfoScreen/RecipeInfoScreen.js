@@ -30,17 +30,14 @@ export default class RecipeInfoScreen extends React.Component {
   componentDidMount() {
     this.getPinData();
     this.handleViewed();
-    console.log("Component mounted with id: ", this.state.id)
   }
 
   // get pinned recipes from async storage
   getPinData = async () => {
-    console.log("Getting pin data")
     try {
       const value = await AsyncStorage.getItem('pinnedRecipes');
       if (value !== null) {
         // We have data!!
-        console.log("value: ", value)
         this.setState({
           pinnedRecipeIndexes: JSON.parse(value)
         }, this.checkPinned)
@@ -68,17 +65,18 @@ export default class RecipeInfoScreen extends React.Component {
     } else {
       this.state.pinnedRecipeIndexes.splice(this.state.pinnedRecipeIndexes.indexOf(this.state.id), 1)
     }
-    console.log("pinnedRecipes: ", this.state.pinnedRecipeIndexes)
     AsyncStorage.setItem('pinnedRecipes', JSON.stringify(this.state.pinnedRecipeIndexes))
   }
 
   // add index to viewedRecipes in async storage. If index is already in viewedRecipes, do nothing.
   handleViewed = () => {
-    console.log("Handling viewed")
     AsyncStorage.getItem('viewedRecipes', (err, result) => {
       if (result !== null) {
-        console.log("result: ", result)
         const viewedRecipes = JSON.parse(result)
+        // if viewedRecipes is longer than 6, remove the first index
+        if (viewedRecipes.length > 5) {
+          viewedRecipes.shift()
+        }
         if (!viewedRecipes.includes(this.state.id)) {
           viewedRecipes.push(this.state.id)
           AsyncStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes))
@@ -101,27 +99,19 @@ export default class RecipeInfoScreen extends React.Component {
   setIngredientsText = () => {
     this.setState({
       displayIngredients: true
-    }, console.log('Ingredients: ', this.state.displayIngredients))
+    })
   }
 
   setInstructionsText = () => {
     this.setState({
       displayIngredients: false
-    }, console.log('Ingredients: ', this.state.displayIngredients))
+    })
   }
 
   handleGoBack = () => {
     this.props.navigation.goBack();
   }
 
-  handlePrintPins = async () => {
-    try {
-      const items = await AsyncStorage.getItem('viewedRecipeIndexes')
-      console.log("Viewed: ", items)
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
 
   render() {
     //const { item: id } = this.props.route.params;
@@ -152,7 +142,6 @@ export default class RecipeInfoScreen extends React.Component {
 
           </ImageBackground>
           <View style={styles.bodyContainer} >
-            <Button onPress={this.handlePrintPins} title="Print Pins" />
             <View style={styles.titleContainer}>
               <Text style={styles.infoTextTitle}>{recipe[this.state.id].title}</Text>
               <Text style={styles.infoTextSubtitle}>{recipe[this.state.id].subtitle}</Text>

@@ -27,6 +27,13 @@ export default class HomeScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        this.setState({ randomRecipes: getRandomRecipe(10) })
+        this.getPinAndViewData()
+        //this.setState({ foundRecipes: myRecipeIndexes })
+        setTimeout(() => { this.setState({ loading: false }) }, 100)
+    }
+
     // generate random number between 500 and 10000
     generateID() {
         return Math.floor(Math.random() * (10000)) + 500;
@@ -34,10 +41,11 @@ export default class HomeScreen extends Component {
 
     // Fetches pin and view indexes from local storage
     getPinAndViewData = async () => {
+        console.log("Getting pin and view data")
         this.setState({ loading: true })
         try {
             const pins = await AsyncStorage.getItem('pinnedRecipes')
-            const views = await AsyncStorage.getItem('viewedRecipeIndexes')
+            const views = await AsyncStorage.getItem('viewedRecipes')
             this.setState({
                 pinnedRecipeIndexes: JSON.parse(pins),
                 viewedRecipeIndexes: JSON.parse(views),
@@ -66,14 +74,6 @@ export default class HomeScreen extends Component {
             console.log(error.message)
         }
     }
-
-    componentDidMount() {
-        this.setState({ randomRecipes: getRandomRecipe(10) })
-        this.getPinAndViewData()
-        //this.setState({ foundRecipes: myRecipeIndexes })
-        setTimeout(() => { this.setState({ loading: false }) }, 100)
-    }
-
 
     render() {
 
