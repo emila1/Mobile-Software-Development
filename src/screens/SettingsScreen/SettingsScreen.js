@@ -19,6 +19,18 @@ export default function SettingScreen(props) {
     const clearPinned = async () => {
         try {
             await AsyncStorage.removeItem('pinnedRecipeIndexes')
+            // To prevent null when evaluating 'this.state.pinnedRecipeIndexes.map' in HomeScreen:
+            await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify([]))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const clearViewed = async () => {
+        try {
+            await AsyncStorage.removeItem('viewedRecipeIndexes')
+            // To prevent null when evaluating 'this.state.viewedRecipeIndexes.map' in HomeScreen:
+            await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify([]))
         } catch (error) {
             console.log(error)
         }
@@ -38,6 +50,22 @@ export default function SettingScreen(props) {
         }
     ]
     )
+
+    const clearViewedAlert = () => Alert.alert(
+        "Remove every viewed recipe",
+        "Are you sure you want to remove every viewed recipe?", [
+        {
+            text: "No",
+            //onPress: () => console.log("Cancel"),
+            style: "cancel"
+        }, {
+            text: "Yes",
+            onPress: () => clearViewed(),
+            style: 'destructive'
+        }
+    ]
+    )
+
     return (
         <SafeAreaView style={MealStyles.container, { alignItems: 'center', marginTop: '10%', flex: 1 }}>
             <Modal
@@ -99,17 +127,21 @@ export default function SettingScreen(props) {
                 </View>
             </View>
             <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', paddingBottom: '20%', justifyContent: 'space-evenly' }} >
-                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%' }} >Remove every pinned recipe here</Text>
+                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center'}} >Remove pinned recipes:</Text>
                 <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => clearPinnedAlert()} >
                     <Text style={MealStyles.buttonGuestText} >CLEAR RECIPES</Text>
                 </TouchableOpacity>
+                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center'}} >Remove viewed recipes:</Text>
+                <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => clearViewedAlert()} >
+                    <Text style={MealStyles.buttonGuestText} >CLEAR VIEWED</Text>
+                </TouchableOpacity>
                 {user == "Guest" ? (
                     <>
-                        <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center' }}>If you already have a premium account:</Text>
+                        <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%', }}>Log in to account:</Text>
                         <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signIn()} >
                             <Text style={MealStyles.buttonGuestText} >LOG IN</Text>
                         </TouchableOpacity>
-                        <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%' }} >Or would you like to create a premium account?</Text>
+                        <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%',}} >Create an account:</Text>
                         <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signUp()} >
                             <Text style={MealStyles.buttonGuestText} >CREATE ACCOUNT</Text>
                         </TouchableOpacity>
@@ -118,7 +150,7 @@ export default function SettingScreen(props) {
                     <>
                     </>
                 )}
-                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center' }} >Would you like to sign out from {user}?</Text>
+                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center' }} >Sign out from {user}:</Text>
                 {/* <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', justifyContent: 'center' }} > */}
                 <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signOut()} >
                     <Text style={MealStyles.buttonGuestText} >SIGN OUT</Text>
