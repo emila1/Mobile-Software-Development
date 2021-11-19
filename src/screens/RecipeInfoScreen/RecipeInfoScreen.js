@@ -78,11 +78,13 @@ export default class RecipeInfoScreen extends React.Component {
     console.log("Getting view data");
     try {
       const items = await AsyncStorage.getItem('viewedRecipeIndexes');
+      console.log("Items from async", JSON.parse(items))
       const itemsArr = JSON.parse(items)
       if (items !== null) {
 /*         if (itemsArr.length > 5) {    // If the array is longer than 5, remove the first item
           itemsArr.shift()
         } */
+        console.log("items is not null")
         this.setState({
           viewedRecipeIndexes: items,
         }, this.saveViewData);
