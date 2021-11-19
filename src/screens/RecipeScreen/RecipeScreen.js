@@ -45,12 +45,11 @@ export default class RecipeScreen extends React.Component {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity style={styles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", {item})}>
                                 <RecipeCard
                                     key={item} 
                                     value={item}
+                                    navigation={this.props.navigation}
                                 />
-                            </TouchableOpacity>
                         )
                     }}
                 />
