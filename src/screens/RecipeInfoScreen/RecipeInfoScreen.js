@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions, Button } from "react-native";
 import recipes from "../../../recipes/recipes.json";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { Divider } from 'react-native-elements';
@@ -27,7 +27,10 @@ export default class RecipeInfoScreen extends React.Component {
     this.handleGoBack = this.handleGoBack.bind(this)
   }
 
-
+  componentDidMount() {
+    this.getViewData();
+    console.log("component mounted")
+  }
 /*   componentDidMount() {
     this.setIndex(this.props.route.params.id);
   } */
@@ -39,9 +42,8 @@ export default class RecipeInfoScreen extends React.Component {
       if (items !== null) {
         this.setState({
           pinnedRecipeIndexes: JSON.parse(items),
-        });
+        }, this.checkIfPinned);
       }
-      this.checkIfPinned()
     } catch (error) {
       console.log(error.message)
     }
@@ -73,25 +75,27 @@ export default class RecipeInfoScreen extends React.Component {
 
   // Fetches the viewed recipe indexes in local storage
   getViewData = async () => {
+    console.log("Getting view data");
     try {
       const items = await AsyncStorage.getItem('viewedRecipeIndexes');
       const itemsArr = JSON.parse(items)
-      if (itemsArr !== null) {
-        if (itemsArr.length > 5) {
+      if (items !== null) {
+/*         if (itemsArr.length > 5) {    // If the array is longer than 5, remove the first item
           itemsArr.shift()
-        }
+        } */
         this.setState({
-          viewedRecipeIndexes: itemsArr,
-        });
+          viewedRecipeIndexes: items,
+        }, this.saveViewData);
       }
     } catch (error) {
       console.log(error.message)
     }
-    this.saveViewData()
+
   }
 
   // Saves this recipe's index to viewed recipe indexes in local storage
   saveViewData = async () => {
+    console.log("Saving view data");
     try {
       // Deletes an earlier view index if found
       if (this.state.viewedRecipeIndexes.includes(this.state.id)) {
@@ -119,8 +123,7 @@ export default class RecipeInfoScreen extends React.Component {
   togglePin = () => {
     this.setState({
       isPinned: !this.state.isPinned
-    })
-    this.handlePin()
+    }, this.handlePin)
   }
 
   // This only goes through the if() once, for the sake of getting and setting this recipe's index
@@ -149,13 +152,20 @@ export default class RecipeInfoScreen extends React.Component {
     this.props.navigation.goBack();
   }
 
-  render() {
+  handlePrintPins = async () => {
+    try {
+      const items = await AsyncStorage.getItem('viewedRecipeIndexes')
+      console.log("Viewed: ", items)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
+  render() {
     //const { item: id } = this.props.route.params;
     //this.setIndex(id)
     return (
       <>
-
         <ScrollView>
           <ImageBackground
             style={styles.infoImage}
@@ -179,6 +189,7 @@ export default class RecipeInfoScreen extends React.Component {
             </TouchableOpacity>
           </ImageBackground>
           <View style={styles.bodyContainer} >
+            <Button onPress={this.handlePrintPins} title="Print Pins" />
             <View style={styles.titleContainer}>
               <Text style={styles.infoTextTitle}>{recipe[this.state.id].title}</Text>
               <Text style={styles.infoTextSubtitle}>{recipe[this.state.id].subtitle}</Text>

@@ -140,7 +140,7 @@ export default class HomeScreen extends Component {
                     >
                         Viewed Recipes
                     </Text>
-    {/*                 <ScrollView
+{/*                      <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
 
@@ -165,7 +165,7 @@ export default class HomeScreen extends Component {
                             </>
                         )
                         }
-                    </ScrollView> */}
+                    </ScrollView> */} 
                 </ScrollView>
             </View>
             </>
