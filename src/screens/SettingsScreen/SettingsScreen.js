@@ -18,9 +18,9 @@ export default function SettingScreen(props) {
 
     const clearPinned = async () => {
         try {
-            await AsyncStorage.removeItem('pinnedRecipeIndexes')
+            await AsyncStorage.removeItem('pinnedRecipes')
             // To prevent null when evaluating 'this.state.pinnedRecipeIndexes.map' in HomeScreen:
-            await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify([]))
+            await AsyncStorage.setItem('pinnedRecipes', JSON.stringify([]))
         } catch (error) {
             console.log(error)
         }
@@ -28,9 +28,9 @@ export default function SettingScreen(props) {
 
     const clearViewed = async () => {
         try {
-            await AsyncStorage.removeItem('viewedRecipeIndexes')
+            await AsyncStorage.removeItem('viewedRecipes')
             // To prevent null when evaluating 'this.state.viewedRecipeIndexes.map' in HomeScreen:
-            await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify([]))
+            await AsyncStorage.setItem('viewedRecipes', JSON.stringify([]))
         } catch (error) {
             console.log(error)
         }

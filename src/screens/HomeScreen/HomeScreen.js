@@ -11,12 +11,10 @@ import { Ionicons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 
-//let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.getPinAndViewData()
         this.state = {
             //foundRecipes: null,
             //foundRecipes: searchIngredients(list, 20),
@@ -29,6 +27,13 @@ export default class HomeScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        this.setState({ randomRecipes: getRandomRecipe(10) })
+        this.getPinAndViewData()
+        //this.setState({ foundRecipes: myRecipeIndexes })
+        setTimeout(() => { this.setState({ loading: false }) }, 100)
+    }
+
     // generate random number between 500 and 10000
     generateID() {
         return Math.floor(Math.random() * (10000)) + 500;
@@ -36,9 +41,10 @@ export default class HomeScreen extends Component {
 
     // Fetches pin and view indexes from local storage
     getPinAndViewData = async () => {
+        this.setState({ loading: true })
         try {
-            const pins = await AsyncStorage.getItem('pinnedRecipeIndexes')
-            const views = await AsyncStorage.getItem('viewedRecipeIndexes')
+            const pins = await AsyncStorage.getItem('pinnedRecipes')
+            const views = await AsyncStorage.getItem('viewedRecipes')
             this.setState({
                 pinnedRecipeIndexes: JSON.parse(pins),
                 viewedRecipeIndexes: JSON.parse(views),
@@ -68,13 +74,6 @@ export default class HomeScreen extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({ randomRecipes: getRandomRecipe(10) })
-        //this.setState({ foundRecipes: myRecipeIndexes })
-        setTimeout(() => { this.setState({ loading: false }) }, 100)
-    }
-
-
     render() {
 
         return (
@@ -99,14 +98,12 @@ export default class HomeScreen extends Component {
                             ) : (
                                 <>
                                     {(this.state.hasPins && this.state.pinnedRecipeIndexes) ? (this.state.pinnedRecipeIndexes.map((index) =>
-                                        <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                             <RecipeCard
                                                 key={this.generateID()}
                                                 value={index}
                                                 size="small"
-                                            //navigation={this.props.navigation}
+                                                navigation={this.props.navigation}
                                             />
-                                        </TouchableOpacity>
                                     )).reverse() : (<PlaceholderCard
                                         mainText={"No pinned recipes yet"}
                                         secondaryText={"Tip: Tap the pin when viewing a recipe!"}
@@ -130,14 +127,13 @@ export default class HomeScreen extends Component {
                                 </>
                             ) : (
                                 <>
-                                    {this.state.randomRecipes.map((index) => <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                    {this.state.randomRecipes.map((index) => 
                                         <RecipeCard
                                             key={this.generateID()}
                                             value={index}
                                             size="small"
-                                        //navigation={this.props.navigation}
+                                            navigation={this.props.navigation}
                                         />
-                                    </TouchableOpacity>
                                     )}
                                 </>
                             )}
@@ -160,14 +156,12 @@ export default class HomeScreen extends Component {
                             ) : (
                                 <>
                                     {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
-                                        <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                             <RecipeCard
                                                 key={this.generateID()}
                                                 value={index}
                                                 size="small"
-                                            //navigation={this.props.navigation}
+                                                navigation={this.props.navigation}
                                             />
-                                        </TouchableOpacity>
                                     )).reverse() : (<PlaceholderCard
                                         mainText={"No viewed recipes yet"}
                                         secondaryText={"Tip: Simply start browsing recipes!"}

@@ -5,7 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext } from './src/AuthContext/AuthContext';
 import ingredients from './src/utils/ingredients.json'
 import IngredientContext from './src/IngredientContext/IngredientContext';
-import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, SurpriseMeScreen, FavoritesScreen, RecipeInfoScreen } from './src/screens'
+import { HomeScreen, MyFridgeScreen, RecipeScreen, SettingScreen, StartScreen, RecipeInfoScreen } from './src/screens'
+import RecipeCard from './src/components/recipeCard';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import ContentLoader from 'react-native-easy-content-loader';
@@ -26,9 +27,10 @@ const recievedIngredients = ingredients;
 function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="HomeScreen" navigation={navigation}  >
-            <StackHome.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
-            <StackHome.Screen name="Recipe" component={RecipeScreen} />
-            <StackHome.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} options={{ headerShown: false }} />
+            <StackHome.Screen name="HomeScreen" navigation={navigation} component={HomeScreen} options={{ headerShown: false }} />
+            <StackHome.Screen name="Recipe" navigation={navigation} component={RecipeScreen} />
+            <StackHome.Screen name="RecipeCard" component={RecipeCard} navigation={navigation} />
+            <StackHome.Screen name="RecipeInfoScreen" navigation={navigation} component={RecipeInfoScreen} options={{ headerShown: false }} />
         </StackHome.Navigator>
     )
 }
@@ -36,8 +38,9 @@ function HomeStack({ navigation }) {
 function RecipieStack({ navigation }) {
     return (
         <StackRecipe.Navigator initialRouteName="RecipeScreen" navigation={navigation} >
-            <StackRecipe.Screen name="RecipeScreen" component={RecipeScreen} options={{ headerShown: false }} />
-            <StackRecipe.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} options={{ headerShown: false }} />
+            <StackRecipe.Screen name="RecipeScreen" navigation={navigation} component={RecipeScreen} options={{ headerShown: false }} />
+            <StackHome.Screen name="RecipeCard" component={RecipeCard} navigation={navigation} />
+            <StackRecipe.Screen name="RecipeInfoScreen" navigation={navigation} component={RecipeInfoScreen} options={{ headerShown: false }} />
         </StackRecipe.Navigator>
     )
 }

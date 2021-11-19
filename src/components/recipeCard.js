@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Dimensions, Text, View, Image } from 'react-native';
+import { StyleSheet, Dimensions, Text, View, Image, TouchableOpacity } from 'react-native';
 //import { MealStyles } from '../styles/global.js';
 import recipes from '../../recipes/recipes.json';
 import { Ionicons } from '@expo/vector-icons'
@@ -17,11 +17,20 @@ class RecipeCard extends React.Component {
         size: this.props.size
     }
 
+    constructor(props) {
+        super(props);
+        this.handleOnPress = this.handleOnPress.bind(this)
+    }
 
+    handleOnPress() {
+        console.log("navigated!");
+        this.props.navigation.navigate('RecipeInfoScreen', { index: this.state.id })
+    }
 
     render() {
         if (this.state.size == "small") {
             return (
+                <TouchableOpacity onPress={this.handleOnPress}>
                 <View style={styles.cardContainer}>
                     <Image
                         style={styles.image}
@@ -44,9 +53,11 @@ class RecipeCard extends React.Component {
 
                     </View>
                 </View>
+                </TouchableOpacity>
             );
         } else if (this.state.size == "large") {
             return (
+                <TouchableOpacity onPress={this.handleOnPress}>
                 <View style={styles.largeCardContainer}>
                     <Image
                         style={styles.image}
@@ -69,6 +80,7 @@ class RecipeCard extends React.Component {
 
                     </View>
                 </View>
+                </TouchableOpacity>
             )
         }
     }

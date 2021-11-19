@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions, Button } from "react-native";
 import recipes from "../../../recipes/recipes.json";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { Divider } from 'react-native-elements';
@@ -15,162 +15,136 @@ const recipe = recipes;
 export default class RecipeInfoScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.getPinData()
+    //this.getPinData()
     this.state = {
       isPinned: false,
       pinnedRecipeIndexes: [],
       viewedRecipeIndexes: [],
-      index: null,
+      id: this.props.route.params.index,
+      //index: null,
       displayIngredients: true
     }
+    this.handleGoBack = this.handleGoBack.bind(this)
   }
 
-  // This is called at construction. It fetches pinned recipe indexes (if any exist) from local storage
+  componentDidMount() {
+    this.getPinData();
+    this.handleViewed();
+  }
+
+  // get pinned recipes from async storage
   getPinData = async () => {
     try {
-      const items = await AsyncStorage.getItem('pinnedRecipeIndexes')
-      if (items !== null) {
+      const value = await AsyncStorage.getItem('pinnedRecipes');
+      if (value !== null) {
+        // We have data!!
         this.setState({
-          pinnedRecipeIndexes: JSON.parse(items),
-        });
+          pinnedRecipeIndexes: JSON.parse(value)
+        }, this.checkPinned)
       }
-      this.checkIfPinned()
     } catch (error) {
-      console.log(error.message)
+      // Error retrieving data
+      console.log("error: ", error)
     }
   }
 
-  // Checks if this recipe's index is found in the fetched pin indexes and sets pin state accordingly
-  checkIfPinned() {
-    if (this.state.pinnedRecipeIndexes.includes(this.state.index)) {
+  // if index is in pinnedRecipeIndexes, set isPinned to true
+  checkPinned = () => {
+    if (this.state.pinnedRecipeIndexes.includes(this.state.id)) {
       this.setState({
         isPinned: true
       })
-    } else {
-      this.setState({
-        isPinned: false
-      })
     }
   }
 
-  // Either removed this recipe index or adds it to the fetched pin indexes
-  handlePin() {
-    if (this.state.isPinned == true) {
-      const index = this.state.pinnedRecipeIndexes.indexOf(this.state.index)
-      this.state.pinnedRecipeIndexes.splice(index, 1)
+  // if isPinned is true, add index to pinnedRecipes
+  // if isPinned is false, remove index from pinnedRecipes
+  savePinData = () => {
+    if (this.state.isPinned) {
+      this.state.pinnedRecipeIndexes.push(this.state.id)
     } else {
-      this.state.pinnedRecipeIndexes.push(this.state.index)
+      this.state.pinnedRecipeIndexes.splice(this.state.pinnedRecipeIndexes.indexOf(this.state.id), 1)
     }
-    this.saveChange()
+    AsyncStorage.setItem('pinnedRecipes', JSON.stringify(this.state.pinnedRecipeIndexes))
   }
 
-  // Fetches the viewed recipe indexes in local storage
-  getViewData = async () => {
-    try {
-      const items = await AsyncStorage.getItem('viewedRecipeIndexes');
-      const itemsArr = JSON.parse(items)
-      if (itemsArr !== null) {
-        if (itemsArr.length > 5) {
-          itemsArr.shift()
+  // add index to viewedRecipes in async storage. If index is already in viewedRecipes, do nothing.
+  handleViewed = () => {
+    AsyncStorage.getItem('viewedRecipes', (err, result) => {
+      if (result !== null) {
+        const viewedRecipes = JSON.parse(result)
+        // if viewedRecipes is longer than 6, remove the first index
+        if (viewedRecipes.length > 5) {
+          viewedRecipes.shift()
         }
-        this.setState({
-          viewedRecipeIndexes: itemsArr,
-        });
+        if (!viewedRecipes.includes(this.state.id)) {
+          viewedRecipes.push(this.state.id)
+          AsyncStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes))
+        }
+      } else {
+        const viewedRecipes = [this.state.id]
+        AsyncStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes))
       }
-    } catch (error) {
-      console.log(error.message)
-    }
-    this.saveViewData()
+    })
   }
 
-  // Saves this recipe's index to viewed recipe indexes in local storage
-  saveViewData = async () => {
-    try {
-      // Deletes an earlier view index if found
-      if (this.state.viewedRecipeIndexes.includes(this.state.index)) {
-        const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
-        this.state.viewedRecipeIndexes.splice(index, 1)
-      }
-      // Pushes view index to the back of the array and saves to viewed recipe indexes local storage
-      this.state.viewedRecipeIndexes.push(this.state.index)
-      await AsyncStorage.setItem('viewedRecipeIndexes', JSON.stringify(this.state.viewedRecipeIndexes))
-    } catch (error) {
-      console.log(error.mesage)
-    }
-  }
 
-  // Saves pin change to pinned recipe indexes in local storage
-  saveChange = async () => {
-    try {
-      await AsyncStorage.setItem('pinnedRecipeIndexes', JSON.stringify(this.state.pinnedRecipeIndexes));
-    } catch (error) {
-      console.log(error.mesage)
-    }
-  }
-
-  // Flip-flops the pin state after change
+  // flip value of isPinned
   togglePin = () => {
     this.setState({
       isPinned: !this.state.isPinned
-    })
-    this.handlePin()
+    }, this.savePinData)
   }
 
-  // This only goes through the if() once, for the sake of getting and setting this recipe's index
-  setIndex(id) {
-    if (this.state.index == null) { // To prevent a loop of setting state and rendering
-      this.setState({
-        index: id
-      })
-      this.getViewData()
-    }
-  }
   setIngredientsText = () => {
     this.setState({
       displayIngredients: true
-    }, console.log('Ingredients: ', this.state.displayIngredients))
+    })
   }
 
   setInstructionsText = () => {
     this.setState({
       displayIngredients: false
-    }, console.log('Ingredients: ', this.state.displayIngredients))
+    })
   }
 
-  componentWillUnmount() {
-    this.saveViewData()
+  handleGoBack = () => {
+    this.props.navigation.goBack();
   }
+
 
   render() {
-
-    const { item: id } = this.props.route.params;
+    //const { item: id } = this.props.route.params;
+    //this.setIndex(id)
     return (
       <>
-
         <ScrollView>
           <ImageBackground
             style={styles.infoImage}
-            source={{ uri: recipe[id].image_urls[0] }}
+            source={{ uri: recipe[this.state.id].image_urls[0] }}
           >
+            <View style={{ marginTop: '10%', marginLeft: '2%'}}>
             <TouchableOpacity style={{ 
                 flex: 1,
                 marginTop: '2%', 
-                marginLeft: '4%', 
-                padding: 5, 
+                marginLeft: '2%', 
+                paddingLeft: '5%',
+                paddingTop: '5%', 
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: "white",
                 borderRadius: 25,
                 opacity: 0.90,
-                position: "absolute"}} onPress={() => this.props.navigation.goBack()}>
+                position: "absolute"}} onPress={this.handleGoBack}>
               <Ionicons name="arrow-back" size={27} color="tomato" />
             </TouchableOpacity>
+            </View>
           </ImageBackground>
           <View style={styles.bodyContainer} >
             <View style={styles.titleContainer}>
-              <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
-              <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
+              <Text style={styles.infoTextTitle}>{recipe[this.state.id].title}</Text>
+              <Text style={styles.infoTextSubtitle}>{recipe[this.state.id].subtitle}</Text>
               <TouchableOpacity onPress={this.togglePin}>
                 {this.state.isPinned ? (
                   <>
@@ -184,13 +158,13 @@ export default class RecipeInfoScreen extends React.Component {
               </TouchableOpacity>
               <View style={styles.infoHeadContainer}>
                 <Ionicons name={"time"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[0]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[0]}</Text>
                 <Ionicons name={"hourglass"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[1]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[1]}</Text>
                 <Ionicons name={"people"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[2]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[2]}</Text>
                 <Ionicons name={"book"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[3]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[3]}</Text>
               </View>
               <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.switchButton} onPress={this.setIngredientsText}>
@@ -212,12 +186,12 @@ export default class RecipeInfoScreen extends React.Component {
             <View style={styles.infoInstructionsContainer}>
               {this.state.displayIngredients ? (
                 <>
-                  {recipe[id].ingredients.map((ingredient, index) => (
+                  {recipe[this.state.id].ingredients.map((ingredient, index) => (
                     <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))}
                 </>
               ) : (
                 <>
-                  {recipe[id].instructions.map((instruction, index) => (
+                  {recipe[this.state.id].instructions.map((instruction, index) => (
                     <Text key={index} style={styles.infoTextIngredients}>• {instruction}</Text>))}
                 </>
               )}
