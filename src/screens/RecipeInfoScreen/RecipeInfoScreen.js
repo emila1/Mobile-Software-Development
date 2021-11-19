@@ -137,10 +137,13 @@ export default class RecipeInfoScreen extends React.Component {
     }, console.log('Ingredients: ', this.state.displayIngredients))
   }
 
+  componentWillUnmount() {
+    this.saveViewData()
+  }
+
   render() {
 
     const { item: id } = this.props.route.params;
-    this.setIndex(id)
     return (
       <>
 
