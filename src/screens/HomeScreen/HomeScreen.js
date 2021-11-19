@@ -15,7 +15,6 @@ export default class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.getPinAndViewData()
         this.state = {
             //foundRecipes: null,
             //foundRecipes: searchIngredients(list, 20),
@@ -70,6 +69,7 @@ export default class HomeScreen extends Component {
 
     componentDidMount() {
         this.setState({ randomRecipes: getRandomRecipe(10) })
+        this.getPinAndViewData()
         //this.setState({ foundRecipes: myRecipeIndexes })
         setTimeout(() => { this.setState({ loading: false }) }, 100)
     }
@@ -99,14 +99,12 @@ export default class HomeScreen extends Component {
                             ) : (
                                 <>
                                     {(this.state.hasPins && this.state.pinnedRecipeIndexes) ? (this.state.pinnedRecipeIndexes.map((index) =>
-                                        <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                             <RecipeCard
                                                 key={this.generateID()}
                                                 value={index}
                                                 size="small"
-                                            //navigation={this.props.navigation}
+                                                navigation={this.props.navigation}
                                             />
-                                        </TouchableOpacity>
                                     )).reverse() : (<PlaceholderCard
                                         mainText={"No pinned recipes yet"}
                                         secondaryText={"Tip: Tap the pin when viewing a recipe!"}
@@ -130,14 +128,13 @@ export default class HomeScreen extends Component {
                                 </>
                             ) : (
                                 <>
-                                    {this.state.randomRecipes.map((index) => <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                    {this.state.randomRecipes.map((index) => 
                                         <RecipeCard
                                             key={this.generateID()}
                                             value={index}
                                             size="small"
-                                        //navigation={this.props.navigation}
+                                            navigation={this.props.navigation}
                                         />
-                                    </TouchableOpacity>
                                     )}
                                 </>
                             )}
@@ -160,14 +157,12 @@ export default class HomeScreen extends Component {
                             ) : (
                                 <>
                                     {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
-                                        <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                             <RecipeCard
                                                 key={this.generateID()}
                                                 value={index}
                                                 size="small"
-                                            //navigation={this.props.navigation}
+                                                navigation={this.props.navigation}
                                             />
-                                        </TouchableOpacity>
                                     )).reverse() : (<PlaceholderCard
                                         mainText={"No viewed recipes yet"}
                                         secondaryText={"Tip: Simply start browsing recipes!"}
