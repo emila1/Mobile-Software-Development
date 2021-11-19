@@ -36,15 +36,15 @@ export default class HomeScreen extends Component {
 
     // Fetches pin and view indexes from local storage
     getPinAndViewData = async () => {
+        this.setState({ loading: true })
         try {
             const pins = await AsyncStorage.getItem('pinnedRecipeIndexes')
             const views = await AsyncStorage.getItem('viewedRecipeIndexes')
             this.setState({
                 pinnedRecipeIndexes: JSON.parse(pins),
                 viewedRecipeIndexes: JSON.parse(views),
-                loading: true
+                loading: false
             })
-            setTimeout(() => { this.setState({ loading: false }) }, 100)
             if (this.state.pinnedRecipeIndexes.length !== 0) {
                 this.setState({
                     hasPins: true,
