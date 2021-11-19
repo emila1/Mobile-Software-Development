@@ -20,10 +20,17 @@ export default class RecipeInfoScreen extends React.Component {
       isPinned: false,
       pinnedRecipeIndexes: [],
       viewedRecipeIndexes: [],
-      index: null,
+      id: this.props.route.params.index,
+      //index: null,
       displayIngredients: true
     }
+    this.handleGoBack = this.handleGoBack.bind(this)
   }
+
+
+/*   componentDidMount() {
+    this.setIndex(this.props.route.params.id);
+  } */
 
   // This is called at construction. It fetches pinned recipe indexes (if any exist) from local storage
   getPinData = async () => {
@@ -42,7 +49,7 @@ export default class RecipeInfoScreen extends React.Component {
 
   // Checks if this recipe's index is found in the fetched pin indexes and sets pin state accordingly
   checkIfPinned() {
-    if (this.state.pinnedRecipeIndexes.includes(this.state.index)) {
+    if (this.state.pinnedRecipeIndexes.includes(this.state.id)) {
       this.setState({
         isPinned: true
       })
@@ -56,10 +63,10 @@ export default class RecipeInfoScreen extends React.Component {
   // Either removed this recipe index or adds it to the fetched pin indexes
   handlePin() {
     if (this.state.isPinned == true) {
-      const index = this.state.pinnedRecipeIndexes.indexOf(this.state.index)
+      const index = this.state.pinnedRecipeIndexes.indexOf(this.state.id)
       this.state.pinnedRecipeIndexes.splice(index, 1)
     } else {
-      this.state.pinnedRecipeIndexes.push(this.state.index)
+      this.state.pinnedRecipeIndexes.push(this.state.id)
     }
     this.saveChange()
   }
@@ -87,7 +94,7 @@ export default class RecipeInfoScreen extends React.Component {
   saveViewData = async () => {
     try {
       // Deletes an earlier view index if found
-      if (this.state.viewedRecipeIndexes.includes(this.state.index)) {
+      if (this.state.viewedRecipeIndexes.includes(this.state.id)) {
         const index = this.state.viewedRecipeIndexes.indexOf(this.state.index)
         this.state.viewedRecipeIndexes.splice(index, 1)
       }
@@ -117,14 +124,15 @@ export default class RecipeInfoScreen extends React.Component {
   }
 
   // This only goes through the if() once, for the sake of getting and setting this recipe's index
-  setIndex(id) {
+/*   setIndex(id) {
     if (this.state.index == null) { // To prevent a loop of setting state and rendering
       this.setState({
         index: id
       })
       this.getViewData()
     }
-  }
+  } */
+
   setIngredientsText = () => {
     this.setState({
       displayIngredients: true
@@ -137,17 +145,21 @@ export default class RecipeInfoScreen extends React.Component {
     }, console.log('Ingredients: ', this.state.displayIngredients))
   }
 
+  handleGoBack = () => {
+    this.props.navigation.goBack();
+  }
+
   render() {
 
-    const { item: id } = this.props.route.params;
-    this.setIndex(id)
+    //const { item: id } = this.props.route.params;
+    //this.setIndex(id)
     return (
       <>
 
         <ScrollView>
           <ImageBackground
             style={styles.infoImage}
-            source={{ uri: recipe[id].image_urls[0] }}
+            source={{ uri: recipe[this.state.id].image_urls[0] }}
           >
             <TouchableOpacity style={{ 
                 flex: 1, 
@@ -156,7 +168,7 @@ export default class RecipeInfoScreen extends React.Component {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                position: "absolute"}} onPress={() => this.props.navigation.goBack()}>
+                position: "absolute"}} onPress={this.handleGoBack}>
               <Ionicons name="arrow-back" size={27} color="tomato" />
               <Text style={{ textAlignVertical: "center", 
                 fontSize: 15, 
@@ -168,8 +180,8 @@ export default class RecipeInfoScreen extends React.Component {
           </ImageBackground>
           <View style={styles.bodyContainer} >
             <View style={styles.titleContainer}>
-              <Text style={styles.infoTextTitle}>{recipe[id].title}</Text>
-              <Text style={styles.infoTextSubtitle}>{recipe[id].subtitle}</Text>
+              <Text style={styles.infoTextTitle}>{recipe[this.state.id].title}</Text>
+              <Text style={styles.infoTextSubtitle}>{recipe[this.state.id].subtitle}</Text>
               <TouchableOpacity onPress={this.togglePin}>
                 {this.state.isPinned ? (
                   <>
@@ -183,13 +195,13 @@ export default class RecipeInfoScreen extends React.Component {
               </TouchableOpacity>
               <View style={styles.infoHeadContainer}>
                 <Ionicons name={"time"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[0]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[0]}</Text>
                 <Ionicons name={"hourglass"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[1]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[1]}</Text>
                 <Ionicons name={"people"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[2]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[2]}</Text>
                 <Ionicons name={"book"} color={"tomato"} />
-                <Text style={styles.infoTextHead}>{recipe[id].head[3]}</Text>
+                <Text style={styles.infoTextHead}>{recipe[this.state.id].head[3]}</Text>
               </View>
               <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.switchButton} onPress={this.setIngredientsText}>
@@ -211,12 +223,12 @@ export default class RecipeInfoScreen extends React.Component {
             <View style={styles.infoInstructionsContainer}>
               {this.state.displayIngredients ? (
                 <>
-                  {recipe[id].ingredients.map((ingredient, index) => (
+                  {recipe[this.state.id].ingredients.map((ingredient, index) => (
                     <Text key={index} style={styles.infoTextIngredients}>• {ingredient}</Text>))}
                 </>
               ) : (
                 <>
-                  {recipe[id].instructions.map((instruction, index) => (
+                  {recipe[this.state.id].instructions.map((instruction, index) => (
                     <Text key={index} style={styles.infoTextIngredients}>• {instruction}</Text>))}
                 </>
               )}

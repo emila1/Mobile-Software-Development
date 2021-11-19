@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Dimensions, Text, View, Image } from 'react-native';
+import { StyleSheet, Dimensions, Text, View, Image, TouchableOpacity } from 'react-native';
 //import { MealStyles } from '../styles/global.js';
 import recipes from '../../recipes/recipes.json';
 import { Ionicons } from '@expo/vector-icons'
@@ -16,32 +16,43 @@ class RecipeCard extends React.Component {
         // size indicator to conditionally change styling
     }
 
+    constructor(props) {
+        super(props);
+        this.handleOnPress = this.handleOnPress.bind(this)
+    }
 
+    handleOnPress() {
+        this.props.navigation.navigate('RecipeInfoScreen', { index: this.state.id })
+    }
 
     render() {
-        return (
-        <View style={styles.cardContainer}>
-            <Image 
-                style={styles.image}
-                source={{uri: recipe[this.state.id].image_urls[0]}}/>
-            <View
-                style={styles.textContainer}
-            >
-                <Text numberOfLines={2} style={styles.titleText}>{recipe[this.state.id].title}</Text>
+        const { navigation } = this.props.navigation;
 
-                <View style={styles.headTextContainer}>
-                    <Ionicons name={'time'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[this.state.id].head[0]}</Text>
-                    <Ionicons name={'hourglass'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[this.state.id].head[1]}</Text>
-                    <Ionicons name={'people'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[this.state.id].head[2]}</Text>
-                    <Ionicons name={'book'} color={'tomato'} />
-                    <Text style={styles.headText}>{recipe[this.state.id].head[3]}</Text>
+        return (
+        <TouchableOpacity onPress={this.handleOnPress}>
+            <View style={styles.cardContainer}>
+                <Image 
+                    style={styles.image}
+                    source={{uri: recipe[this.state.id].image_urls[0]}}/>
+                <View
+                    style={styles.textContainer}
+                >
+                    <Text numberOfLines={2} style={styles.titleText}>{recipe[this.state.id].title}</Text>
+
+                    <View style={styles.headTextContainer}>
+                        <Ionicons name={'time'} color={'tomato'} />
+                        <Text style={styles.headText}>{recipe[this.state.id].head[0]}</Text>
+                        <Ionicons name={'hourglass'} color={'tomato'} />
+                        <Text style={styles.headText}>{recipe[this.state.id].head[1]}</Text>
+                        <Ionicons name={'people'} color={'tomato'} />
+                        <Text style={styles.headText}>{recipe[this.state.id].head[2]}</Text>
+                        <Ionicons name={'book'} color={'tomato'} />
+                        <Text style={styles.headText}>{recipe[this.state.id].head[3]}</Text>
+                    </View>
+    
                 </View>
-  
             </View>
-        </View>
+            </TouchableOpacity>
         );
     }
 }

@@ -11,7 +11,6 @@ import { Ionicons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 
-//let myRecipeIndexes = [95, 317, 355, 377, 164, 45, 49, 207, 229]; // Development list
 export default class HomeScreen extends Component {
 
     constructor(props) {
@@ -84,7 +83,7 @@ export default class HomeScreen extends Component {
                     <Text
                         style={styles.cardScrollerText}
                     >Pinned Recipes</Text>
-                    <ScrollView
+{/*                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
 
@@ -96,14 +95,12 @@ export default class HomeScreen extends Component {
                         ) : (
                             <>
                                 {this.state.hasPins ? (this.state.pinnedRecipeIndexes.map((index) =>
-                                <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                     <RecipeCard
                                         key={this.generateID()}
                                         value={index}
                                         size="small"
-                                    //navigation={this.props.navigation}
+                                        navigation={this.props.navigation}
                                     />
-                                </TouchableOpacity>
                                 )).reverse() : ( <PlaceholderCard 
                                     mainText={"No pinned recipes yet"}
                                     secondaryText={"Tip: Tap the pin when viewing a recipe!"}
@@ -111,7 +108,7 @@ export default class HomeScreen extends Component {
                             </>
                         )
                         }
-                    </ScrollView>
+                    </ScrollView> */}
                     <Text
                         style={styles.cardScrollerText}
                     >
@@ -127,14 +124,12 @@ export default class HomeScreen extends Component {
                             </>
                         ) : (
                             <>
-                                {this.state.randomRecipes.map((index) => <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                {this.state.randomRecipes.map((index) => 
                                     <RecipeCard
                                         key={this.generateID()}
                                         value={index}
-                                        size="small"
-                                    //navigation={this.props.navigation}
+                                        navigation={this.props.navigation}
                                     />
-                                </TouchableOpacity>
                                 )}
                             </>
                         )}
@@ -145,7 +140,7 @@ export default class HomeScreen extends Component {
                     >
                         Viewed Recipes
                     </Text>
-                    <ScrollView
+    {/*                 <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
 
@@ -157,14 +152,12 @@ export default class HomeScreen extends Component {
                         ) : (
                             <>
                                 {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
-                                <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
                                 <RecipeCard
                                     key={this.generateID()}
                                     value={index}
                                     size="small"
-                                //navigation={this.props.navigation}
+                                    navigation={this.props.navigation}
                                 />
-                            </TouchableOpacity>
                                 )).reverse() : ( <PlaceholderCard 
                                     mainText={"No viewed recipes yet"}
                                     secondaryText={"Tip: Simply start browsing recipes!"}
@@ -172,7 +165,7 @@ export default class HomeScreen extends Component {
                             </>
                         )
                         }
-                    </ScrollView>
+                    </ScrollView> */}
                 </ScrollView>
             </View>
             </>
