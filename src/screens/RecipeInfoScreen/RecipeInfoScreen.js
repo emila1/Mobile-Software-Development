@@ -124,20 +124,19 @@ export default class RecipeInfoScreen extends React.Component {
             source={{ uri: recipe[this.state.id].image_urls[0] }}
           >
             <TouchableOpacity style={{ 
-                flex: 1, 
-                marginTop: '8%', 
-                marginLeft: '5%', 
+                flex: 1,
+                marginTop: '2%', 
+                marginLeft: '4%', 
+                padding: 5, 
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
+                backgroundColor: "white",
+                borderRadius: 25,
+                opacity: 0.90,
+                position: "absolute"}} onPress={() => this.props.navigation.goBack()}>
                 position: "absolute"}} onPress={this.handleGoBack}>
               <Ionicons name="arrow-back" size={27} color="tomato" />
-              <Text style={{ textAlignVertical: "center", 
-                fontSize: 15, 
-                fontWeight: "bold", 
-                color:"black",
-                textShadowColor: "white",
-                textShadowRadius: 7}} >  Back</Text>
             </TouchableOpacity>
 
           </ImageBackground>
@@ -225,7 +224,6 @@ const styles = StyleSheet.create({
   infoImage: {
     marginTop: '0%',
     marginBottom: '0%',
-    paddingBottom: 0,
     height: windowHeight * .3,
     flex: 1,
     resizeMode: 'cover',

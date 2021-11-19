@@ -178,27 +178,12 @@ class MyFridge extends React.Component {
           },  this.saveData);
       }
 
-
       render() {
-  
-        
           return (
               <View style={styles.fridgeContainer}>
                   <ScrollView>
                   <Text style={styles.fridgeText}>Ingredients</Text>
-                  { this.state.ingredients.map( element => <Ingredient 
-                      key={element.name}
-                      value={element}
-                      handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
-                      handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
-                  /> ).reverse()}
                   <View style={styles.inputContainer}>
-                      <Ionicons 
-                          style={styles.icon} 
-                          name="ios-add" 
-                          color={'tomato'} 
-                          onPress={this.handleAddIngredient}
-                      />
                       <TextInput 
                           style={styles.underline}
                           onFocus={this.handleInputFocus}
@@ -207,14 +192,24 @@ class MyFridge extends React.Component {
                           onChangeText={(text) => this.setState({ ingredientName: text })}
                           autoComplete={true}
                       >{this.state.ingredientText}</TextInput>  
+                        <Ionicons 
+                          style={styles.icon} 
+                          name="ios-add" 
+                          color={'tomato'} 
+                          onPress={this.handleAddIngredient}
+                      />
                   </View>
+                  { this.state.ingredients.map( element => <Ingredient 
+                      key={element.name}
+                      value={element}
+                      handleOwned={() => this.handleOwned(this.state.ingredients.indexOf(element))}
+                      handleDeleteIngredient={() => this.handleDeleteIngredient(this.state.ingredients.indexOf(element))} 
+                  /> )}
                   </ScrollView>
               </View>
           );
       }
   }
-  
-  
   
   class Ingredient extends React.Component {
   
@@ -237,7 +232,6 @@ class MyFridge extends React.Component {
       }
   
       render() {
-  
           return(
               <View style={styles.listContainer}> 
                   <CheckBox 
@@ -246,113 +240,130 @@ class MyFridge extends React.Component {
                       onValueChange={this.handleNativeChange}
                   />
                   <Text style={styles.textContainer}>{this.state.ingredientName}</Text>
-                  <Ionicons onPress={this.props.handleDeleteIngredient} style={styles.icon} name="trash" color={'tomato'} />
+                  <Ionicons onPress={this.props.handleDeleteIngredient} style={styles.icon2} name="trash" color={'tomato'} />
               </View>
           );
       }
   } 
   
   const styles = StyleSheet.create({  
-      container: {
-          paddingTop: '10%',
-          paddingLeft: '2%',
-          paddingRight: 10,
-      },
-      fridgeContainer: {
-          width: windowWidth * .9,
-          height: windowHeight * .9,
-          marginLeft: '5%',
-          marginTop: '10%',
-          resizeMode: 'contain',
-          elevation: 7,
-          overflow: 'hidden',   
-      },
-      fridgeText: {
-          paddingTop: '3%',
-          paddingBottom: '5%',
-          textAlign: 'left',
-          fontSize: 20,
-          fontWeight: 'bold',
-      },
-      fridgeTouchable: {
-          alignSelf: 'center',
-      },
-      fridgeModalView: {
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(100,100,100, 0.5)',
-          padding: 20,
-      },
-      fridgeInputModal: {
-          margin: 20,
-          backgroundColor: "white",
-          borderRadius: 20,
-          padding: 35,
-          alignItems: "center",
-          shadowColor: "#000",
-          shadowOffset: {
-              width: 0,
-              height: 2
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 4,
-          elevation: 5,
-          flexDirection: 'row'
-      },
-      fridgeInput: {
-          height: 40,
-          margin: 12,
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 10,
-          width: '80%',
-      },
-      fridgeItem: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: windowWidth,
-      },
-      fridgeInputContainer: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          width: windowWidth,
-          padding: 6,
-          justifyContent: 'center',
-          margin: 4,
-      },
-      underline: {
-          fontStyle: 'italic',
-          textDecorationLine: 'underline',
-          //paddingTop: '1%',
-          paddingLeft: '2%', 
-      },
-      inputContainer: {
-          alignItems: 'center',
-          flexDirection: 'row',
-      },
-      icon: {
-          paddingLeft: '2%',
-          fontSize: 20,
-      },
-      listContainer: {
-          alignItems: 'center',
-          flexDirection: 'row',
-      },
-      textContainer: {
-      },
-      bold: {
-          fontWeight: 'bold',
-      },
-      italic: {
-          fontStyle: 'italic',
-          paddingTop: '1%',
-          paddingLeft: '5%',
-          fontSize: 20,
-      },
-  })
+    container: {
+        paddingTop: '10%',
+        paddingLeft: '2%',
+        paddingRight: 10,
+    },
+    fridgeContainer: {
+        width: windowWidth * .9,
+        height: windowHeight * .9,
+        marginLeft: '5%',
+        marginTop: '10%',
+        resizeMode: 'contain',
+        elevation: 7,
+        overflow: 'hidden',   
+    },
+    fridgeText: {
+        paddingTop: '3%',
+        paddingBottom: '5%',
+        textAlign: 'left',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    fridgeTouchable: {
+        alignSelf: 'center',
+    },
+    fridgeModalView: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(100,100,100, 0.5)',
+        padding: 20,
+    },
+    fridgeInputModal: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        flexDirection: 'row'
+    },
+    fridgeInput: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 10,
+        width: '80%',
+    },
+    fridgeItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: windowWidth,
+    },
+    fridgeInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: windowWidth,
+        padding: 6,
+        justifyContent: 'center',
+        margin: 4,
+    },
+    underline: {
+        fontStyle: 'italic',
+        textDecorationLine: 'underline',
+        //paddingTop: '1%',
+        paddingLeft: '2%', 
+        fontSize: 14,
+        color: '#6A6767',
+    },
+    inputContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        backgroundColor: '#E9E5E5',
+        borderRadius: 25,
+        margin: '1.5%',
+        justifyContent: 'space-between',
+        paddingLeft: '1.5%',
+        paddingRight: '1.5%',
+    },
+    icon: {
+        paddingLeft: '2%',
+        fontSize: 20,  
+    },
+    icon2: {
+      //paddingLeft: '2%',
+      fontSize: 20,
+     // marginRight: '10%',
+      marginLeft: 'auto',
+    },
+    listContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        //justifyContent: 'space-between',
+        //alignSelf: 'flex-start',
+    },
+    textContainer: {
+       paddingRight: '0%',
+    },
+    bold: {
+        fontWeight: 'bold',
+    },
+    italic: {
+        fontStyle: 'italic',
+        paddingTop: '1%',
+        paddingLeft: '5%',
+        fontSize: 20,
+    },
+})
   
   
   export default MyFridge;
