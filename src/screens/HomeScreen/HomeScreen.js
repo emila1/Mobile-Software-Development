@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView} from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeCard from '../../components/recipeCard'
@@ -32,34 +32,37 @@ export default class HomeScreen extends Component {
     generateID() {
         return Math.floor(Math.random() * (10000)) + 500;
     }
-    
+
     // Fetches pin and view indexes from local storage
-    getPinAndViewData= async () => {
+    getPinAndViewData = async () => {
+        this.setState({ loading: true })
         try {
             const pins = await AsyncStorage.getItem('pinnedRecipeIndexes')
             const views = await AsyncStorage.getItem('viewedRecipeIndexes')
+            this.setState({
+                pinnedRecipeIndexes: JSON.parse(pins),
+                viewedRecipeIndexes: JSON.parse(views),
+                loading: false
+            })
+            if (this.state.pinnedRecipeIndexes.length !== 0) {
                 this.setState({
-                  pinnedRecipeIndexes: JSON.parse(pins),
-                  viewedRecipeIndexes: JSON.parse(views),
+                    hasPins: true,
                 })
-                if (this.state.pinnedRecipeIndexes.length !== 0) {
-                    this.setState({
-                        hasPins: true
-                      })
-                } else {
-                    this.setState({
-                        hasPins: false
-                      })
-                }
-                if (this.state.viewedRecipeIndexes.length !== 0) {
-                    this.setState({
-                        hasViews: true
-                      })
-                } else {
-                    this.setState({
-                        hasViews: false
-                      })
-                }
+            } else {
+                this.setState({
+                    hasPins: false,
+                })
+            }
+            if (this.state.viewedRecipeIndexes.length !== 0) {
+                this.setState({
+                    hasViews: true,
+                })
+            } else {
+                this.setState({
+                    hasViews: false,
+                })
+            }
+
         } catch (error) {
             console.log(error.message)
         }
@@ -71,103 +74,110 @@ export default class HomeScreen extends Component {
         setTimeout(() => { this.setState({ loading: false }) }, 100)
     }
 
+
     render() {
 
         return (
             <>
-            <FetchPinAndViewData onFocused={this.getPinAndViewData}/>
-            <View style={styles.container}>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                >
-                    <Text
-                        style={styles.cardScrollerText}
-                    >Pinned Recipes</Text>
-{/*                     <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-
-                    >
-                        {this.state.loading ? (
-                            <>
-                                <RecipeCardLoading key={this.generateID()} />
-                            </>
-                        ) : (
-                            <>
-                                {this.state.hasPins ? (this.state.pinnedRecipeIndexes.map((index) =>
-                                    <RecipeCard
-                                        key={this.generateID()}
-                                        value={index}
-                                        size="small"
-                                        navigation={this.props.navigation}
-                                    />
-                                )).reverse() : ( <PlaceholderCard 
-                                    mainText={"No pinned recipes yet"}
-                                    secondaryText={"Tip: Tap the pin when viewing a recipe!"}
-                                /> ) }
-                            </>
-                        )
-                        }
-                    </ScrollView> */}
-                    <Text
-                        style={styles.cardScrollerText}
-                    >
-                        Random recipes
-                    </Text>
+                <FetchPinAndViewData onFocused={this.getPinAndViewData} />
+                <View style={styles.container}>
                     <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
                     >
-                        {this.state.loading ? (
-                            <>
-                                <RecipeCardLoading key={this.generateID()} />
-                            </>
-                        ) : (
-                            <>
-                                {this.state.randomRecipes.map((index) => 
-                                    <RecipeCard
-                                        key={this.generateID()}
-                                        value={index}
-                                        navigation={this.props.navigation}
-                                    />
-                                )}
-                            </>
-                        )}
+                        <Text
+                            style={styles.cardScrollerText}
+                        >Pinned Recipes</Text>
+                        <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+
+                        >
+                            {this.state.loading ? (
+                                <>
+                                    <RecipeCardLoading key={this.generateID()} />
+                                </>
+                            ) : (
+                                <>
+                                    {(this.state.hasPins && this.state.pinnedRecipeIndexes) ? (this.state.pinnedRecipeIndexes.map((index) =>
+                                        <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                            <RecipeCard
+                                                key={this.generateID()}
+                                                value={index}
+                                                size="small"
+                                            //navigation={this.props.navigation}
+                                            />
+                                        </TouchableOpacity>
+                                    )).reverse() : (<PlaceholderCard
+                                        mainText={"No pinned recipes yet"}
+                                        secondaryText={"Tip: Tap the pin when viewing a recipe!"}
+                                    />)}
+                                </>
+                            )
+                            }
+                        </ScrollView>
+                        <Text
+                            style={styles.cardScrollerText}
+                        >
+                            Random recipes
+                        </Text>
+                        <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            {this.state.loading ? (
+                                <>
+                                    <RecipeCardLoading key={this.generateID()} />
+                                </>
+                            ) : (
+                                <>
+                                    {this.state.randomRecipes.map((index) => <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                        <RecipeCard
+                                            key={this.generateID()}
+                                            value={index}
+                                            size="small"
+                                        //navigation={this.props.navigation}
+                                        />
+                                    </TouchableOpacity>
+                                    )}
+                                </>
+                            )}
+                        </ScrollView>
+
+                        <Text
+                            style={styles.cardScrollerText}
+                        >
+                            Viewed Recipes
+                        </Text>
+                        <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+
+                        >
+                            {this.state.loading ? (
+                                <>
+                                    <RecipeCardLoading key={this.generateID()} />
+                                </>
+                            ) : (
+                                <>
+                                    {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
+                                        <TouchableOpacity key={this.generateID()} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item: index })}>
+                                            <RecipeCard
+                                                key={this.generateID()}
+                                                value={index}
+                                                size="small"
+                                            //navigation={this.props.navigation}
+                                            />
+                                        </TouchableOpacity>
+                                    )).reverse() : (<PlaceholderCard
+                                        mainText={"No viewed recipes yet"}
+                                        secondaryText={"Tip: Simply start browsing recipes!"}
+                                    />)}
+                                </>
+                            )
+                            }
+                        </ScrollView>
                     </ScrollView>
-
-                    <Text
-                        style={styles.cardScrollerText}
-                    >
-                        Viewed Recipes
-                    </Text>
-{/*                      <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-
-                    >
-                        {this.state.loading ? (
-                            <>
-                                <RecipeCardLoading key={this.generateID()} />
-                            </>
-                        ) : (
-                            <>
-                                {this.state.hasViews ? (this.state.viewedRecipeIndexes.map((index) =>
-                                <RecipeCard
-                                    key={this.generateID()}
-                                    value={index}
-                                    size="small"
-                                    navigation={this.props.navigation}
-                                />
-                                )).reverse() : ( <PlaceholderCard 
-                                    mainText={"No viewed recipes yet"}
-                                    secondaryText={"Tip: Simply start browsing recipes!"}
-                                /> ) }
-                            </>
-                        )
-                        }
-                    </ScrollView> */} 
-                </ScrollView>
-            </View>
+                </View>
             </>
         );
     }
@@ -175,15 +185,15 @@ export default class HomeScreen extends Component {
 
 function FetchPinAndViewData({ onFocused }) {
     useFocusEffect(
-      React.useCallback(() => {
-        onFocused();
-        return () => {
+        React.useCallback(() => {
+            onFocused();
+            return () => {
             }
-      }, [])
+        }, [])
     );
-  
+
     return null;
-  }
+}
 
 const styles = StyleSheet.create({
     container: {
