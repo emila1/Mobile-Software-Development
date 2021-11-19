@@ -12,6 +12,7 @@ export default class RecipeScreen extends React.Component {
         this.state = {
             randomRecipes: [],
             foundRecipeIndexes: [],
+            hasRecipes: false
         };
         this.getRecipeIndexes = this.getRecipeIndexes.bind(this);
     }
@@ -22,6 +23,7 @@ export default class RecipeScreen extends React.Component {
             if (value !== null) {
                 this.setState({
                     foundRecipeIndexes: JSON.parse(value),
+                    hasRecipes: true
                 });
             }
         } catch (error) {
@@ -37,24 +39,30 @@ export default class RecipeScreen extends React.Component {
                 <FetchRecipeIndexes onFocused={this.getRecipeIndexes} />
                 <View style={styles.container}>
                     <Text style={styles.recipeTitle}>Suggested recipes</Text>
-                    <FlatList style={styles.recipeflatListContainer}
-                        data={this.state.foundRecipeIndexes}
-                        //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
-                        keyExtractor={(index) => index.toString()}
-                        keyboardDismissMode="on-drag"
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => {
-                            return (
-                                <TouchableOpacity style={styles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item })}>
-                                    <RecipeCard
-                                        key={item}
-                                        value={item}
-                                        size="large"
-                                    />
-                                </TouchableOpacity>
-                            )
-                        }}
-                    />
+                    {this.state.hasRecipes == false ? (
+                        <View >
+                            <Text style={{ fontSize: 16 }} >Find suggested recipes by adding ingredients in the 'Fridge' tab</Text>
+                        </View>
+                    ) : (<>
+                        <FlatList style={styles.recipeflatListContainer}
+                            data={this.state.foundRecipeIndexes}
+                            //keyExtractor={item => this.state.randomRecipes.image_urls} // Less likely to give "must have unique key" warning
+                            keyExtractor={(index) => index.toString()}
+                            keyboardDismissMode="on-drag"
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item }) => {
+                                return (
+                                    <TouchableOpacity style={styles.recipeTouchContainer} onPress={() => this.props.navigation.navigate("RecipeInfoScreen", { item })}>
+                                        <RecipeCard
+                                            key={item}
+                                            value={item}
+                                            size="large"
+                                        />
+                                    </TouchableOpacity>
+                                )
+                            }}
+                        />
+                    </>)}
                 </View>
             </>
         );
