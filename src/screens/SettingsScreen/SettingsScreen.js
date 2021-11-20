@@ -127,11 +127,11 @@ export default function SettingScreen(props) {
                 </View>
             </View>
             <View style={{ paddingLeft: '30%', flex: 1, paddingRight: '30%', paddingBottom: '20%', justifyContent: 'space-evenly' }} >
-                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center'}} >Remove pinned recipes:</Text>
+                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center' }} >Remove pinned recipes:</Text>
                 <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => clearPinnedAlert()} >
-                    <Text style={MealStyles.buttonGuestText} >CLEAR RECIPES</Text>
+                    <Text style={MealStyles.buttonGuestText} >CLEAR PINNED</Text>
                 </TouchableOpacity>
-                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center'}} >Remove viewed recipes:</Text>
+                <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center' }} >Remove viewed recipes:</Text>
                 <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => clearViewedAlert()} >
                     <Text style={MealStyles.buttonGuestText} >CLEAR VIEWED</Text>
                 </TouchableOpacity>
@@ -141,7 +141,7 @@ export default function SettingScreen(props) {
                         <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signIn()} >
                             <Text style={MealStyles.buttonGuestText} >LOG IN</Text>
                         </TouchableOpacity>
-                        <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%',}} >Create an account:</Text>
+                        <Text style={{ paddingTop: '20%', fontSize: 18, textAlign: 'center', paddingBottom: '10%', }} >Create an account:</Text>
                         <TouchableOpacity style={MealStyles.buttonGuest} onPress={() => signUp()} >
                             <Text style={MealStyles.buttonGuestText} >CREATE ACCOUNT</Text>
                         </TouchableOpacity>

@@ -23,7 +23,7 @@ export function HelpModalText(props) {
             <Text style={styles.header} >MealMe assistance</Text>
             <Text style={styles.text} >Browse through 500 delicious recipes to help you decide your dish</Text>
             <Text style={styles.text}>You can add ingredients to the 'Fridge' tab and MealMe will automatically help filter recipes that includes those ingredients</Text>
-            <Text style={styles.text}>You can pin and unpin your favorite recipes to easily find them again, or clear all pinned recipes</Text>
+            <Text style={styles.text}>You can pin and unpin your favorite recipes to easily find them again, or remove all pinned recipes as well as remove every previously visited recipes</Text>
             <Text style={styles.text}>If you would like to indulge in the attractive and handy features of a premium account for 10$,
                 you can register with an account and start now</Text>
         </View>
